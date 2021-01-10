@@ -1,0 +1,3 @@
+/home/adam/Dev/sfml/build/CMakeFiles/rebuild_cache.dir
+/home/adam/Dev/sfml/build/CMakeFiles/edit_cache.dir
+/home/adam/Dev/sfml/build/CMakeFiles/sfml.dir

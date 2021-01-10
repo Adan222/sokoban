@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/sfml.dir/src/main.cpp.o -o sfml  -Wl,-rpath,/home/adam/Dev/sfml/lib/linux/SFML-2.5.1/lib ../lib/linux/SFML-2.5.1/lib/libsfml-audio.so ../lib/linux/SFML-2.5.1/lib/libsfml-graphics.so ../lib/linux/SFML-2.5.1/lib/libsfml-network.so ../lib/linux/SFML-2.5.1/lib/libsfml-system.so ../lib/linux/SFML-2.5.1/lib/libsfml-window.so 
