@@ -23,9 +23,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 configure_file(projConfig.hpp.in "${CMAKE_SOURCE_DIR}/src/projConfig.hpp")
 
-
-add_executable(sfml "${CMAKE_SOURCE_DIR}/src/main.cpp")
-
+add_executable(sfml src/main.cpp)
+#add_subdirectory(src)
 
 #add include path to src folder
 target_include_directories(sfml PUBLIC "${CMAKE_SOURCE_DIR}/src")

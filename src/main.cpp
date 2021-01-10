@@ -16,6 +16,7 @@ int main()
                 window.close();
         }
 
+        std::cout << "elo\n";
         window.clear();
         window.draw(shape);
         window.display();
