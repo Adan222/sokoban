@@ -1,6 +1,5 @@
 .cache/
-debug/
+build/
 compile_commands.json
 projConfig.hpp.in
 compile.sh
-pps.hpp.in
