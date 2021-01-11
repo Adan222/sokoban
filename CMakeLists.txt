@@ -1,10 +1,10 @@
 #CMAKE_SOURCE_DIR = sfml/
 #CMAKE_BINARY_DIR = sfml/build
 
-cmake_policy(SET )
+cmake_policy(SET CMP0079 NEW)
 
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.13)
 
 
 project(sfml VERSION 0.0.0)
@@ -24,6 +24,7 @@ configure_file(projConfig.hpp.in "${CMAKE_SOURCE_DIR}/src/projConfig.hpp")
 
 add_subdirectory(src)
 
+
 #add include path to src folder
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/src")
 
@@ -40,14 +41,14 @@ if(UNIX AND NOT APPLE)
 
     #link SFML lib
     file(GLOB SFML_LIB "${CMAKE_SOURCE_DIR}/lib/linux/SFML-2.5.1/lib/*.so")
-    target_link_libraries(${PROJECT_NAME} ${SFML_LIB})
+    target_link_libraries(${PROJECT_NAME} "${SFML_LIB}")
 
     find_program(CCACHE_FOUND ccache)
     if(CCACHE_FOUND)
         message(STATUS "CCache found")
         set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
     else()
-        message(STATUS) "CCache not found")
+        message(STATUS "CCache not found")
     endif()
 
 endif() #UNIX AND NOT APPLE
