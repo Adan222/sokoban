@@ -19,7 +19,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
-configure_file(projConfig.hpp.in "${CMAKE_SOURCE_DIR}/src/projConfig.hpp")
+configure_file(config.hpp.in "${CMAKE_SOURCE_DIR}/src/config.hpp")
 
 
 add_subdirectory(src)

@@ -1,0 +1,7 @@
+//Project version
+#define VERSION_MAJOR @SFML_VERSION_MAJOR@
+#define VERSION_MINOR @SFML_VERSION_MAJOR@
+#define VERSION_PATCH @SFML_VERSION_PATCH@
+
+//Version as string
+#define VERSION "@SFML_VERSION@"
