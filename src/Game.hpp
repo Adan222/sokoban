@@ -1,5 +1,6 @@
 #include <vector>
 #include <memory>
+#include <iostream>
 
 #include <SFML/Graphics.hpp>
 
@@ -9,10 +10,14 @@
 class Game {
 private:
     sf::RenderWindow m_window;
-    std::vector<std::unique_ptr<State>> m_states;
-    void pushState(std::unique_ptr<State> state);
-    State& getCurrentState() const;
+    std::vector<std::unique_ptr<State::State>> m_states;
+    
+    State::State& getCurrentState() const;
+    void pushState(std::unique_ptr<State::State> state);
     void popState();
+
+    void handleEvent();
+
 
 public:
     Game();

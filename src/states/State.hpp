@@ -1,10 +1,15 @@
 #pragma once
+namespace State {
 
 class State {
+protected:
+    bool m_popSelf;
 public:
-    State() = default;
+    State() : m_popSelf(false) {};
     virtual ~State() = default;
 
-    virtual void eventHandler() = 0;
+    virtual bool wantTerminateSelf() = 0;
+    virtual void handleEvent(sf::Event e) = 0;
     virtual void draw(sf::RenderTarget& renderer) = 0;    
 };
+}
