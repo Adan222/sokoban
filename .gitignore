@@ -1,4 +1,5 @@
 .cache/
 build/
+.vscode/
 compile_commands.json
 compile.sh
