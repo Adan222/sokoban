@@ -1,15 +1,18 @@
 #include "Game.hpp"
 
-Game::Game() : m_window(sf::VideoMode{1200,720}, "Sokoban:d") {
+Game::Game() :
+    m_window(sf::VideoMode{1200, 700}, "Sokoban:d")
+{
     pushState(std::make_unique<State::PlayingState>());
     m_window.setFramerateLimit(60);
+
+    m_window_size = m_window.getSize();
 }
 
 void Game::run() {
     while (m_window.isOpen() && !m_states.empty()) {
         auto &state = getCurrentState();
 
-        
         m_window.clear();
         
         state.draw(m_window);

@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "SFML/System/Vector2.hpp"
 #include "states/State.hpp"
 #include "states/PlayingState.hpp"
 
@@ -18,6 +19,7 @@ private:
 
     void handleEvent();
 
+    sf::Vector2u m_window_size;
 
 public:
     Game();
