@@ -1,21 +1,20 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 
+class Game;
+
 namespace State {
-
-    class State {
-    protected:
-
-        bool m_popSelf;
-    public:
     
-        State() : m_popSelf(false) {};
-        virtual ~State() = default;
+class State {
+protected:
+    Game& m_Game;
+public:
+    
+    State(Game& game) : m_Game(game) {};
+    virtual ~State() = default;
 
-        virtual bool wantTerminateSelf() = 0;
-        virtual void handleEvent(sf::Event e) = 0;
-        virtual void draw(sf::RenderTarget& renderer) = 0;    
-    };
+    virtual void handleEvent(sf::Event e) = 0;
+    virtual void draw(sf::RenderTarget& renderer) = 0;    
+};
 
 }

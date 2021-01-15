@@ -3,23 +3,26 @@
 Game::Game() :
     m_window(sf::VideoMode{1200, 700}, "Sokoban:d")
 {
-    pushState(std::make_unique<State::PlayingState>());
+    pushState(std::make_unique<State::PlayingState>(*this));
+    pushState(std::make_unique<State::PlayingState>(*this));
+    pushState(std::make_unique<State::PlayingState>(*this));
+    pushState(std::make_unique<State::PlayingState>(*this));
     m_window.setFramerateLimit(60);
-
     m_window_size = m_window.getSize();
 }
 
 void Game::run() {
     while (m_window.isOpen() && !m_states.empty()) {
         auto &state = getCurrentState();
-
-        m_window.clear();
+         
+       
         
+        m_window.clear();
+
         state.draw(m_window);
         m_window.display();
 
         handleEvent();
-        if(state.wantTerminateSelf()) popState();
     }
 }
 
@@ -35,7 +38,9 @@ void Game::pushState(std::unique_ptr<State::State>state) {
 void Game::handleEvent() {
     sf::Event e;
     while(m_window.pollEvent(e)) {
-        getCurrentState().handleEvent(e);
+        if(!m_states.empty()) { //(tymczasowy?) fix bo inaczej zrzut pamieci, moze jakby by było m_window.setKeyRepeatEnabled(false) to wtedy by nie wywalało, bo dostajemy kolejny event a m_states jest puste
+            getCurrentState().handleEvent(e);
+        }
         switch(e.type) {
             case sf::Event::Closed:
                 m_window.close();
@@ -48,6 +53,8 @@ void Game::handleEvent() {
 
 void Game::popState() {
     m_states.pop_back();
+    std::cout << "POPPED BACK, STATES VECTOR SIZE: " << m_states.size() << std::endl;
+    
 }
 
 Game::~Game() {
