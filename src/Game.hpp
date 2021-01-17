@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 #include <vector>
 #include <memory>
 #include <iostream>
@@ -8,6 +9,7 @@
 
 #include "states/State.hpp"
 #include "states/PlayingState.hpp"
+#include "states/MainMenuState.hpp"
 
 class Game {
 private:
@@ -21,7 +23,20 @@ public:
     Game();
     ~Game();
 
+    
+    //pushState teraz pauzuje poprzedniego stejta
+    //pauzuje bo nie usuwa xd tzn wiemy ze bedzie jescze istniec 
+    //np jak menu chcemy wlaczyc 
+
+    //popState wznawia stajeta chyba ze jest ostatni 
+
     void pushState(std::unique_ptr<State::State> state);
     void popState();
     void run();
+
+    //sprawdza czy jest ostatnim stejtem 
+    bool isLastState() const;
+
+    //zwraca ilosc stejtow
+    size_t countStates() const;
 };

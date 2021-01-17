@@ -1,12 +1,12 @@
 #include "Game.hpp"
+#include "states/MainMenuState.hpp"
+#include <cstddef>
 
 Game::Game() :
-    m_window(sf::VideoMode{1200, 700}, "Sokoban:d")
+    m_window(sf::VideoMode{800, 600}, "Sokoban:d")
 {
-    pushState(std::make_unique<State::PlayingState>(*this));
-    pushState(std::make_unique<State::PlayingState>(*this));
-    pushState(std::make_unique<State::PlayingState>(*this));
-    pushState(std::make_unique<State::PlayingState>(*this));
+    pushState(std::make_unique<State::MainMenuState>(*this));
+    
     m_window.setFramerateLimit(60);
     m_window_size = m_window.getSize();
 }
@@ -31,10 +31,6 @@ State::State& Game::getCurrentState() const {
     return *(m_states.back());
 }
 
-void Game::pushState(std::unique_ptr<State::State>state) {
-    m_states.push_back(std::move(state));
-}
-
 void Game::handleEvent() {
     sf::Event e;
     while(m_window.pollEvent(e)) {
@@ -51,10 +47,33 @@ void Game::handleEvent() {
     }
 }
 
+void Game::pushState(std::unique_ptr<State::State>state) {
+    //pauzuje stejta
+    if(!(countStates() == 0))
+        getCurrentState().pause();
+    m_states.push_back(std::move(state));
+}
+
 void Game::popState() {
+    //musi sprawdzic przed popnieciem czy jest ostatni
+    bool last = isLastState();
+
     m_states.pop_back();
-    std::cout << "POPPED BACK, STATES VECTOR SIZE: " << m_states.size() << std::endl;
-    
+
+    //odpazuzuj stata
+    if(!last)
+        getCurrentState().resume();
+}
+
+bool Game::isLastState() const{
+    if(m_states.size() == 1)
+        return true;
+    else
+        return false;
+}
+
+size_t Game::countStates() const{
+    return m_states.size();
 }
 
 Game::~Game() {

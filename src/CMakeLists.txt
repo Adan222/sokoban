@@ -11,7 +11,10 @@ SET (SOURCE_FILES main.cpp
             Game.cpp
             states/State.hpp
             states/PlayingState.hpp
-            states/PlayingState.cpp)
+            states/PlayingState.cpp
+            states/MainMenuState.hpp
+            states/MainMenuState.cpp
+    )
 
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
