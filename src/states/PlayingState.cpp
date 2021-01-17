@@ -29,10 +29,9 @@ void PlayingState::handleEvent(sf::Event e) {
     }
 }
 
-void PlayingState::pause(){
+void PlayingState::pause() {
     std::cout << "palyingstate pause\n";
     m_pauseTime = std::chrono::steady_clock::now();
-
 }
 
 void PlayingState::resume(){
@@ -46,6 +45,7 @@ void PlayingState::resume(){
 }
 
 PlayingState::~PlayingState() {
+    
 }
 
 }

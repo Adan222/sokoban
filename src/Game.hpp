@@ -33,10 +33,4 @@ public:
     void pushState(std::unique_ptr<State::State> state);
     void popState();
     void run();
-
-    //sprawdza czy jest ostatnim stejtem 
-    bool isLastState() const;
-
-    //zwraca ilosc stejtow
-    size_t countStates() const;
 };

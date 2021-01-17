@@ -20,7 +20,7 @@ public:
     //pryda sie jak bedziemy robic menu pod eskejpa
     //np czas zastopuje
     //resume jest wywolywany w popState
-    //a pasue przy pusznieciu
+    //a pause przy pusznieciu
     virtual void pause() = 0;
     virtual void resume() = 0;
 };

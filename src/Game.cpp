@@ -15,8 +15,6 @@ void Game::run() {
     while (m_window.isOpen() && !m_states.empty()) {
         auto &state = getCurrentState();
          
-       
-        
         m_window.clear();
 
         state.draw(m_window);
@@ -34,7 +32,7 @@ State::State& Game::getCurrentState() const {
 void Game::handleEvent() {
     sf::Event e;
     while(m_window.pollEvent(e)) {
-        if(!m_states.empty()) { //(tymczasowy?) fix bo inaczej zrzut pamieci, moze jakby by było m_window.setKeyRepeatEnabled(false) to wtedy by nie wywalało, bo dostajemy kolejny event a m_states jest puste
+        if(!m_states.empty()) { // inaczej zrzut pamieci
             getCurrentState().handleEvent(e);
         }
         switch(e.type) {
@@ -49,31 +47,16 @@ void Game::handleEvent() {
 
 void Game::pushState(std::unique_ptr<State::State>state) {
     //pauzuje stejta
-    if(!(countStates() == 0))
+    if(!m_states.empty())
         getCurrentState().pause();
     m_states.push_back(std::move(state));
 }
 
 void Game::popState() {
-    //musi sprawdzic przed popnieciem czy jest ostatni
-    bool last = isLastState();
-
     m_states.pop_back();
-
-    //odpazuzuj stata
-    if(!last)
+    //odpauzuj stata
+    if(!m_states.empty())
         getCurrentState().resume();
-}
-
-bool Game::isLastState() const{
-    if(m_states.size() == 1)
-        return true;
-    else
-        return false;
-}
-
-size_t Game::countStates() const{
-    return m_states.size();
 }
 
 Game::~Game() {
