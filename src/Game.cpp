@@ -5,7 +5,7 @@
 Game::Game() :
     m_window(sf::VideoMode{800, 600}, "Sokoban:d")
 {
-    pushState(std::make_unique<State::MainMenuState>(*this));
+    pushState(std::make_unique<State::PlayingState>(*this));
     
     m_window.setFramerateLimit(60);
     m_window_size = m_window.getSize();

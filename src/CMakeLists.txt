@@ -14,6 +14,8 @@ SET (SOURCE_FILES main.cpp
             states/PlayingState.cpp
             states/MainMenuState.hpp
             states/MainMenuState.cpp
+            Level.hpp
+            Level.cpp
     )
 
 

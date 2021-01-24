@@ -5,7 +5,8 @@
 namespace State {
 
 PlayingState::PlayingState(Game& game) : State(game),
-                                         m_shape(30.0f) 
+                                         m_shape(30.0f),
+                                         m_level("test.json") 
 {
     m_shape.setFillColor(sf::Color::Green);
 }
