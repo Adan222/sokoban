@@ -6,13 +6,14 @@
 #include "State.hpp"
 #include "Game.hpp"
 #include "Level.hpp"
+#include "objects/Player.hpp"
 
 namespace State {
 
 class PlayingState : public State {
-    sf::CircleShape m_shape;
-    std::chrono::time_point<std::chrono::steady_clock> m_pauseTime;
-    Level m_level;
+    //Level m_level;
+    Objects::Player m_player;
+    
 public:
     PlayingState(Game& game);
     ~PlayingState();

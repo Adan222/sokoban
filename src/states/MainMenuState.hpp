@@ -14,8 +14,6 @@ namespace State {
 class MainMenuState : public State{
     sf::CircleShape m_shape;
 
-    std::chrono::time_point<std::chrono::steady_clock> m_pauseTime;
-
 public:
     MainMenuState(Game& game);
     ~MainMenuState();

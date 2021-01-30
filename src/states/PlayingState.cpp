@@ -4,16 +4,13 @@
 
 namespace State {
 
-PlayingState::PlayingState(Game& game) : State(game),
-                                         m_shape(30.0f),
-                                         m_level("test.json") 
-{
-    m_shape.setFillColor(sf::Color::Green);
-}
+//wywalilme konstruktor klasy level bo nie mam pliku
+PlayingState::PlayingState(Game& game) : State(game), m_player(400.0f, 400.0f, 30.0f)
+{}
 
 
 void PlayingState::draw(sf::RenderTarget& renderer) {
-    renderer.draw(m_shape);
+    renderer.draw(m_player);
 }
 
 void PlayingState::handleEvent(sf::Event e) {
@@ -31,22 +28,15 @@ void PlayingState::handleEvent(sf::Event e) {
 }
 
 void PlayingState::pause() {
-    std::cout << "palyingstate pause\n";
-    m_pauseTime = std::chrono::steady_clock::now();
+    std::cout << "playeingstate pause\n";
 }
 
 void PlayingState::resume(){
-    std::cout << "resume payingstate\n";
-
-    auto end = std::chrono::steady_clock::now();
-
-    std::chrono::duration<float> dur = end - m_pauseTime;
-    std::cout << "In pasue: " << dur.count() << "s\n";
-
+    std::cout << "playeingstate resume\n";
 }
 
 PlayingState::~PlayingState() {
     
 }
 
-}
+}   //namespace State

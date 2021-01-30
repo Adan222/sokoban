@@ -29,17 +29,11 @@ void MainMenuState::handleEvent(sf::Event e) {
 }
 
 void MainMenuState::pause() {
-    std::cout << "mainmenu PAUSED\n";
-    m_pauseTime = std::chrono::steady_clock::now();
+    std::cout << "PAUSED\n";
 }
 
 void MainMenuState::resume(){
-    std::cout << "RESUMED mainmenu\n";
-
-    auto end = std::chrono::steady_clock::now();
-
-    std::chrono::duration<float> dur = end - m_pauseTime;
-    std::cout << "IN PAUSE: " << dur.count() << "s\n";
+    std::cout << "RESUMED\n";
 }
 
 MainMenuState::~MainMenuState(){
@@ -47,4 +41,4 @@ MainMenuState::~MainMenuState(){
 }
 
 
-}   //namespace
+}   //namespace State
