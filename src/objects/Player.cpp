@@ -16,8 +16,9 @@ namespace Objects
 }
 */
 
+Player::Player(){}
 
-Player::Player(const float &x, const float &y, const float &radious) : 
+Player::Player(const float &x, const float &y, const float &radious = 30.0f) : 
     m_PlayerShape(radious),
     m_radious(radious)
 {
@@ -31,21 +32,22 @@ Player::Player(const float &x, const float &y, const float &radious) :
 Player::~Player(){}
 
 
-void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const
-{
+void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const{
     target.draw(m_PlayerShape);
 }
 
 
-void Player::move(const float &x, const float &y)
-{
+void Player::move(const float &x, const float &y){
     m_PlayerShape.move(x, y);
 }
 
 
-sf::Vector2f Player::getPos() const
-{
+sf::Vector2f Player::getPos() const{
     return m_PlayerShape.getPosition();
+}
+
+void Player::setPosiotion(const float &x, const float &y){
+    m_PlayerShape.setPosition(x, y);
 }
 
 }   //namespace Objects

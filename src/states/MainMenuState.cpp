@@ -15,11 +15,7 @@ void MainMenuState::draw(sf::RenderTarget &renderer) {
 void MainMenuState::handleEvent(sf::Event e) {
     if(e.type == sf::Event::KeyPressed){
         switch (e.key.code) {
-            case sf::Keyboard::F:
-                m_Game.pushState(std::make_unique<PlayingState>(m_Game));
-                break;
             case sf::Keyboard::Escape:
-                std::cout << "mainmenuState ESC PRESSED!" << std::endl;
                 m_Game.popState();
                 break;
             default:
@@ -29,11 +25,11 @@ void MainMenuState::handleEvent(sf::Event e) {
 }
 
 void MainMenuState::pause() {
-    std::cout << "PAUSED\n";
+
 }
 
 void MainMenuState::resume(){
-    std::cout << "RESUMED\n";
+    
 }
 
 MainMenuState::~MainMenuState(){

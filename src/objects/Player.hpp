@@ -13,6 +13,7 @@ namespace Objects
         float m_radious;
 
     public:
+        Player();
         Player(const float &x, const float &y, const float &radious);
         //idk czy to sie przyda
         //Player(const sf::Vector2u &vec);
@@ -24,6 +25,7 @@ namespace Objects
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
         void move(const float &x, const float &y) override;
 
+        void setPosiotion(const float &x, const float &y);
     };
 
 }

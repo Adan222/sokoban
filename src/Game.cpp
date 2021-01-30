@@ -1,17 +1,20 @@
 #include "Game.hpp"
+#include "SFML/System/Vector2.hpp"
 #include "states/MainMenuState.hpp"
 #include <cstddef>
 
 Game::Game() :
     m_window(sf::VideoMode{800, 600}, "Sokoban:d")
-{
-    pushState(std::make_unique<State::PlayingState>(*this));
-    
+{    
     m_window.setFramerateLimit(60);
     m_window_size = m_window.getSize();
 }
 
 void Game::run() {
+    //najpierw init w konstruktorze i dopiero teraz 
+    //pusz stejta
+    pushState(std::make_unique<State::PlayingState>(*this));
+
     while (m_window.isOpen() && !m_states.empty()) {
         auto &state = getCurrentState();
          
@@ -57,6 +60,18 @@ void Game::popState() {
     //odpauzuj stata
     if(!m_states.empty())
         getCurrentState().resume();
+}
+
+sf::Vector2u Game::getWindowSize() const{
+    return m_window_size;
+}
+
+int Game::getWindowWidth() const{
+    return m_window_size.x;
+}
+
+int Game::getWindowHeight() const{
+    return m_window_size.y;
 }
 
 Game::~Game() {
