@@ -18,6 +18,8 @@ SET (SOURCE_FILES main.cpp
             Level.cpp
             objects/Player.hpp
             objects/Player.cpp
+            map/Map.hpp
+            map/Map.cpp
     )
 
 

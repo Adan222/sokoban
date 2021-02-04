@@ -3,13 +3,15 @@
 #include <fstream>
 #include <stdexcept>
 #include <../vendor/nlohmann/include/json.hpp>
+#include "map/Map.hpp"
 
 
-
-using json = nlohmann::json;
 
 class Level {
-std::ifstream m_levelConfigStream;
+    using json = nlohmann::json;
+    Map t1;
+    json m_levelConfig;
+    std::ifstream m_levelConfigStream;
 public:
     Level(const std::string& filename);
     ~Level();
