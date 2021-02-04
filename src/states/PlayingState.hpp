@@ -11,8 +11,8 @@
 namespace State {
 
 class PlayingState : public State {
-    //Level m_level;
-    Objects::Player m_player;
+    Level m_level;
+    Player m_player;
     
 public:
     PlayingState(Game& game);

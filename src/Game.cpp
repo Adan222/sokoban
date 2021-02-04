@@ -1,7 +1,8 @@
-#include "Game.hpp"
-#include "SFML/System/Vector2.hpp"
-#include "states/MainMenuState.hpp"
 #include <cstddef>
+#include "SFML/System/Vector2.hpp"
+
+#include "Game.hpp"
+#include "states/MainMenuState.hpp"
 
 Game::Game() :
     m_window(sf::VideoMode{800, 600}, "Sokoban:d")
@@ -11,8 +12,6 @@ Game::Game() :
 }
 
 void Game::run() {
-    //najpierw init w konstruktorze i dopiero teraz 
-    //pusz stejta
     pushState(std::make_unique<State::PlayingState>(*this));
 
     while (m_window.isOpen() && !m_states.empty()) {
@@ -49,7 +48,6 @@ void Game::handleEvent() {
 }
 
 void Game::pushState(std::unique_ptr<State::State>state) {
-    //pauzuje stejta
     if(!m_states.empty())
         getCurrentState().pause();
     m_states.push_back(std::move(state));
@@ -57,20 +55,19 @@ void Game::pushState(std::unique_ptr<State::State>state) {
 
 void Game::popState() {
     m_states.pop_back();
-    //odpauzuj stata
     if(!m_states.empty())
         getCurrentState().resume();
 }
 
-sf::Vector2u Game::getWindowSize() const{
+sf::Vector2u Game::getWindowSize() const {
     return m_window_size;
 }
 
-int Game::getWindowWidth() const{
+int Game::getWindowWidth() const {
     return m_window_size.x;
 }
 
-int Game::getWindowHeight() const{
+int Game::getWindowHeight() const {
     return m_window_size.y;
 }
 

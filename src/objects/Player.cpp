@@ -1,31 +1,20 @@
 #include "Player.hpp"
 #include "SFML/Graphics/Color.hpp"
 #include "SFML/System/Vector2.hpp"
-#include "objects/Entity.hpp"
 
-namespace Objects 
-{
 
-/*idk czy to sie przyda
-    Player::Player(const sf::Vector2u &vec) : 
-    m_playerPos(vec),
-    m_PlayerShape(30.0f),
-    velocity(30.0f)
-{
-    m_PlayerShape.setFillColor(sf::Color::Yellow);
+Player::Player() {
+
 }
-*/
 
-Player::Player(){}
-
-Player::Player(const float &x, const float &y, const float &radious = 30.0f) : 
-    m_PlayerShape(radious),
-    m_radious(radious)
+Player::Player(const float x, const float y, const float radius = 30.0f) : 
+    m_PlayerShape(radius),
+    m_radius(radius)
 {
     m_PlayerShape.setFillColor(sf::Color::Yellow);
     m_PlayerShape.setPosition(x, y);
     //origin to center
-    m_PlayerShape.setOrigin(m_radious, m_radious);
+    m_PlayerShape.setOrigin(m_radius, m_radius);
 }
 
 
@@ -37,17 +26,16 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 }
 
 
-void Player::move(const float &x, const float &y){
+void Player::move(const float x, const float y) {
     m_PlayerShape.move(x, y);
 }
 
 
-sf::Vector2f Player::getPos() const{
+sf::Vector2f Player::getPos() const {
     return m_PlayerShape.getPosition();
 }
 
-void Player::setPosiotion(const float &x, const float &y){
+void Player::setPosition(const float x, const float y) {
     m_PlayerShape.setPosition(x, y);
 }
 
-}   //namespace Objects

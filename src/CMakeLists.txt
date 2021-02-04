@@ -16,7 +16,6 @@ SET (SOURCE_FILES main.cpp
             states/MainMenuState.cpp
             Level.hpp
             Level.cpp
-            objects/Entity.hpp
             objects/Player.hpp
             objects/Player.cpp
     )
