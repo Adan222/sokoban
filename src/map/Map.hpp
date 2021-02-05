@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <../vendor/nlohmann/include/json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <SFML/Graphics.hpp>
 
