@@ -7,9 +7,12 @@ Level::Level(const std::string& filename) : m_levelConfigStream(filename) {
     
     m_levelConfigStream >> m_levelConfig;
 
-    t1.createMap(m_levelConfig);
+    m_t1.createMap(m_levelConfig);
 }
 
+void Level::render(sf::RenderTarget& renderer) {
+    renderer.draw(m_t1);
+}
 
 Level::~Level() {
 

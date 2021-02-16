@@ -12,6 +12,7 @@ PlayingState::PlayingState(Game& game) : State(game),
 
 void PlayingState::draw(sf::RenderTarget& renderer) {
     //renderer.draw(m_player);
+    m_level.render(renderer);
 }
 
 void PlayingState::handleEvent(sf::Event e) {
