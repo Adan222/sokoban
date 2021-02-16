@@ -18,8 +18,8 @@ add_subdirectory(vendor)
 #include path to src folder
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/src")
 
-
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/vendor/nlohmann/include")
+#json lib
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/lib/linux/jsonlib/")
 
 #SFML LINUX
 if(UNIX AND NOT APPLE)

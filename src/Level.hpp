@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <stdexcept>
-#include <../vendor/nlohmann/include/json.hpp>
+#include <nlohmann/json.hpp>
 #include "map/Map.hpp"
 
 class Level {
