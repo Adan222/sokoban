@@ -4,8 +4,8 @@
         "tile_height" : 32,
         "tile_width" : 32,
         "columns" : 8,
-        "rows" : 4
+        "rows" : 1,
+        "data" : [1, 2, 3, 4, 5, 6, 7, 8]
     },
-    "name" : "AAAA",
-    "data" : [0, 1, 5, 6, 1, 2, 1, 2]
+    "name" : "AAAA"
 }

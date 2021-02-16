@@ -4,7 +4,8 @@ namespace State {
 
 //wywalilme konstruktor klasy level bo nie mam pliku
 PlayingState::PlayingState(Game& game) : State(game),
-    m_player(game.getWindowWidth()/2, game.getWindowHeight()/2, 30.0f), m_level("../src/level_configs/test.json")
+    //m_player(game.getWindowWidth()/2, game.getWindowHeight()/2, 30.0f),
+    m_level("../src/level_configs/test.json")
 {
 
 }
@@ -12,6 +13,7 @@ PlayingState::PlayingState(Game& game) : State(game),
 
 void PlayingState::draw(sf::RenderTarget& renderer) {
     //renderer.draw(m_player);
+    m_level.render(renderer);
 }
 
 void PlayingState::handleEvent(sf::Event e) {
