@@ -12,7 +12,7 @@ bool Map::createMap(const json &levelConfig) {
     try{
         //try to open texture file
         if(!m_tileAtlas.loadFromFile(levelConfig.at("tile_atlas").at("path").get<std::string>()))
-            throw std::runtime_error("Can`t opne file" + levelConfig.at("tile_atlas").at("path").get<std::string>());
+            throw std::runtime_error("Can`t open file" + levelConfig.at("tile_atlas").at("path").get<std::string>());
 
 
         auto tileVisualGrid = levelConfig.at("tile_atlas").at("data");
@@ -41,12 +41,17 @@ bool Map::createMap(const json &levelConfig) {
                 single_tile[3].position = sf::Vector2f((j - 1) * tileSize + tileSize, (i - 1) * tileSize);
 
                 single_tile[0].texCoords = sf::Vector2f(textureX, textureY);
-                single_tile[1].texCoords = sf::Vector2f(textureX + tileSize - 1, textureY);
+                single_tile[1].texCoords = sf::Vector2f(textureX, textureY + tileSize - 1);
                 single_tile[2].texCoords = sf::Vector2f(textureX + tileSize - 1, textureY + tileSize - 1);
-                single_tile[3].texCoords = sf::Vector2f(textureX, textureY + tileSize - 1);
+                single_tile[3].texCoords = sf::Vector2f(textureX + tileSize - 1, textureY);
 
-
+                std::cout << "---------------------------------------------------------------\n";
                 std::cout << "textureX: " << textureX << " textureY: " << textureY<< std::endl;
+                std::cout << "textureX: " <<textureX<< " textureY: " << textureY + tileSize - 1 << std::endl;
+                std::cout << "textureX + tileSize - 1: " << textureX + tileSize - 1 << " textureY: " << textureY<< std::endl;
+                std::cout << "textureX: " << textureX + tileSize - 1 << " textureY: " << textureY + tileSize - 1 << std::endl;
+
+
             }
         }
 
