@@ -13,6 +13,9 @@ bool Map::createMap(const json &levelConfig) {
         throw std::runtime_error("Can`t open file" + levelConfig.at("map").at("tile_atlas").at("path").get<std::string>());
     
     
+    using std::cout;
+
+
     auto mapConfig = levelConfig.at("map");
     auto tileAtlas = mapConfig.at("tile_atlas");
 
@@ -36,7 +39,7 @@ bool Map::createMap(const json &levelConfig) {
     while(actualTileElementID < tileVisualGrid.size()) {
         int tileTypeID = tileVisualGrid[actualTileElementID];
 
-        float textureX = (tileTypeID % tileAtlasCols) * tileSize - 32.0f;
+        float textureX = (tileTypeID % tileAtlasCols) * tileSize;
         float textureY = (floor((float)tileTypeID / (float)tileAtlasCols)) * tileSize; 
 
         sf::Vertex *single_tile = &m_tiles[actualTileElementID * 4];
@@ -53,6 +56,8 @@ bool Map::createMap(const json &levelConfig) {
         single_tile[2].texCoords = sf::Vector2f(textureX + tileSize, textureY + tileSize);
         single_tile[3].texCoords = sf::Vector2f(textureX, textureY + tileSize);
 
+
+        cout << "textureX: " << textureX << " textureY + tileSize: " <<  textureY + tileSize << "\n";
         //new row
         if(actualTileElementID % mapTileWidth == (mapTileWidth - 1)) row++;
  
@@ -61,53 +66,13 @@ bool Map::createMap(const json &levelConfig) {
         col = actualTileElementID % mapTileWidth;
     }
 
-
-/*
-    //iterating over whole screen from left to right and if actualTileElementID is greater than mapTileWidth we are going to new row
-    for(int i = 1; i <= mapTileWidth; i++) {
-        for(int j = 1; j <= mapTileHeight; j++) {
-            if(actualTileElementID == tileVisualGrid.size()) {
-                break;break;
-            }
-            int tileTypeID = tileVisualGrid[actualTileElementID];
-            ++actualTileElementID;
-            //to do TILE ID = 0 -- division by zero
-            float textureX = (tileTypeID % tileAtlasCols) * tileSize - 32.0f;
-            float textureY = (floor((float)tileTypeID / (float)tileAtlasCols)) * tileSize; 
-            
-            sf::Vertex *single_tile = &m_tiles[actualTileElementID];
-            
-            single_tile[0].position = sf::Vector2f((j - 1) * tileSize,(i - 1) * tileSize);
-            single_tile[1].position = sf::Vector2f((j - 1) * tileSize, (i - 1) * tileSize + tileSize);
-            single_tile[2].position = sf::Vector2f((j - 1) * tileSize + tileSize, (i - 1) * tileSize + tileSize);
-            single_tile[3].position = sf::Vector2f((j - 1) * tileSize + tileSize, (i - 1) * tileSize);
-
-            single_tile[0].texCoords = sf::Vector2f(textureX, textureY);
-            single_tile[1].texCoords = sf::Vector2f(textureX, textureY + tileSize - 1);
-            single_tile[2].texCoords = sf::Vector2f(textureX + tileSize - 1, textureY + tileSize - 1);
-            single_tile[3].texCoords = sf::Vector2f(textureX + tileSize - 1, textureY);
-
-            std::cout << "---------------------------------------------------------------\n";
-            std::cout << "textureX: " << textureX << " textureY: " << textureY<< std::endl;
-            std::cout << "textureX: " <<textureX<< " textureY: " << textureY + tileSize - 1 << std::endl;
-            std::cout << "textureX + tileSize - 1: " << textureX + tileSize - 1 << " textureY: " << textureY<< std::endl;
-            std::cout << "textureX: " << textureX + tileSize - 1 << " textureY: " << textureY + tileSize - 1 << std::endl;
-
-
-        }
-    }
-    */
     return true;
 }
 
 void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        // apply the transform
         states.transform *= getTransform();
-
-        // apply the tileset texture
         states.texture = &m_tileAtlas;
 
-        // draw the vertex array
         target.draw(m_tiles, states);
 }
 

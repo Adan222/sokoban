@@ -7,23 +7,35 @@
 Game::Game() :
     m_window(sf::VideoMode{800, 600}, "Sokoban:d")
 {    
+    ImGui::SFML::Init(m_window);
     m_window.setFramerateLimit(60);
     m_window_size = m_window.getSize();
 }
 
 void Game::run() {
-    pushState(std::make_unique<State::PlayingState>(*this));
+    sf::Clock deltaClock;
+   
+    pushState(std::make_unique<State::LevelEditorState>(*this));
+
+    m_window.resetGLStates(); //temporary, needed if we dont draw SFML things
 
     while (m_window.isOpen() && !m_states.empty()) {
         auto &state = getCurrentState();
-         
-        m_window.clear();
 
+        
+        ImGui::SFML::Update(m_window, deltaClock.restart());
+       
+        
+        
+        m_window.clear();
         state.draw(m_window);
+        ImGui::SFML::Render(m_window);
         m_window.display();
 
         handleEvent();
     }
+
+    ImGui::SFML::Shutdown();
 }
 
 

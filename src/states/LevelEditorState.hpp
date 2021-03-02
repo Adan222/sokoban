@@ -1,33 +1,29 @@
 #pragma once
 
+
 #include <iostream>
+#include <memory>
 #include <chrono>
-
-
 
 #include "State.hpp"
 #include "Game.hpp"
-#include "Level.hpp"
-#include "objects/Player.hpp"
-
 
 
 namespace State {
 
-class PlayingState : public State {
-    Level m_level;
-    Player m_player;
+
+class LevelEditorState : public State {
     
 public:
-    PlayingState(Game& game);
-    ~PlayingState();
-    
+    LevelEditorState(Game& game);
+    ~LevelEditorState();
+
     void handleEvent(sf::Event e) override;
     void draw(sf::RenderTarget& renderer) override;
-
+    
     void pause() override;
     void resume() override;
 };
 
-}
 
+}
