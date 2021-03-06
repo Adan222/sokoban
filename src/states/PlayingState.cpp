@@ -2,7 +2,6 @@
 
 namespace State {
 
-//wywalilme konstruktor klasy level bo nie mam pliku
 PlayingState::PlayingState(Game& game) : State(game),
     //m_player(game.getWindowWidth()/2, game.getWindowHeight()/2, 30.0f),
     m_level("../src/level_configs/test.json")

@@ -2,15 +2,13 @@
 #include <string>
 #include <fstream>
 #include <stdexcept>
-#include <nlohmann/json.hpp>
 
 #include "map/Map.hpp"
+#include "LevelConfig.hpp"
 
 class Level {
-    using json = nlohmann::json;
     Map m_t1;
-    json m_levelConfig;
-    std::ifstream m_levelConfigStream;
+    LevelConfig m_levelConfig;
 public:
     Level(const std::string& filename);
     void render(sf::RenderTarget& renderer);

@@ -23,7 +23,7 @@ private:
     sf::Vector2u m_window_size;
 
     State::State& getCurrentState() const;
-    void handleEvent();
+    void handleEvents();
 public:
     Game();
     ~Game();

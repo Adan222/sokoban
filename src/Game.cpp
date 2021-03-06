@@ -17,22 +17,18 @@ void Game::run() {
    
     pushState(std::make_unique<State::LevelEditorState>(*this));
 
-    m_window.resetGLStates(); //temporary, needed if we dont draw SFML things
+    m_window.resetGLStates(); //temporary, needed only if we dont draw SFML things
 
     while (m_window.isOpen() && !m_states.empty()) {
         auto &state = getCurrentState();
-
-        
         ImGui::SFML::Update(m_window, deltaClock.restart());
-       
-        
+               
         
         m_window.clear();
         state.draw(m_window);
         ImGui::SFML::Render(m_window);
         m_window.display();
-
-        handleEvent();
+        handleEvents();
     }
 
     ImGui::SFML::Shutdown();
@@ -43,10 +39,10 @@ State::State& Game::getCurrentState() const {
     return *(m_states.back());
 }
 
-void Game::handleEvent() {
+void Game::handleEvents() {
     sf::Event e;
     while(m_window.pollEvent(e)) {
-        if(!m_states.empty()) { // inaczej zrzut pamieci
+        if(!m_states.empty()) { // needed, othwerwise segmentation fault
             getCurrentState().handleEvent(e);
         }
         switch(e.type) {
@@ -62,6 +58,7 @@ void Game::handleEvent() {
 void Game::pushState(std::unique_ptr<State::State>state) {
     if(!m_states.empty())
         getCurrentState().pause();
+        
     m_states.push_back(std::move(state));
 }
 

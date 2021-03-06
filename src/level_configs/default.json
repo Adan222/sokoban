@@ -1,0 +1,13 @@
+{
+    "map" : {
+        "width" : 16, 
+        "tile_atlas" : {
+            "path" : "../src/level_configs/tile_atlas.png",
+            "tile_size": 32,
+            "columns" : 16,
+            "rows" : 1,
+            "data" : []
+        }
+    },
+    "name" : "Default"
+}

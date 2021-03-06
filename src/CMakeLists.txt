@@ -18,6 +18,8 @@ SET (SOURCE_FILES main.cpp
             states/LevelEditorState.cpp
             Level.hpp
             Level.cpp
+            LevelConfig.hpp
+            LevelConfig.cpp
             objects/Player.hpp
             objects/Player.cpp
             map/Map.hpp

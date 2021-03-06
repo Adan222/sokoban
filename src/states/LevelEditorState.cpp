@@ -3,16 +3,38 @@
 
 namespace State {
 
-LevelEditorState::LevelEditorState(Game &game) :  State(game) {
-    
+LevelEditorState::LevelEditorState(Game &game) :  State(game), m_levelConfig("../src/level_configs/default.json") {
+    m_m1.createMap(m_levelConfig.getJSON());
 }
 
 void LevelEditorState::draw(sf::RenderTarget &renderer) {
-    ImGui::Begin("Hello, world!");
-    ImGui::Button("Look at this pretty button");
-    ImGui::Button("SUCH WOW:D");
+    tileSelectionBox();
+    renderer.draw(m_m1);
+}
+
+void LevelEditorState::tileSelectionBox() {
+    static int im_tileSize = 64;
+    static std::string im_filepath = "";
+
+
+    ImGui::Begin("Lista kafelków", NULL, ImGuiWindowFlags_MenuBar);
+    if (ImGui::BeginMenuBar()) {
+        if (ImGui::BeginMenu("Plik")) {
+            if (ImGui::MenuItem("Otwórz inny plik z kafelkami", "Ctrl+O")) { /* Do stuff */ }
+            ImGui::EndMenu();
+        }
+    }
+    ImGui::EndMenuBar();
+    
+    uint16_t im_previousTileSize = im_tileSize;
+    ImGui::InputInt("Wielkosc kafelkow w atlasie", &im_tileSize, 32, 64, ImGuiInputTextFlags_ReadOnly);
+    if(im_tileSize < 1 || im_tileSize > 256 || im_tileSize % 32 != 0) im_tileSize = im_previousTileSize; //checking if tile size provided by user is multiple of 32 etc.
+    atlasTileSize = im_tileSize;
+
+
     ImGui::End();
 }
+
 
 void LevelEditorState::handleEvent(sf::Event e) {
     ImGui::SFML::ProcessEvent(e);
@@ -26,13 +48,14 @@ void LevelEditorState::handleEvent(sf::Event e) {
                 break;
         }   
     }
+
 }
 
 void LevelEditorState::pause() {
 
 }
 
-void LevelEditorState::resume(){
+void LevelEditorState::resume() {
     
 }
 

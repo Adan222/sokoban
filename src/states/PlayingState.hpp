@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <chrono>
-
+#include <exception>
 
 
 #include "State.hpp"
