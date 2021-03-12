@@ -6,7 +6,7 @@ git clone https://github.com/microsoft/vcpkg
 cd vcpkg
 ./bootstrap-vcpkg.sh -disableMetrics
 ```
-Our project is using vcpkg as project manager we need to install powershell. See [[https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1]]
+Our project is using vcpkg as project manager we need to install powershell. See https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1
 
 
 
