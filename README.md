@@ -1,4 +1,5 @@
-### Installation
+In build folder you will find prebuilt windows-x64 and linux-x64 binares.
+# Building
 ```sh
 git clone https://github.com/Adan222/sokoban
 cd sokoban
@@ -6,11 +7,11 @@ git clone https://github.com/microsoft/vcpkg
 cd vcpkg
 ./bootstrap-vcpkg.sh -disableMetrics
 ```
-Our project is using vcpkg as project manager we need to install powershell. See https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1
+Vcpkg requires powershell. See https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1
 
 
 
-For building to Linux
+For building Linux binares
 ```sh
 ./vcpkg install sfml imgui imgui-sfml nlohmann-json
 cd ..
