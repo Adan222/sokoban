@@ -5,9 +5,9 @@
 #include <string>
 
 #include "State.hpp"
-#include "LevelConfig.hpp"
-#include "map/Map.hpp"
-#include "Game.hpp"
+#include "../LevelConfig.hpp"
+#include "../map/Map.hpp"
+#include "../Game.hpp"
 
 namespace State {
 

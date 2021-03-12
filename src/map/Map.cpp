@@ -17,13 +17,13 @@ bool Map::createMap(const json &levelConfig) {
     auto mapConfig = levelConfig.at("map");
     auto tileAtlas = mapConfig.at("tile_atlas");
 
-    auto tileVisualGrid = tileAtlas["data"]; //array with tile ids, using [] because those don't throw error if data is empty/null
+    auto tileVisualGrid = tileAtlas["visual_grid"]; //array with tile ids, using [] because those don't throw error if data is empty/null
     
     //better to use uint32_t cus of https://stackoverflow.com/questions/14911813/what-is-the-difference-between-an-uint32-and-an-unsigned-int-in-c
     const uint32_t mapTileWidth = mapConfig.at("width").get<int>(); //amount of tiles per row
     const uint32_t mapTileHeight = ceil((float)tileVisualGrid.size() / (float)mapTileWidth); //calculating amount of rows
 
-    const uint32_t tileAtlasRows = tileAtlas.at("rows").get<int>(); //tile map (.png) rows
+    //const uint32_t tileAtlasRows = tileAtlas.at("rows").get<int>(); //tile map (.png) rows
     const uint32_t tileAtlasCols = tileAtlas.at("columns").get<int>(); //tile map (.png) cols
     const uint32_t tileSize = tileAtlas.at("tile_size").get<int>(); 
 

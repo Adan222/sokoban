@@ -5,7 +5,8 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
-#include "SFML/System/Vector2.hpp"
+#include <SFML/System/Vector2.hpp>
+
 #include "imgui.h"
 #include "imgui-SFML.h"
 

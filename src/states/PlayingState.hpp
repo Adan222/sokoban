@@ -6,9 +6,9 @@
 
 
 #include "State.hpp"
-#include "Game.hpp"
-#include "Level.hpp"
-#include "objects/Player.hpp"
+#include "../Game.hpp"
+#include "../Level.hpp"
+#include "../entities/Player.hpp"
 
 
 
@@ -29,5 +29,5 @@ public:
     void resume() override;
 };
 
-}
+} //namespace State
 
