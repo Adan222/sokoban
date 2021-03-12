@@ -1,7 +1,0 @@
-/home/amnesia/Dokumenty/proj/sokoban/CMakeFiles/install/strip.dir
-/home/amnesia/Dokumenty/proj/sokoban/CMakeFiles/install/local.dir
-/home/amnesia/Dokumenty/proj/sokoban/CMakeFiles/install.dir
-/home/amnesia/Dokumenty/proj/sokoban/CMakeFiles/list_install_components.dir
-/home/amnesia/Dokumenty/proj/sokoban/CMakeFiles/rebuild_cache.dir
-/home/amnesia/Dokumenty/proj/sokoban/CMakeFiles/edit_cache.dir
-/home/amnesia/Dokumenty/proj/sokoban/CMakeFiles/ImGui-SFML.dir
