@@ -5,7 +5,7 @@
 #include "states/MainMenuState.hpp"
 
 Game::Game() :
-    m_window(sf::VideoMode{800, 600}, "Sokoban:d")
+    m_window(sf::VideoMode{1024, 768}, "Sokoban:d")
 {    
     ImGui::SFML::Init(m_window);
     m_window.setFramerateLimit(60);
@@ -15,7 +15,7 @@ Game::Game() :
 void Game::run() {
     sf::Clock deltaClock;
    
-    pushState(std::make_unique<State::LevelEditorState>(*this));
+    pushState(std::make_unique<State::PlayingState>(*this));
 
     m_window.resetGLStates(); //temporary, needed only if we dont draw SFML things
 
