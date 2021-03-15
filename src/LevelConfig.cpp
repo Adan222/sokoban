@@ -38,7 +38,7 @@ uint32_t LevelConfig::getTileAtlasColumns() const {
 }
 
 std::filesystem::path LevelConfig::getTileAtlasPath() const {
-    return tileAtlasJSON.at("path"); 
+    return tileAtlasJSON.at("path").get<std::string>(); // get<std::string> is required here otherwise mingw would give error 
 }
 
 std::vector<uint16_t> LevelConfig::getTileAtlasVisualGrid() const {
