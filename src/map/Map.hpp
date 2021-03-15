@@ -3,6 +3,7 @@
 #include <string>
 #include <stdexcept>
 
+#include <nlohmann/json.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "../LevelConfig.hpp"
@@ -10,8 +11,8 @@
 class Map : public sf::Drawable, public sf::Transformable {
     sf::Texture m_tileAtlas;
     sf::VertexArray m_tiles;
+    
 public:
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     Map();
     ~Map();
     bool createMap(const LevelConfig &levelConfig);

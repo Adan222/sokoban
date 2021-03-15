@@ -1,10 +1,10 @@
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
-add_subdirectory(states)
-
 SET (SOURCE_FILES main.cpp
             Game.hpp
             Game.cpp
+            fpsCounter.hpp
+            fpsCounter.cpp
             states/State.hpp
             states/PlayingState.hpp
             states/PlayingState.cpp
@@ -23,3 +23,5 @@ SET (SOURCE_FILES main.cpp
     )
     
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/src)

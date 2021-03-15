@@ -7,10 +7,10 @@ namespace State {
     
 class State {
 protected:
-    Game& m_Game;
+    Game& m_game;
 public:
     
-    State(Game& game) : m_Game(game) {};
+    State(Game& game) : m_game(game) {};
     virtual ~State() = default;
 
     virtual void handleEvent(sf::Event e) = 0;
@@ -21,8 +21,10 @@ public:
     //np czas zastopuje
     //resume jest wywolywany w popState
     //a pause przy pusznieciu
-    virtual void pause() = 0;
-    virtual void resume() = 0;
+    virtual void pause() {};
+    virtual void resume() {};
+
+    virtual void update(float deltaTime) {};
 };
 
 }

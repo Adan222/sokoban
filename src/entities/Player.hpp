@@ -2,20 +2,35 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <iostream>
 
-class Player {
+//#define FIXED_TIME_TEST
+
+class Player : public sf::Drawable
+{
     sf::CircleShape m_PlayerShape;
     float m_radius;
 
+    const float m_maxSpeed = 100.0f;
+
+    //by default it`s {0, 0}
+    sf::Vector2f m_moveVector;
+
+
+    #ifdef FIXED_TIME_TEST
+        sf::Clock timer;
+    #endif
+
 public:
-    Player();
-    Player(const float x, const float y, const float radious);
+    Player(const int x, const int y);
     ~Player();
 
-    sf::Vector2f getPos() const;
-
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-    void move(const float x, const float y);
-    void setPosition(const float x, const float y);
+
+    //void setTexture(sf::IntRect rec); 
+    void setTexture(const sf::Color &col);
+
+    void input();
+    void update(float deltaTime);
 };
 

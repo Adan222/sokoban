@@ -10,3 +10,4 @@ vcpkg/
 .vscode/
 compile_commands.json
 compile.sh
+config.hpp

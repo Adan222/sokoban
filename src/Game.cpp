@@ -1,15 +1,14 @@
-#include <cstddef>
-#include "SFML/System/Vector2.hpp"
-
 #include "Game.hpp"
-#include "states/MainMenuState.hpp"
+#include "SFML/System/Time.hpp"
+#include <iostream>
 
 Game::Game() :
-    m_window(sf::VideoMode{1024, 768}, "Sokoban:d")
+    m_window(sf::VideoMode{800, 600}, "Sokoban:d"),
+    m_fps(getWindowWidth())
 {    
+    m_window.setFramerateLimit(60);
     ImGui::SFML::Init(m_window);
     m_window.setFramerateLimit(60);
-    m_window_size = m_window.getSize();
 }
 
 void Game::run() {
@@ -17,29 +16,58 @@ void Game::run() {
    
     pushState(std::make_unique<State::LevelEditorState>(*this));
 
-    m_window.resetGLStates(); //temporary, needed only if we dont draw SFML things
+    // ticks per seconds
+    sf::Time fpc = sf::seconds(1.0 / 30.0f);
+
+    sf::Clock clock;
+
+    sf::Time lastTime = sf::Time::Zero;
+    sf::Time lag = sf::Time::Zero;
 
     while (m_window.isOpen() && !m_states.empty()) {
         auto &state = getCurrentState();
+
+        //Time
+        sf::Time currTime = clock.getElapsedTime();
+        sf::Time elapsed = currTime - lastTime;
+        lastTime += elapsed;
+        lag += elapsed;
+
+        //Event
+        handleEvent();
+        
+        //Fixed time update
+        while(lag > fpc){
+            lag -= fpc;
+            state.update(lag.asSeconds());
+        }
+
+
+        //Update
+        state.update(elapsed.asSeconds());
+        m_fps.update(elapsed.asSeconds());
+                
+        //Draw
+        m_window.resetGLStates(); //temporary, needed only if we dont draw SFML things
+
         ImGui::SFML::Update(m_window, deltaClock.restart());
                
         
         m_window.clear();
         state.draw(m_window);
+        m_window.draw(m_fps);
         ImGui::SFML::Render(m_window);
         m_window.display();
-        handleEvents();
     }
 
     ImGui::SFML::Shutdown();
 }
 
-
 State::State& Game::getCurrentState() const {
     return *(m_states.back());
 }
 
-void Game::handleEvents() {
+void Game::handleEvent() {
     sf::Event e;
     while(m_window.pollEvent(e)) {
         if(!m_states.empty()) { // needed, othwerwise segmentation fault
@@ -69,17 +97,15 @@ void Game::popState() {
 }
 
 sf::Vector2u Game::getWindowSize() const {
-    return m_window_size;
+    return m_window.getSize();
 }
 
 int Game::getWindowWidth() const {
-    return m_window_size.x;
+    return m_window.getSize().x;
 }
 
 int Game::getWindowHeight() const {
-    return m_window_size.y;
+    return m_window.getSize().y;
 }
 
-Game::~Game() {
-
-}
+Game::~Game() {}

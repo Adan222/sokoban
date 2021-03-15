@@ -10,7 +10,6 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 
-
 #include "states/State.hpp"
 #include "states/PlayingState.hpp"
 #include "states/MainMenuState.hpp"
@@ -20,10 +19,12 @@ class Game {
 private:
     sf::RenderWindow m_window;
     std::vector<std::unique_ptr<State::State>> m_states;
-    sf::Vector2u m_window_size;
 
     State::State& getCurrentState() const;
-    void handleEvents();
+    void handleEvent();
+
+    fpsCounter m_fps;
+    
 public:
     Game();
     ~Game();

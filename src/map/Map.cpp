@@ -48,7 +48,7 @@ bool Map::createMap(const LevelConfig &levelConfig) {
         single_tile[3].texCoords = sf::Vector2f(textureX, textureY + tileSize);
 
 
-        cout << "textureX: " << textureX << " textureY + tileSize: " <<  textureY + tileSize << "\n";
+        std::cout << "textureX: " << textureX << " textureY + tileSize: " <<  textureY + tileSize << "\n";
         //new row
         if(actualTileElementID % mapTileWidth == (mapTileWidth - 1)) row++;
  
