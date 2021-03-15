@@ -1,11 +1,10 @@
 #include "Animation.hpp"
+#include <SFML/Graphics/Color.hpp>
 
 Animation::Animation() :
     m_progres(0),
     m_currentFrameIndex(0)
-{
-    std::cout << "Animaton constructor\n";
-}
+{}
 
 Animation::~Animation() {}
 
@@ -13,21 +12,27 @@ void Animation::addFrame(const Frame &fr){
     m_frames.emplace_back(fr);
 }
 
-void Animation::update(float deltaTime){
+bool Animation::update(float deltaTime){
     
-    //std::cout << "index: " << m_currentFrameIndex << "\n";
-
     if(m_progres > m_frames[m_currentFrameIndex].duration){
         m_currentFrameIndex++;
 
         if(m_currentFrameIndex > m_frames.size()-1)
             m_currentFrameIndex = 0;
 
-        //m_player.setTexture(m_frames[m_currentFrameIndex].color);
         m_progres = 0;
-
-        std::cout << "Color update\n";
+        return true;
     }
 
     m_progres += deltaTime;
+    return false;
+}
+
+void Animation::reset(){
+    m_currentFrameIndex = 0;
+    m_progres = 0;
+}
+
+sf::Color Animation::getColor() const{
+    return m_frames[m_currentFrameIndex].color;
 }

@@ -4,9 +4,8 @@
 
 #include <iostream>
 
-#include "animation/Animation.hpp"
+#include "animation/PlayerAnimation.hpp"
 
-//#define FIXED_TIME_TEST
 
 class Player : public sf::Drawable
 {
@@ -18,13 +17,7 @@ class Player : public sf::Drawable
     //by default it`s {0, 0}
     sf::Vector2f m_moveVector;
 
-    Animation m_anime;
-
-    #ifdef FIXED_TIME_TEST
-        sf::Clock timer;
-    #endif
-
-    void aniamtionInit();
+    PlayerAnimation m_anime;
 
 public:
     Player(const int x, const int y);
