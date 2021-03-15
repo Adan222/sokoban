@@ -1,5 +1,4 @@
 #include "MainMenuState.hpp"
-#include <chrono>
 
 namespace State {
 
@@ -16,7 +15,7 @@ void MainMenuState::handleEvent(sf::Event e) {
     if(e.type == sf::Event::KeyPressed){
         switch (e.key.code) {
             case sf::Keyboard::Escape:
-                m_Game.popState();
+                m_game.popState();
                 break;
             default:
                 break;

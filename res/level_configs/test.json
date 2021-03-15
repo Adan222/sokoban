@@ -2,7 +2,7 @@
     "map" : {
         "width" : 8, 
         "tile_atlas" : {
-            "path" : "../src/level_configs/tile_atlas.png",
+            "path" : "tile_atlas.png",
             "tile_size": 32,
             "columns" : 16,
             "rows" : 1,

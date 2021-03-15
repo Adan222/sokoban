@@ -1,31 +1,62 @@
-#include <cstddef>
-#include "SFML/System/Vector2.hpp"
-
 #include "Game.hpp"
-#include "states/MainMenuState.hpp"
+#include "SFML/System/Time.hpp"
+#include <iostream>
 
 Game::Game() :
-    m_window(sf::VideoMode{800, 600}, "Sokoban:d")
+    m_window(sf::VideoMode{800, 600}, "Sokoban:d"),
+    m_fps(getWindowWidth())
 {    
-    m_window.setFramerateLimit(60);
-    m_window_size = m_window.getSize();
+   m_window.setFramerateLimit(60);
 }
 
 void Game::run() {
     pushState(std::make_unique<State::PlayingState>(*this));
 
+    // ticks per seconds
+    sf::Time fpc = sf::seconds(1.0 / 30.0f);
+
+    sf::Clock clock;
+
+    sf::Time lastTime = sf::Time::Zero;
+    sf::Time lag = sf::Time::Zero;
+
     while (m_window.isOpen() && !m_states.empty()) {
         auto &state = getCurrentState();
-         
+
+        //Time
+        sf::Time currTime = clock.getElapsedTime();
+        sf::Time elapsed = currTime - lastTime;
+        lastTime += elapsed;
+        lag += elapsed;
+
+        //Event
+        handleEvent();
+
+        //30: 6.66148
+        //60: 6.65947
+        
+        //Fixed time update
+            while(lag > fpc){
+                lag -= fpc;
+                state.update(lag.asSeconds());
+            }
+
+
+        //Update
+        state.update(elapsed.asSeconds());
+        m_fps.update(elapsed.asSeconds());
+                
+        //Draw
         m_window.clear();
 
         state.draw(m_window);
+        m_window.draw(m_fps);
+
         m_window.display();
 
-        handleEvent();
+        lag = sf::Time::Zero;
     }
 }
-
 
 State::State& Game::getCurrentState() const {
     return *(m_states.back());
@@ -60,17 +91,15 @@ void Game::popState() {
 }
 
 sf::Vector2u Game::getWindowSize() const {
-    return m_window_size;
+    return m_window.getSize();
 }
 
 int Game::getWindowWidth() const {
-    return m_window_size.x;
+    return m_window.getSize().x;
 }
 
 int Game::getWindowHeight() const {
-    return m_window_size.y;
+    return m_window.getSize().y;
 }
 
-Game::~Game() {
-
-}
+Game::~Game() {}

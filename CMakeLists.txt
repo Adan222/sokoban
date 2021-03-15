@@ -20,6 +20,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/src")
 #json lib
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/lib/linux/jsonlib/")
 
+configure_file("${CMAKE_SOURCE_DIR}/config.hpp.in" "${CMAKE_SOURCE_DIR}/src/config.hpp")
+
 #SFML LINUX
 if(UNIX AND NOT APPLE)
     message(STATUS "Running on Linux")

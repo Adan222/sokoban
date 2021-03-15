@@ -1,15 +1,15 @@
 #include "Map.hpp"
-#include <exception>
-#include <iostream>
-#include <stdexcept>
 
 Map::Map () {
    
 }
 
 bool Map::createMap(const json &levelConfig) {
+    std::string graphicsPath = 
+    std::string(GPAPHICS_DIR) + levelConfig.at("map").at("tile_atlas").at("path").get<std::string>();
+
     //try to open texture file
-    if(!m_tileAtlas.loadFromFile(levelConfig.at("map").at("tile_atlas").at("path").get<std::string>()))
+    if(!m_tileAtlas.loadFromFile(graphicsPath))
         throw std::runtime_error("Can`t open file" + levelConfig.at("map").at("tile_atlas").at("path").get<std::string>());
     
     

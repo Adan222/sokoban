@@ -1,0 +1,21 @@
+//This file will generate config.hpp file
+//when you will use cmake
+
+//path to sources files
+#define SOURCE_DIR "@CMAKE_SOURCE_DIR@"
+
+//path to binary and executable
+//(probably useless)
+#define BINARY_DIR "@CMAKE_BINARY_DIR@"
+
+//path to all resources
+#define RESOURCES_DIR "@CMAKE_SOURCE_DIR@/res/"
+
+//path to font
+#define FONT_DIR "@CMAKE_SOURCE_DIR@/res/font/"
+
+//path to graphics
+#define GPAPHICS_DIR "@CMAKE_SOURCE_DIR@/res/graphics/"
+
+//path to level config
+#define LEVEL_CONFIG_DIR "@CMAKE_SOURCE_DIR@/res/level_configs/"
