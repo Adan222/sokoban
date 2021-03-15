@@ -1,14 +1,18 @@
 #pragma once
 
 #include <iostream>
+#include <chrono>
+#include <exception>
+
 
 #include "SFML/Graphics/Font.hpp"
 #include "SFML/Graphics/Text.hpp"
 #include "State.hpp"
 #include "Game.hpp"
 #include "Level.hpp"
-#include "objects/Player.hpp"
-#include "config.hpp"
+#include "entities/Player.hpp"
+
+
 
 namespace State {
 
@@ -29,5 +33,5 @@ public:
     void resume() override;
 };
 
-}
+} //namespace State
 

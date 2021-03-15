@@ -1,43 +1,37 @@
-cmake_policy(SET CMP0079 NEW)
-cmake_minimum_required(VERSION 3.13)
+#this project is using vcpkg as dependecy manager please use build.sh for building
+cmake_minimum_required(VERSION 3.15)
 
 project(sokoban VERSION 0.0.0
                 DESCRIPTION "Sokoban - Motorola Science Cup"
                 LANGUAGES CXX)
 
+
+include(${CMAKE_SOURCE_DIR}/cmake/prevent_in_source_builds.cmake)
+#include(${CMAKE_SOURCE_DIR}/cmake/cache.cmake)
+
+add_library(project_warnings INTERFACE)
+include(${CMAKE_SOURCE_DIR}/cmake/compiler_warings.cmake)
+set_project_warnings(project_warnings)
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
+
 #c++17 standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+add_compile_options(-std=c++17)
 
-#clangd specific
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(src)
 
-#include path to src folder
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/src")
+find_package(nlohmann_json CONFIG REQUIRED)
+find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
+find_package(ImGui-SFML CONFIG REQUIRED)
 
-#json lib
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/lib/linux/jsonlib/")
-
-configure_file("${CMAKE_SOURCE_DIR}/config.hpp.in" "${CMAKE_SOURCE_DIR}/src/config.hpp")
-
-#SFML LINUX
-if(UNIX AND NOT APPLE)
-    message(STATUS "Running on Linux")
-
-    #include files for SFML lib
-    target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/lib/linux/SFML-2.5.1/include")
-
-    #include standard c++ lib, needed for clang
-    target_include_directories(${PROJECT_NAME} PUBLIC "/usr/include/c++/10.2.0")
-
-    #link SFML lib
-    file(GLOB SFML_LIB "${CMAKE_SOURCE_DIR}/lib/linux/SFML-2.5.1/lib/*.so")
-    target_link_libraries(${PROJECT_NAME} "${SFML_LIB}")
-endif() #UNIX AND NOT APPLE
-
-#set Debug build type
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
-endif()
+target_link_libraries(sokoban PRIVATE nlohmann_json nlohmann_json::nlohmann_json)
+target_link_libraries(sokoban PRIVATE sfml-system sfml-graphics sfml-window)
+target_link_libraries(sokoban PRIVATE ImGui-SFML::ImGui-SFML)
+target_link_libraries(sokoban PRIVATE imgui::imgui)

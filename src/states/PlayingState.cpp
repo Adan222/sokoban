@@ -21,12 +21,11 @@ void PlayingState::handleEvent(sf::Event e) {
         if(e.key.code == sf::Keyboard::Escape)
             m_game.pushState(std::make_unique<MainMenuState>(m_game));
     }
-
 }
 
 void PlayingState::update(float deltaTime){
+    m_player.input();
     m_player.update(deltaTime);
-    m_player.input(deltaTime);
 }
 
 void PlayingState::pause() {

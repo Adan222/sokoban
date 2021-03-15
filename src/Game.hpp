@@ -5,12 +5,17 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#include "imgui.h"
+#include "imgui-SFML.h"
 
 #include "config.hpp"
 #include "fpsCounter.hpp"
 #include "states/State.hpp"
 #include "states/PlayingState.hpp"
 #include "states/MainMenuState.hpp"
+#include "states/LevelEditorState.hpp"
 
 class Game {
 private:
@@ -26,12 +31,6 @@ public:
     Game();
     ~Game();
 
-    
-    //pushState teraz pauzuje poprzedniego stejta
-    //pauzuje bo nie usuwa xd tzn wiemy ze bedzie jescze istniec 
-    //np jak menu chcemy wlaczyc 
-
-    //popState wznawia stajeta chyba ze jest ostatni 
 
     void pushState(std::unique_ptr<State::State> state);
     void popState();

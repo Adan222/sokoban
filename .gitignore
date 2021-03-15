@@ -1,5 +1,12 @@
 .cache/
-build/
+build/*
+!build/sokoban.exe
+!build/sokoban
+temp.txt
+CMakeFiles/
+src/CMakeFiles/
+Makefile
+vcpkg/
 .vscode/
 compile_commands.json
 compile.sh

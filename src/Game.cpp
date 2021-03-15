@@ -6,10 +6,14 @@ Game::Game() :
     m_window(sf::VideoMode{800, 600}, "Sokoban:d"),
     m_fps(getWindowWidth())
 {    
-   m_window.setFramerateLimit(60);
+    m_window.setFramerateLimit(60);
+    ImGui::SFML::Init(m_window);
+    m_window.setFramerateLimit(60);
 }
 
 void Game::run() {
+    sf::Clock deltaClock;
+   
     pushState(std::make_unique<State::PlayingState>(*this));
 
     // ticks per seconds
@@ -31,15 +35,12 @@ void Game::run() {
 
         //Event
         handleEvent();
-
-        //30: 6.66148
-        //60: 6.65947
         
         //Fixed time update
-            while(lag > fpc){
-                lag -= fpc;
-                state.update(lag.asSeconds());
-            }
+        while(lag > fpc){
+            lag -= fpc;
+            state.update(lag.asSeconds());
+        }
 
 
         //Update
@@ -47,15 +48,19 @@ void Game::run() {
         m_fps.update(elapsed.asSeconds());
                 
         //Draw
-        m_window.clear();
+        m_window.resetGLStates(); //temporary, needed only if we dont draw SFML things
 
+        ImGui::SFML::Update(m_window, deltaClock.restart());
+               
+        
+        m_window.clear();
         state.draw(m_window);
         m_window.draw(m_fps);
-
+        ImGui::SFML::Render(m_window);
         m_window.display();
-
-        lag = sf::Time::Zero;
     }
+
+    ImGui::SFML::Shutdown();
 }
 
 State::State& Game::getCurrentState() const {
@@ -65,7 +70,7 @@ State::State& Game::getCurrentState() const {
 void Game::handleEvent() {
     sf::Event e;
     while(m_window.pollEvent(e)) {
-        if(!m_states.empty()) { // inaczej zrzut pamieci
+        if(!m_states.empty()) { // needed, othwerwise segmentation fault
             getCurrentState().handleEvent(e);
         }
         switch(e.type) {
@@ -81,6 +86,7 @@ void Game::handleEvent() {
 void Game::pushState(std::unique_ptr<State::State>state) {
     if(!m_states.empty())
         getCurrentState().pause();
+        
     m_states.push_back(std::move(state));
 }
 

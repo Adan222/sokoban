@@ -1,8 +1,4 @@
-#set executable path to build folder
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
-
-#file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS *.cpp *.hpp)
-#GLOB/GLOB_RECURSE is bad practice if project is maintained by more than one person
 
 SET (SOURCE_FILES main.cpp
             Game.hpp
@@ -14,15 +10,18 @@ SET (SOURCE_FILES main.cpp
             states/PlayingState.cpp
             states/MainMenuState.hpp
             states/MainMenuState.cpp
+            states/LevelEditorState.hpp
+            states/LevelEditorState.cpp
             Level.hpp
             Level.cpp
-            objects/Player.hpp
-            objects/Player.cpp
-            objects/animation/Animation.hpp
-            objects/animation/Animation.cpp
+            LevelConfig.hpp
+            LevelConfig.cpp
+            entities/Player.hpp
+            entities/Player.cpp
             map/Map.hpp
             map/Map.cpp
     )
-
-
+    
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/src)
