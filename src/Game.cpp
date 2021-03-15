@@ -15,7 +15,7 @@ Game::Game() :
 void Game::run() {
     sf::Clock deltaClock;
    
-    pushState(std::make_unique<State::PlayingState>(*this));
+    pushState(std::make_unique<State::LevelEditorState>(*this));
 
     m_window.resetGLStates(); //temporary, needed only if we dont draw SFML things
 

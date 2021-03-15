@@ -11,7 +11,6 @@
 #include "imgui-SFML.h"
 
 
-
 #include "states/State.hpp"
 #include "states/PlayingState.hpp"
 #include "states/MainMenuState.hpp"

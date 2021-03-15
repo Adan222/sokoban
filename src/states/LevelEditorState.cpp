@@ -4,8 +4,14 @@
 namespace State {
 
 LevelEditorState::LevelEditorState(Game &game) :  State(game), m_levelConfig("../src/level_configs/default.json") {
-    m_m1.createMap(m_levelConfig.getJSON());
+    m_m1.createMap(m_levelConfig);
+    initValuesFromJSON();
 }
+
+void LevelEditorState::initValuesFromJSON() {
+   
+}
+
 
 void LevelEditorState::draw(sf::RenderTarget &renderer) {
     tileSelectionBox();
@@ -14,8 +20,7 @@ void LevelEditorState::draw(sf::RenderTarget &renderer) {
 
 void LevelEditorState::tileSelectionBox() {
     static int im_tileSize = 64;
-    static std::string im_filepath = "";
-
+    static char *im_atlasFilePath[128];
 
     ImGui::Begin("Lista kafelków", NULL, ImGuiWindowFlags_MenuBar);
     if (ImGui::BeginMenuBar()) {
@@ -27,9 +32,11 @@ void LevelEditorState::tileSelectionBox() {
     ImGui::EndMenuBar();
     
     uint16_t im_previousTileSize = im_tileSize;
-    ImGui::InputInt("Wielkosc kafelkow w atlasie", &im_tileSize, 32, 64, ImGuiInputTextFlags_ReadOnly);
+    ImGui::InputInt("Wielkosc kafelkow w atlasie", &im_tileSize, 32, 64);
     if(im_tileSize < 1 || im_tileSize > 256 || im_tileSize % 32 != 0) im_tileSize = im_previousTileSize; //checking if tile size provided by user is multiple of 32 etc.
     atlasTileSize = im_tileSize;
+    //ImGui::InputText("Sciezka do atlasu kafelkow: ", im_atlasFilePath, 128);
+    //atlasFilePath = im_atlasFilePath;
 
 
     ImGui::End();
