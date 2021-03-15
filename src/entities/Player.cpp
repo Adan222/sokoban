@@ -1,5 +1,4 @@
 #include "Player.hpp"
-#include <cstdlib>
 
 Player::Player(const int x, const int y) : 
     m_PlayerShape(30.0f),
@@ -8,10 +7,12 @@ Player::Player(const int x, const int y) :
     ,timer()
     #endif
 {
-    m_PlayerShape.setFillColor(sf::Color::Red);
+    m_PlayerShape.setFillColor(sf::Color::Yellow);
     m_PlayerShape.setPosition(x, y);
     //origin to center
     m_PlayerShape.setOrigin(m_radius, m_radius);
+
+    aniamtionInit();
 }
 
 
@@ -62,4 +63,12 @@ void Player::update(float deltaTime){
         m_moveVector.x = 0;
 
     m_PlayerShape.move(m_moveVector * deltaTime);
+
+    m_anime.update(deltaTime);
+}
+
+void Player::aniamtionInit(){
+    m_anime.addFrame({sf::Color::Red, 2.0f});
+    m_anime.addFrame({sf::Color::Green, 0.5f});
+    m_anime.addFrame({sf::Color::Blue, 0.5f});
 }

@@ -18,6 +18,8 @@ SET (SOURCE_FILES main.cpp
             LevelConfig.cpp
             entities/Player.hpp
             entities/Player.cpp
+            entities/animation/Animation.hpp
+            entities/animation/Animation.cpp
             map/Map.hpp
             map/Map.cpp
     )
