@@ -7,7 +7,7 @@ project(sokoban VERSION 0.0.0
 
 
 include(${CMAKE_SOURCE_DIR}/cmake/prevent_in_source_builds.cmake)
-#include(${CMAKE_SOURCE_DIR}/cmake/cache.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/cache.cmake)
 
 add_library(project_warnings INTERFACE)
 include(${CMAKE_SOURCE_DIR}/cmake/compiler_warings.cmake)
@@ -37,4 +37,3 @@ target_link_libraries(sokoban PRIVATE ImGui-SFML::ImGui-SFML)
 target_link_libraries(sokoban PRIVATE imgui::imgui)
 
 configure_file(${CMAKE_SOURCE_DIR}/config.hpp.in ${CMAKE_SOURCE_DIR}/src/config.hpp)
-

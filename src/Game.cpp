@@ -3,18 +3,17 @@
 #include <iostream>
 
 Game::Game() :
-    m_window(sf::VideoMode{800, 600}, "Sokoban:d"),
+    m_window(sf::VideoMode{1024, 768}, "Sokoban:d"),
     m_fps(getWindowWidth())
 {    
     m_window.setFramerateLimit(60);
     ImGui::SFML::Init(m_window);
-    m_window.setFramerateLimit(60);
 }
 
 void Game::run() {
     sf::Clock deltaClock;
    
-    pushState(std::make_unique<State::PlayingState>(*this));
+    pushState(std::make_unique<State::LevelEditorState>(*this));
 
     // ticks per seconds
     sf::Time fpc = sf::seconds(1.0 / 30.0f);

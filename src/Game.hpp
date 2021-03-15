@@ -11,7 +11,7 @@
 #include "imgui-SFML.h"
 
 #include "config.hpp"
-#include "fpsCounter.hpp"
+#include "gui/FpsCounter.hpp"
 #include "states/State.hpp"
 #include "states/PlayingState.hpp"
 #include "states/MainMenuState.hpp"
@@ -25,7 +25,7 @@ private:
     State::State& getCurrentState() const;
     void handleEvent();
 
-    fpsCounter m_fps;
+    FpsCounter m_fps;
     
 public:
     Game();

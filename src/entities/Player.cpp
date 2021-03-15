@@ -47,7 +47,7 @@ void Player::input(){
     else if(sf::Keyboard::isKeyPressed(Key::D))
         m_moveVector.x = m_maxSpeed;  
     
-    //if nothink is pressed - reset move vector
+    //if nothing is pressed - reset move vector
     else{
         m_moveVector.x = 0;
         m_moveVector.y = 0;

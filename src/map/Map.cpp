@@ -1,30 +1,22 @@
 #include "Map.hpp"
 
+
+
 Map::Map () {
    
 }
 
-bool Map::createMap(const json &levelConfig) {
-    std::string graphicsPath = 
-    std::string(GPAPHICS_DIR) + levelConfig.at("map").at("tile_atlas").at("path").get<std::string>();
-
-    //try to open texture file
-    if(!m_tileAtlas.loadFromFile(graphicsPath))
-        throw std::runtime_error("Can`t open file" + levelConfig.at("map").at("tile_atlas").at("path").get<std::string>());
+bool Map::createMap(const LevelConfig &levelConfig) {
+    using std::cout;
+    //try to open texture(tile atlas) file
+    if(!m_tileAtlas.loadFromFile(std::string(GPAPHICS_DIR) + levelConfig.getTileAtlasPath().generic_string()))
+        throw std::runtime_error("Can`t open file: " + std::string(GPAPHICS_DIR) + levelConfig.getTileAtlasPath().generic_string());
     
 
-    auto mapConfig = levelConfig.at("map");
-    auto tileAtlas = mapConfig.at("tile_atlas");
-
-    auto tileVisualGrid = tileAtlas["visual_grid"]; //array with tile ids, using [] because those don't throw error if data is empty/null
-    
-    //better to use uint32_t cus of https://stackoverflow.com/questions/14911813/what-is-the-difference-between-an-uint32-and-an-unsigned-int-in-c
-    const uint32_t mapTileWidth = mapConfig.at("width").get<int>(); //amount of tiles per row
-    const uint32_t mapTileHeight = ceil((float)tileVisualGrid.size() / (float)mapTileWidth); //calculating amount of rows
-
-    //const uint32_t tileAtlasRows = tileAtlas.at("rows").get<int>(); //tile map (.png) rows
-    const uint32_t tileAtlasCols = tileAtlas.at("columns").get<int>(); //tile map (.png) cols
-    const uint32_t tileSize = tileAtlas.at("tile_size").get<int>(); 
+    auto tileVisualGrid = levelConfig.getTileAtlasVisualGrid(); 
+    const uint32_t mapTileWidth = levelConfig.getMapWidth();
+    const uint32_t tileAtlasCols = levelConfig.getTileAtlasColumns(); 
+    const uint32_t tileSize = levelConfig.getTileAtlasTileSize(); 
 
     //tiles are quads
     m_tiles.setPrimitiveType(sf::Quads);
