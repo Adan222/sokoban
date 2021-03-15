@@ -3,7 +3,7 @@
 
 namespace State {
 
-LevelEditorState::LevelEditorState(Game &game) :  State(game), m_levelConfig("../src/level_configs/default.json") {
+LevelEditorState::LevelEditorState(Game &game) :  State(game), m_levelConfig(std::string(LEVEL_CONFIG_DIR) + "default.json") {
     m_m1.createMap(m_levelConfig);
     initValuesFromJSON();
 }

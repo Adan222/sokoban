@@ -3,7 +3,7 @@
         "name" : "Default",
         "width" : 16, 
         "tile_atlas" : {
-            "path" : "../src/level_configs/tile_atlas.png",
+            "path" : "tile_atlas.png",
             "tile_size": 64,
             "columns" : 16,
             "visual_grid" : []

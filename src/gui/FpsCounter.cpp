@@ -1,6 +1,6 @@
-#include "fpsCounter.hpp"
+#include "FpsCounter.hpp"
 
-fpsCounter::fpsCounter(int windowWidth){
+FpsCounter::FpsCounter(int windowWidth){
 
     const std::string arialPath = std::string(FONT_DIR) + "arial.ttf";
     //This will display error message
@@ -18,13 +18,13 @@ fpsCounter::fpsCounter(int windowWidth){
     m_fpsText.setFillColor(sf::Color::White);
 }
 
-fpsCounter::~fpsCounter() {}
+FpsCounter::~FpsCounter() {}
 
-void fpsCounter::draw(sf::RenderTarget& renderer, sf::RenderStates states) const{
+void FpsCounter::draw(sf::RenderTarget& renderer, sf::RenderStates states) const{
     renderer.draw(m_fpsText);
 }
 
-void fpsCounter::update(float deltaTime){
+void FpsCounter::update(float deltaTime){
 
     //set displayed text to counted fps
     m_fpsText.setString(std::to_string(

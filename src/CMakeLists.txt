@@ -3,8 +3,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 SET (SOURCE_FILES main.cpp
             Game.hpp
             Game.cpp
-            fpsCounter.hpp
-            fpsCounter.cpp
+            gui/FpsCounter.hpp
+            gui/FpsCounter.cpp
             states/State.hpp
             states/PlayingState.hpp
             states/PlayingState.cpp

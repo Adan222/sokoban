@@ -3,12 +3,11 @@
 #include <iostream>
 
 Game::Game() :
-    m_window(sf::VideoMode{800, 600}, "Sokoban:d"),
+    m_window(sf::VideoMode{1024, 768}, "Sokoban:d"),
     m_fps(getWindowWidth())
 {    
     m_window.setFramerateLimit(60);
     ImGui::SFML::Init(m_window);
-    m_window.setFramerateLimit(60);
 }
 
 void Game::run() {

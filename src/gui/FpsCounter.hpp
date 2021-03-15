@@ -6,14 +6,14 @@
 
 #include "config.hpp"
 
-class fpsCounter : public sf::Drawable{
+class FpsCounter : public sf::Drawable{
     private:
         sf::Font m_arial;
         sf::Text m_fpsText;
 
     public:
-        fpsCounter(int windowWidth);
-        ~fpsCounter();
+        FpsCounter(int windowWidth);
+        ~FpsCounter();
 
         void draw(sf::RenderTarget& renderer, sf::RenderStates states) const override;
         void update(float deltaTime);
