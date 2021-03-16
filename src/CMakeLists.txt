@@ -20,6 +20,8 @@ SET (SOURCE_FILES main.cpp
             entities/Player.cpp
             entities/animation/Animation.hpp
             entities/animation/Animation.cpp
+            entities/animation/PlayerAnimation.hpp
+            entities/animation/PlayerAnimation.cpp
             map/Map.hpp
             map/Map.cpp
     )

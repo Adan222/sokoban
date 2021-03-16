@@ -1,6 +1,4 @@
 #include "Game.hpp"
-#include "SFML/System/Time.hpp"
-#include <iostream>
 
 Game::Game() :
     m_window(sf::VideoMode{1024, 768}, "Sokoban:d"),
