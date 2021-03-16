@@ -37,6 +37,6 @@ public:
     void run();
 
     sf::Vector2u getWindowSize() const;
-    int getWindowWidth() const;
-    int getWindowHeight() const;
+    uint32_t getWindowWidth() const;
+    uint32_t getWindowHeight() const;
 };

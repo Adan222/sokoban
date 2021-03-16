@@ -99,11 +99,11 @@ sf::Vector2u Game::getWindowSize() const {
     return m_window.getSize();
 }
 
-int Game::getWindowWidth() const {
+uint32_t Game::getWindowWidth() const {
     return m_window.getSize().x;
 }
 
-int Game::getWindowHeight() const {
+uint32_t Game::getWindowHeight() const {
     return m_window.getSize().y;
 }
 

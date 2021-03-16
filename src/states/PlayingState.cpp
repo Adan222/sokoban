@@ -4,7 +4,7 @@ namespace State {
 
 PlayingState::PlayingState(Game& game) : State(game),
     m_player(game.getWindowWidth() / 2, game.getWindowHeight() / 2),
-    m_level(std::string(LEVEL_CONFIG_DIR) + "test.json")
+    m_level("../res/level_configs/test.json")
 {
 
 }

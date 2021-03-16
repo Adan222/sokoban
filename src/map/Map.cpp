@@ -9,8 +9,8 @@ Map::Map () {
 bool Map::createMap(const LevelConfig &levelConfig) {
     using std::cout;
     //try to open texture(tile atlas) file
-    if(!m_tileAtlas.loadFromFile(std::string(GPAPHICS_DIR) + levelConfig.getTileAtlasPath().generic_string()))
-        throw std::runtime_error("Can`t open file: " + std::string(GPAPHICS_DIR) + levelConfig.getTileAtlasPath().generic_string());
+    if(!m_tileAtlas.loadFromFile("../res/graphics/" + levelConfig.getTileAtlasPath().generic_string()))
+        throw std::runtime_error("Can`t open file: ../res/graphics/" + levelConfig.getTileAtlasPath().generic_string());
     
 
     auto tileVisualGrid = levelConfig.getTileAtlasVisualGrid(); 
