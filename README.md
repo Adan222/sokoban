@@ -1,5 +1,8 @@
+# Sokoban - Motorola Science Cup
+
 In build folder you will find prebuilt windows-x64 and linux-x64 binares.
-# Building
+
+## Building
 ```sh
 git clone https://github.com/Adan222/sokoban
 cd sokoban
@@ -11,7 +14,7 @@ Vcpkg requires powershell. See https://docs.microsoft.com/en-us/powershell/scrip
 
 
 
-For building Linux binares
+### For building Linux binares
 ```sh
 ./vcpkg install sfml imgui imgui-sfml nlohmann-json
 cd ..
@@ -19,7 +22,8 @@ mkdir -p build && cd build
 cmake .. -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake
 make
 ```
-For cross building to Windows
+### For cross building to Windows 
+If any error occures during cmake command, please try rerunning.
 ```sh
 ./vcpkg install sfml imgui imgui-sfml nlohmann-json --triplet x64-mingw-static
 cd ..

@@ -35,5 +35,6 @@ target_link_libraries(sokoban PRIVATE nlohmann_json nlohmann_json::nlohmann_json
 target_link_libraries(sokoban PRIVATE sfml-system sfml-graphics sfml-window)
 target_link_libraries(sokoban PRIVATE ImGui-SFML::ImGui-SFML)
 target_link_libraries(sokoban PRIVATE imgui::imgui)
+target_link_libraries(sokoban PRIVATE stdc++fs)
 
 configure_file(${CMAKE_SOURCE_DIR}/config.hpp.in ${CMAKE_SOURCE_DIR}/src/config.hpp)
