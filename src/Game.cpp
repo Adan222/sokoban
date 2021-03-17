@@ -12,7 +12,7 @@ void Game::run() {
     //----------------------
     //TODO:
     // - move imgui to LevelEditorState 
-    // - split Map function createMap
+    // - split Map createMap function
     //----------------------
 
 

@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 
-#include "config.hpp"
 
 class FpsCounter : public sf::Drawable{
     private:

@@ -11,6 +11,9 @@ void MainMenuState::draw(sf::RenderTarget &renderer) {
     renderer.draw(m_shape);
 }
 
+void MainMenuState::update(float deltaTime) {
+
+}
 void MainMenuState::handleEvent(sf::Event e) {
     if(e.type == sf::Event::KeyPressed){
         switch (e.key.code) {

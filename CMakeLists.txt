@@ -18,9 +18,9 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 #c++17 standard
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-add_compile_options(-std=c++17)
+#add_compile_options(-std=c++17)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -37,4 +37,3 @@ target_link_libraries(sokoban PRIVATE ImGui-SFML::ImGui-SFML)
 target_link_libraries(sokoban PRIVATE imgui::imgui)
 target_link_libraries(sokoban PRIVATE stdc++fs)
 
-configure_file(${CMAKE_SOURCE_DIR}/config.hpp.in ${CMAKE_SOURCE_DIR}/src/config.hpp)

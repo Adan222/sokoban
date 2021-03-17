@@ -1,5 +1,5 @@
 #include "PlayerGuide.hpp"
-#include "entities/Player.hpp"
+#include "../Player.hpp"
 
 Guide::Guide(const sf::Vector2f pos) :
     m_pos(pos)

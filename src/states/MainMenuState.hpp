@@ -18,6 +18,7 @@ public:
     MainMenuState(Game& game);
     ~MainMenuState();
 
+    void update(float deltaTime) override;
     void handleEvent(sf::Event e) override;
     void draw(sf::RenderTarget& renderer) override;
 };

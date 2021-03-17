@@ -20,7 +20,7 @@ bool Map::createMap(const LevelConfig &levelConfig) {
     auto tileVisualGrid = levelConfig.getTileAtlasVisualGrid(); 
     const uint32_t mapTileWidth = levelConfig.getMapWidth();
     const uint32_t tileAtlasCols = levelConfig.getTileAtlasColumns(); 
-    const uint32_t tileSize = levelConfig.getTileAtlasTileSize().x; 
+    const uint32_t tileSize = levelConfig.getTileAtlasTileSize(); 
 
     //tiles are quads
     m_tiles.setPrimitiveType(sf::Quads);

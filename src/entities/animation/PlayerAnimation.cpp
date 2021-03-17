@@ -1,5 +1,5 @@
 #include "PlayerAnimation.hpp"
-#include "entities/Player.hpp"
+#include "../Player.hpp"
 
 PlayerAnimation::PlayerAnimation(Player &player) :
     m_player(player),

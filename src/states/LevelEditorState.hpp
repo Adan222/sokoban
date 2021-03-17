@@ -8,34 +8,37 @@
 #include <SFML/Graphics.hpp>
 
 #include "State.hpp"
-#include "LevelConfig.hpp"
-#include "map/Map.hpp"
-#include "Game.hpp"
+#include "../LevelConfig.hpp"
+#include "../map/Map.hpp"
+#include "../Game.hpp"
 
 namespace State {
 
 
 class LevelEditorState : public State {
     int m_atlasTileSize;
+    uint32_t m_tileAtlasColumns;
     std::filesystem::path m_atlasFilePath;
+    sf::Vector2u m_tileAtlasFileTxtSize;
     sf::Texture m_tileAtlasTexture;
-    
+    sf::Sprite m_selectedTile;
     std::vector<sf::Sprite> m_tilesRectList;
 
     LevelConfig m_levelConfig;
     Map m_m1;
 
+    void mainPanel();
     void tileSelectionBox();
     void setUpTileRectList();
-    void initValuesFromJSON();
+    void tileSelected(const sf::Sprite& ts);
 public:
-    
     LevelEditorState(Game& game);
     ~LevelEditorState();
 
     void handleEvent(sf::Event e) override;
     void draw(sf::RenderTarget& renderer) override;
-    
+    void update(float deltaTime) override;
+
     void pause() override;
     void resume() override;
 };
