@@ -4,15 +4,11 @@
 
 #include "Animation.hpp"
 
+//Forward declaration
 class Player;
+enum DIRECTION : int;
 
-enum AniamtionType{
-    MOVE_UP,
-    MOVE_RIGHT,
-    MOVE_DOWN,
-    MOVE_LEFT,
-    WAIT
-};
+typedef DIRECTION AniamtionType;
 
 class PlayerAnimation{
     private:
@@ -20,13 +16,6 @@ class PlayerAnimation{
         Player &m_player;
 
         AniamtionType m_currentAnimation;
-
-        /*
-        * Last aniamtion will be used to
-        * determine directon which will be set
-        * when player will stand in place
-        */
-        AniamtionType m_lastAniamtion;
 
         std::array<Animation, 5> m_animations;
 

@@ -28,9 +28,6 @@ public:
     void draw(sf::RenderTarget& renderer) override;
 
     void update(float deltaTime) override;
-
-    void pause() override;
-    void resume() override;
 };
 
 } //namespace State

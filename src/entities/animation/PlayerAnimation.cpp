@@ -3,8 +3,7 @@
 
 PlayerAnimation::PlayerAnimation(Player &player) :
     m_player(player),
-    m_currentAnimation(WAIT),
-    m_lastAniamtion(WAIT)
+    m_currentAnimation(NONE)
 {
     initAniamtion();
 }
@@ -15,12 +14,12 @@ void PlayerAnimation::initAniamtion(){
 
     int size = m_animations.size()-1;
     for(int i = 0; i < size; i++){
-        m_animations[i].addFrame({sf::Color::Red, 1});
-        m_animations[i].addFrame({sf::Color::Green, 1});
-        m_animations[i].addFrame({sf::Color::Blue, 1});
+        m_animations[i].addFrame({sf::Color::Red, 0.2});
+        m_animations[i].addFrame({sf::Color::Green, 0.2});
+        m_animations[i].addFrame({sf::Color::Blue, 0.2});
     }
 
-    m_animations[WAIT].addFrame({sf::Color::White, 1});
+    m_animations[NONE].addFrame({sf::Color::White, 0.2});
 }
 
 void PlayerAnimation::update(float deltaTime){
@@ -36,9 +35,6 @@ void PlayerAnimation::changeAniamtion(AniamtionType an){
     //before change, restart current aniamtion
     /* to think about */
     m_animations[m_currentAnimation].reset();
-
-    //swap current aniamtion to last animation
-    m_lastAniamtion = m_currentAnimation;
 
     //and change
     m_currentAnimation = an;

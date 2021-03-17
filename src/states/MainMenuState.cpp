@@ -23,14 +23,6 @@ void MainMenuState::handleEvent(sf::Event e) {
     }
 }
 
-void MainMenuState::pause() {
-
-}
-
-void MainMenuState::resume(){
-    
-}
-
 MainMenuState::~MainMenuState(){
 
 }
