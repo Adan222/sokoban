@@ -20,9 +20,6 @@ public:
 
     void handleEvent(sf::Event e) override;
     void draw(sf::RenderTarget& renderer) override;
-    
-    void pause() override;
-    void resume() override;
 };
 
 

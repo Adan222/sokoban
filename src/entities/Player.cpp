@@ -1,9 +1,13 @@
 #include "Player.hpp"
+#include <SFML/Window/Event.hpp>
 
 Player::Player(const int x, const int y) : 
     m_PlayerShape(30.0f),
     m_radius(30.0f),
-    m_anime(*this)
+    m_anime(*this),
+    m_playerGuide(sf::Vector2f(x, y)),
+    m_isMoving(false),
+    m_currentDirection(NONE)
 {
     m_PlayerShape.setFillColor(m_anime.starterAniamtion());
     m_PlayerShape.setPosition(x, y);
@@ -13,6 +17,37 @@ Player::Player(const int x, const int y) :
 
 
 Player::~Player(){}
+
+bool Player::isPlayerWithGuide(DIRECTION d) const{
+
+    float pl_x = m_PlayerShape.getPosition().x;
+    float pl_y = m_PlayerShape.getPosition().y;
+
+    float gu_x = m_playerGuide.getPosition().x;
+    float gu_y = m_playerGuide.getPosition().y;
+
+    switch (d){
+        //I don`t know how it work lmao
+        case UP:    return !(gu_y < pl_y);
+        case LEFT:  return !(gu_x < pl_x);
+        case DOWN:  return !(gu_y > pl_y); 
+        case RIGHT: return !(gu_x > pl_x);
+        case NONE:  return true;
+    }
+    return true;
+}
+
+void Player::resetMoveVector(){
+    m_moveVector.x = 0;
+    m_moveVector.y = 0;
+}
+
+void Player::drawPos() const{
+    std::cout << "player x: " << m_PlayerShape.getPosition().x << "\n";
+    std::cout << "player y: " << m_PlayerShape.getPosition().y << "\n";
+    std::cout << "guide x: " << m_playerGuide.getPosition().x << "\n";
+    std::cout << "guide y: " << m_playerGuide.getPosition().y << "\n";
+}
 
 
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const{
@@ -25,48 +60,50 @@ void Player::setTexture(const sf::Color &col){
 }
 
 
-void Player::input(){
+void Player::handleInput(const sf::Keyboard::Key pressedKey){
     using Key = sf::Keyboard;
 
-    //TODO:
-    // rewrite input, it don`t work fine
-    
-    if(sf::Keyboard::isKeyPressed(Key::W)){
+    if(pressedKey == Key::W){
+        m_currentDirection = UP;
+        m_playerGuide.move(m_currentDirection);
+        m_anime.changeAniamtion(m_currentDirection);
         m_moveVector.y = -m_maxSpeed;
-        m_anime.changeAniamtion(MOVE_UP);
     }
-    
-    else if(sf::Keyboard::isKeyPressed(Key::A)){
+
+    if(pressedKey == Key::A){
+        m_currentDirection = LEFT;
+        m_playerGuide.move(m_currentDirection);
+        m_anime.changeAniamtion(m_currentDirection);
         m_moveVector.x = -m_maxSpeed;
-        m_anime.changeAniamtion(MOVE_LEFT);
     }
-    
-    else if(sf::Keyboard::isKeyPressed(Key::S)){
+
+    if(pressedKey == Key::S){
+        m_currentDirection = DOWN;
+        m_playerGuide.move(m_currentDirection);
+        m_anime.changeAniamtion(m_currentDirection);
         m_moveVector.y = m_maxSpeed;
-        m_anime.changeAniamtion(MOVE_DOWN);
     }
-    
-    else if(sf::Keyboard::isKeyPressed(Key::D)){
-        m_moveVector.x = m_maxSpeed;  
-        m_anime.changeAniamtion(MOVE_RIGHT);
+
+    if(pressedKey == Key::D){
+        m_currentDirection = RIGHT;
+        m_playerGuide.move(m_currentDirection);
+        m_anime.changeAniamtion(m_currentDirection);
+        m_moveVector.x = m_maxSpeed;
     }
-    
-    //if nothing is pressed - reset move vector
-    else{
-        m_moveVector.x = 0;
-        m_moveVector.y = 0;
-    }    
+
+    m_isMoving = true;
 }
 
 void Player::update(float deltaTime){
 
-    m_anime.update(deltaTime);
-
-    //This make move only in one direction
-    if(m_moveVector.x > 0 || m_moveVector.x < 0)
-        m_moveVector.y = 0;
-    else if(m_moveVector.y > 0 || m_moveVector.y < 0)
-        m_moveVector.x = 0;
-
-    m_PlayerShape.move(m_moveVector * deltaTime);
+    if(m_isMoving){
+        if(isPlayerWithGuide(m_currentDirection)){
+            resetMoveVector();
+            m_isMoving = false;
+        }
+        else{
+            m_PlayerShape.move(m_moveVector * deltaTime);
+            m_anime.update(deltaTime);
+        }
+    }
 }
