@@ -3,6 +3,9 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <filesystem>
+
+#include <SFML/Graphics.hpp>
 
 #include "State.hpp"
 #include "LevelConfig.hpp"
@@ -13,13 +16,17 @@ namespace State {
 
 
 class LevelEditorState : public State {
-    uint16_t atlasTileSize;
-    std::string atlasFilePath;
+    int m_atlasTileSize;
+    std::filesystem::path m_atlasFilePath;
+    sf::Texture m_tileAtlasTexture;
     
-    void tileSelectionBox();
- 
+    std::vector<sf::Sprite> m_tilesRectList;
+
     LevelConfig m_levelConfig;
     Map m_m1;
+
+    void tileSelectionBox();
+    void setUpTileRectList();
     void initValuesFromJSON();
 public:
     

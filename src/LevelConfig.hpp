@@ -18,7 +18,7 @@ class LevelConfig {
 public:
     uint32_t getMapWidth() const; //map tile columns
     std::string getMapName() const; //level name
-
+    
     std::vector<uint16_t> getTileAtlasVisualGrid() const; 
     uint32_t getTileAtlasTileSize() const; //tiles size
     uint32_t getTileAtlasColumns() const; //amount of columns in atlas file

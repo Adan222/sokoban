@@ -6,6 +6,10 @@ Map::Map () {
    
 }
 
+sf::Texture Map::getTileAtlasTexture() const {
+    return m_tileAtlas;
+}
+
 bool Map::createMap(const LevelConfig &levelConfig) {
     using std::cout;
     //try to open texture(tile atlas) file
@@ -16,7 +20,7 @@ bool Map::createMap(const LevelConfig &levelConfig) {
     auto tileVisualGrid = levelConfig.getTileAtlasVisualGrid(); 
     const uint32_t mapTileWidth = levelConfig.getMapWidth();
     const uint32_t tileAtlasCols = levelConfig.getTileAtlasColumns(); 
-    const uint32_t tileSize = levelConfig.getTileAtlasTileSize(); 
+    const uint32_t tileSize = levelConfig.getTileAtlasTileSize().x; 
 
     //tiles are quads
     m_tiles.setPrimitiveType(sf::Quads);

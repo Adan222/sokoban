@@ -9,13 +9,15 @@
 
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "imgui_stdlib.h"
 
-#include "config.hpp"
 #include "gui/FpsCounter.hpp"
 #include "states/State.hpp"
 #include "states/PlayingState.hpp"
 #include "states/MainMenuState.hpp"
 #include "states/LevelEditorState.hpp"
+
+
 
 class Game {
 private:
