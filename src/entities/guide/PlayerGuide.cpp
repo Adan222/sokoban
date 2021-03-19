@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 #include "entities/Player.hpp"
+=======
+#include "PlayerGuide.hpp"
+#include "../Player.hpp"
+>>>>>>> a922f612bfb78199e1fbc5fd107917c616dbe5c6
 
 Guide::Guide(const sf::Vector2f pos) :
     m_pos(pos)

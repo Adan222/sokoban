@@ -6,6 +6,10 @@ Map::Map () {
    
 }
 
+sf::Texture Map::getTileAtlasTexture() const {
+    return m_tileAtlas;
+}
+
 bool Map::createMap(const LevelConfig &levelConfig) {
     using std::cout;
     //try to open texture(tile atlas) file

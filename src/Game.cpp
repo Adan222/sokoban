@@ -8,8 +8,14 @@ Game::Game() :
     ImGui::SFML::Init(m_window);
 }
 
-void Game::run() {   
-    pushState(std::make_unique<State::PlayingState>(*this));
+void Game::run() {
+    //----------------------
+    //TODO:
+    // - move imgui to LevelEditorState 
+    // - split Map createMap function
+    //----------------------
+   
+    pushState(std::make_unique<State::LevelEditorState>(*this));
 
     // ticks per seconds
     sf::Time fpc = sf::seconds(1.0 / 30.0f);
