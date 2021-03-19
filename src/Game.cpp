@@ -8,15 +8,14 @@ Game::Game() :
     ImGui::SFML::Init(m_window);
 }
 
-void Game::run() {
-    sf::Clock deltaClock;
-   
+void Game::run() {   
     pushState(std::make_unique<State::PlayingState>(*this));
 
     // ticks per seconds
     sf::Time fpc = sf::seconds(1.0 / 30.0f);
 
     sf::Clock clock;
+    sf::Clock deltaClock;
 
     sf::Time lastTime = sf::Time::Zero;
     sf::Time lag = sf::Time::Zero;

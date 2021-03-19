@@ -1,4 +1,3 @@
-#include "PlayerGuide.hpp"
 #include "entities/Player.hpp"
 
 Guide::Guide(const sf::Vector2f pos) :

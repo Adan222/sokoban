@@ -24,7 +24,7 @@ public:
     virtual void pause() {};
     virtual void resume() {};
 
-    virtual void update(float deltaTime) {};
+    virtual void update(const float deltaTime) {};
 };
 
 }

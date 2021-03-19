@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
 
@@ -36,6 +35,7 @@ class Player : public sf::Drawable
 
     bool isPlayerWithGuide(DIRECTION d) const;
     void resetMoveVector();
+    void handleMove(const sf::Keyboard::Key pressedKey);
 
     //debug purpose
     void drawPos() const;
@@ -44,7 +44,7 @@ public:
     Player(const int x, const int y);
     ~Player();
 
-    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     //void setTexture(sf::IntRect rec); 
     void setTexture(const sf::Color &col);

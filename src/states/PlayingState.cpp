@@ -2,16 +2,13 @@
 
 namespace State {
 
-PlayingState::PlayingState(Game& game) : State(game),
-    m_player(game.getWindowWidth() / 2, game.getWindowHeight() / 2),
+PlayingState::PlayingState(Game& game) : 
+    State(game),
     m_level("../res/level_configs/test.json")
-{
-
-}
+{}
 
 
 void PlayingState::draw(sf::RenderTarget& renderer) {
-    renderer.draw(m_player);
     m_level.render(renderer);
 }
 
@@ -22,16 +19,13 @@ void PlayingState::handleEvent(sf::Event e) {
         //enter menu
         if(e.key.code == Key::Escape)
             m_game.pushState(std::make_unique<MainMenuState>(m_game));
-        else if(e.key.code == Key::W || 
-                e.key.code == Key::A ||
-                e.key.code == Key::S ||
-                e.key.code == Key::D )
-            m_player.handleInput(e.key.code);
+        else
+            m_level.input(e.key.code);
     }
 }
 
-void PlayingState::update(float deltaTime){
-    m_player.update(deltaTime);
+void PlayingState::update(const float deltaTime){
+    m_level.update(deltaTime);
 }
 
 PlayingState::~PlayingState() {
