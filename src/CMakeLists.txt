@@ -24,6 +24,8 @@ SET (SOURCE_FILES main.cpp
             entities/animation/PlayerAnimation.cpp
             entities/guide/PlayerGuide.hpp
             entities/guide/PlayerGuide.cpp
+            map/Grid.hpp
+            map/Grid.cpp
             map/Map.hpp
             map/Map.cpp
     )

@@ -7,8 +7,9 @@
 #include "LevelConfig.hpp"
 
 class Level {
-    Map m_t1;
+    //order here is important, we need to first initalize level config before passing it into Map constuctor
     LevelConfig m_levelConfig;
+    Map m_t1;
 public:
     Level(const std::string& filename);
     void render(sf::RenderTarget& renderer);

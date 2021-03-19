@@ -3,9 +3,10 @@
 
 namespace State {
 
-LevelEditorState::LevelEditorState(Game &game) :  State(game), m_levelConfig("../res/level_configs/default.json") {
+LevelEditorState::LevelEditorState(Game &game) :  State(game), m_levelConfig("../res/level_configs/default.json"), m_m1(m_levelConfig), m_g1(m_levelConfig) {
     m_m1.createMap(m_levelConfig);
-
+    
+    m_gridSquaresBounds = m_g1.getGridSquaresBounds();
     m_tileAtlasTexture = m_m1.getTileAtlasTexture();
     m_atlasTileSize = m_levelConfig.getTileAtlasTileSize();
     m_atlasFilePath = m_levelConfig.getTileAtlasPath();
@@ -18,7 +19,7 @@ LevelEditorState::LevelEditorState(Game &game) :  State(game), m_levelConfig("..
 void LevelEditorState::setUpTileRectList() {
     uint32_t row = 0, column = 0, actualTileID = 0;
     uint32_t numberOfTiles = (m_tileAtlasFileTxtSize.x / m_atlasTileSize) * (m_tileAtlasFileTxtSize.y / m_atlasTileSize);
-    float scale = 32.0f / static_cast<float>(m_atlasTileSize);
+    float scale = 28.0f / static_cast<float>(m_atlasTileSize);
 
     m_tilesRectList.resize(numberOfTiles, sf::Sprite(m_tileAtlasTexture));
     for(auto &t : m_tilesRectList) {
@@ -34,7 +35,6 @@ void LevelEditorState::setUpTileRectList() {
 }
 
 void LevelEditorState::mainPanel() {
-    
     ImGui::Begin("Lista kafelków", NULL, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_AlwaysAutoResize);
     if (ImGui::BeginMenuBar()) {
         if (ImGui::BeginMenu("Plik")) {
@@ -49,6 +49,7 @@ void LevelEditorState::mainPanel() {
 
 void LevelEditorState::draw(sf::RenderTarget &renderer) {
     mainPanel();
+    renderer.draw(m_g1);
     renderer.draw(m_m1);
     renderer.draw(m_selectedTile);
 }
@@ -81,7 +82,9 @@ void LevelEditorState::tileSelectionBox() {
 
 void LevelEditorState::tileSelected(const sf::Sprite& ts) {
     m_selectedTile = ts;
+    m_selectedTile.setOrigin(m_atlasTileSize / 2,m_atlasTileSize / 2);
     m_selectedTile.setPosition(ImGui::GetMousePos().x, ImGui::GetMousePos().y);
+    m_selectedTile.setScale(1,1);
 }
 
 
