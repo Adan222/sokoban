@@ -3,7 +3,8 @@
 Level::Level(const std::string& filename) : 
     m_levelConfig(filename),
     m_box(700, 300),
-    m_player(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
+    m_player(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2),
+    m_t1(m_levelConfig)
 {   
     m_t1.createMap(m_levelConfig);
 }

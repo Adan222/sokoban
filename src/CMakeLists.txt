@@ -26,9 +26,14 @@ SET (SOURCE_FILES main.cpp
             entities/guide/PlayerGuide.cpp
             entities/Box.hpp
             entities/Box.cpp
+            map/Grid.hpp
+            map/Grid.cpp
             map/Map.hpp
             map/Map.cpp
     )
     
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/src)
+
 

@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "states/PlayingState.hpp"
 
 Game::Game() :
     m_window(sf::VideoMode{1024, 768}, "Sokoban:d"),
@@ -15,7 +16,7 @@ void Game::run() {
     // - split Map createMap function
     //----------------------
    
-    pushState(std::make_unique<State::LevelEditorState>(*this));
+    pushState(std::make_unique<State::PlayingState>(*this));
 
     // ticks per seconds
     sf::Time fpc = sf::seconds(1.0 / 30.0f);
