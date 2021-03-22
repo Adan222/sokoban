@@ -5,6 +5,8 @@ SET (SOURCE_FILES main.cpp
             Game.cpp
             gui/FpsCounter.hpp
             gui/FpsCounter.cpp
+            gui/EditorGui.hpp
+            gui/EditorGui.cpp
             states/State.hpp
             states/PlayingState.hpp
             states/PlayingState.cpp
@@ -24,11 +26,11 @@ SET (SOURCE_FILES main.cpp
             entities/animation/PlayerAnimation.cpp
             entities/guide/PlayerGuide.hpp
             entities/guide/PlayerGuide.cpp
-            map/Grid.hpp
-            map/Grid.cpp
             map/Map.hpp
             map/Map.cpp
+            map/Tile.hpp
+            map/Tile.cpp
     )
     
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/src)

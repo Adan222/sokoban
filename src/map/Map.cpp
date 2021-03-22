@@ -1,72 +1,118 @@
 #include "Map.hpp"
 
-Map::Map(const LevelConfig& levelConfig) {
+Map::Map(LevelConfig& levelConfig) : m_levelConfig(levelConfig) {
+    const auto tileAtlasPath = m_levelConfig.getTileAtlasPath();
+    const uint32_t tileSize = m_levelConfig.getTileSize();
+
     //try to open texture(tile atlas) file
-    if(!m_tileAtlas.loadFromFile("../res/graphics/" + levelConfig.getTileAtlasPath().generic_string()))
-        throw std::runtime_error("Can`t open file: ../res/graphics/" + levelConfig.getTileAtlasPath().generic_string());
+    if(!m_tileAtlas.loadFromFile("../res/graphics/" + tileAtlasPath.generic_string()))
+        throw std::runtime_error("Can`t open file: ../res/graphics/" + tileAtlasPath.generic_string());
         //TO DO check size of tile map, (size + 1) % tilesize
+    
+
+}
+
+uint64_t Map::convertPositionToIndex(sf::Vector2u position2D) {
+    const uint32_t mapColumns = m_levelConfig.getMapColumns();
+    const uint32_t tileSize = m_levelConfig.getTileSize();
+
+    //normalize to get rows and cols
+    uint32_t row = floor(position2D.y / static_cast<float>(tileSize));
+    uint32_t col = floor(position2D.x / static_cast<float>(tileSize));
+    uint32_t index = row * mapColumns - (mapColumns - col) + mapColumns;
+
+    return index;
+}
+
+
+void Map::updateTile(Tile &selectedTile) {
+    uint32_t indexInArray = convertPositionToIndex(selectedTile.getPositionOnMap());
+    m_tiles[indexInArray] = selectedTile;
+}
+
+
+
+void Map::createMap() {
+    const uint32_t maxAmountOfTiles = m_levelConfig.getMapTilesAmount();
+    const auto visualGrid = m_levelConfig.getTileAtlasVisualGrid();
+    const uint32_t mapColumns = m_levelConfig.getMapColumns();
+    const uint32_t tileAtlasColumns = getTileAtlasColumns();
+    const uint32_t tileSize = m_levelConfig.getTileSize();
+
+    m_tiles.clear();
+    m_tiles.resize(maxAmountOfTiles, Tile(tileSize));
+
+
+    uint32_t col = 0, row = 0, actualTileElementID = 0;
+    while(actualTileElementID < visualGrid.size()) {
+        int textureID = visualGrid[actualTileElementID];
+
+        float textureX = (textureID % tileAtlasColumns);
+        float textureY = (floor((float)textureID / (float)tileAtlasColumns)); 
+
+        m_tiles[actualTileElementID].setPosition(col, row);
+        
+        
+        if(textureID == -1) { //-1 is default no texture
+            m_tiles[actualTileElementID].noTexture();
+        } else {
+            m_tiles[actualTileElementID].setTextureCoords(textureX, textureY, textureID);
+        }
+
+
+        
+        if(actualTileElementID % mapColumns == (mapColumns - 1)) 
+            ++row; //new row
+        
+        ++actualTileElementID;
+        col = actualTileElementID % mapColumns; //new column
+    }
+
+}
+
+void Map::createGrid() {
+    const uint32_t maxAmountOfTiles = m_levelConfig.getMapTilesAmount();
+    const uint32_t mapColumns = m_levelConfig.getMapColumns();
+    const uint32_t tileSize = m_levelConfig.getTileSize();
+
+    m_gridSquares.clear();
+    m_gridSquares.resize(maxAmountOfTiles);
+
+    uint32_t row = 0, column = 0;
+    for(int i = 0; auto& square : m_gridSquares) {
+        ++i;
+        square.setSize(sf::Vector2f(tileSize, tileSize));
+        square.setOutlineColor(sf::Color(255, 255, 255, 150));
+        square.setFillColor(sf::Color::Transparent);
+        square.setOutlineThickness(0.5);
+        if(column == mapColumns) {
+            column = 0;
+            ++row;
+        }
+        square.setPosition(column * tileSize, row * tileSize);        
+        ++column;
+    }
 }
 
 sf::Texture& Map::getTileAtlasTexture() {
     return m_tileAtlas;
 }
 
-
-bool Map::createMap(const LevelConfig &levelConfig) {
-
-    auto tileVisualGrid = levelConfig.getTileAtlasVisualGrid(); 
-    const uint32_t mapTileWidth = levelConfig.getMapWidth();
-    const uint32_t tileAtlasCols = levelConfig.getTileAtlasColumns(); 
-    const uint32_t tileSize = levelConfig.getTileAtlasTileSize(); 
-
-    //tiles are quads
-    m_tiles.setPrimitiveType(sf::Quads);
-
-    //resizing by 4 cause m_tiles is vertex vector, so one tile has 4 points
-    m_tiles.resize(tileVisualGrid.size() * 4);
-   
-    uint32_t col = 0, row = 0, actualTileElementID = 0;
-    while(actualTileElementID < tileVisualGrid.size()) {
-        int tileTypeID = tileVisualGrid[actualTileElementID];
-
-        float textureX = (tileTypeID % tileAtlasCols) * tileSize;
-        float textureY = (floor((float)tileTypeID / (float)tileAtlasCols)) * tileSize; 
-
-        sf::Vertex *single_tile = &m_tiles[actualTileElementID * 4];
-
-        //setting position for quads 
-        single_tile[0].position = sf::Vector2f(col * tileSize , row * tileSize);
-        single_tile[1].position = sf::Vector2f(col * tileSize + tileSize, row * tileSize);
-        single_tile[2].position = sf::Vector2f(col * tileSize + tileSize, row * tileSize  + tileSize);
-        single_tile[3].position = sf::Vector2f(col * tileSize, row * tileSize + tileSize);
-        
-        //setting texture cords for quad from tile atlas texture
-        single_tile[0].texCoords = sf::Vector2f(textureX, textureY);
-        single_tile[1].texCoords = sf::Vector2f(textureX + tileSize, textureY);
-        single_tile[2].texCoords = sf::Vector2f(textureX + tileSize, textureY + tileSize);
-        single_tile[3].texCoords = sf::Vector2f(textureX, textureY + tileSize);
-
-
-        //new row
-        if(actualTileElementID % mapTileWidth == (mapTileWidth - 1)) row++;
- 
-        actualTileElementID++;
-        //new column
-        col = actualTileElementID % mapTileWidth;
-    }
-
-    return true;
+uint32_t Map::getTileAtlasColumns() {
+    return (getTileAtlasTexture().getSize().x + 1) / m_levelConfig.getTileSize();
 }
 
-
-
-
 void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        states.transform *= getTransform();
-        states.texture = &m_tileAtlas;
+    states.transform *= getTransform();
+    states.texture = &m_tileAtlas;
 
-        target.draw(m_tiles, states);
-       
+    for(const auto& tile : m_tiles) {
+        target.draw(tile, states);
+    }
+    for(const auto& square : m_gridSquares) {
+        target.draw(square);
+    }
+    
 }
 
 Map::~Map() {

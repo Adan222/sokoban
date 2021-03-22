@@ -3,17 +3,28 @@
 #include <stdexcept>
 
 #include <SFML/Graphics.hpp>
-#include "../LevelConfig.hpp"
+#include "LevelConfig.hpp"
+#include "Tile.hpp"
 
 class Map : public sf::Drawable, public sf::Transformable {
+    const LevelConfig& m_levelConfig;
+    
     sf::Texture m_tileAtlas;
-    sf::VertexArray m_tiles;
+    std::vector<Tile> m_tiles;
+    std::vector<sf::RectangleShape> m_gridSquares;
+
+
+    uint64_t convertPositionToIndex(sf::Vector2u position2D);
 public:
     sf::Texture& getTileAtlasTexture();
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    bool createMap(const LevelConfig &levelConfig);
+    uint32_t getTileAtlasColumns();
+
+    void createMap();
+    void createGrid();
+    void updateTile(Tile& selectedTile);
     
-    Map(const LevelConfig& levelConfig);
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    Map(LevelConfig& levelConfig);
     ~Map();
 
 };

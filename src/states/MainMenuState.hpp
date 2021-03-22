@@ -5,7 +5,7 @@
 #include <chrono>
 
 #include "State.hpp"
-#include "../Game.hpp"
+#include "Game.hpp"
 #include "PlayingState.hpp"
 
 namespace State {

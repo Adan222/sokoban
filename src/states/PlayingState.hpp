@@ -8,9 +8,9 @@
 #include "SFML/Graphics/Font.hpp"
 #include "SFML/Graphics/Text.hpp"
 #include "State.hpp"
-#include "../Game.hpp"
-#include "../Level.hpp"
-#include "../entities/Player.hpp"
+#include "Game.hpp"
+#include "Level.hpp"
+#include "entities/Player.hpp"
 
 
 
