@@ -1,12 +1,10 @@
 {
     "map" : {
         "name" : "AAAA",
-        "width" : 16, 
         "zoom" : 1.0,
         "tile_atlas" : {
             "path" : "iso-64x64-outside.png",
-            "tile_size": 64,
-            "columns" : 10
+            "tile_size": 64
         },
         "visual_grid" : [0, 1, 2, 3, 0, 0, 0, 0, 8, 9, 10, 11, 12, 13, 14, 15,
             130, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 
