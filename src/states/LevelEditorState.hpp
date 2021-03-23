@@ -8,10 +8,10 @@
 #include <SFML/Graphics.hpp>
 
 #include "State.hpp"
-#include "../LevelConfig.hpp"
-#include "../map/Map.hpp"
-#include "../map/Grid.hpp"
-#include "../Game.hpp"
+#include "level/LevelConfig.hpp"
+#include "map/Map.hpp"
+#include "map/Grid.hpp"
+#include "Game.hpp"
 
 namespace State {
 

@@ -1,15 +1,26 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "Entity.hpp"
 
-class Box : public sf::Drawable{
+#include <iostream>
+
+constexpr unsigned short MAX_BOXES = 12;
+
+class Box;
+typedef std::array<Box, MAX_BOXES> Boxes;
+
+class Box : public Entity{
     private:
         sf::RectangleShape m_boxShape;
-        const float m_boxSide = 100.0f;
 
     public:
-        Box(const int x, const int y);
+        Box();
         ~Box();
 
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+        void imChosenOne();
+        void imNotChosenOne();
+
+        void pos();
 };

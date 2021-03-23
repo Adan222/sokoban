@@ -6,9 +6,10 @@ namespace State {
 LevelEditorState::LevelEditorState(Game &game) :  
     State(game), 
     m_levelConfig("../res/level_configs/default.json"), 
-    m_m1(m_levelConfig), m_g1(m_levelConfig) 
+    m_m1(m_levelConfig), 
+    m_g1(m_levelConfig) 
 {
-    m_m1.createMap(m_levelConfig);
+    m_m1.createMap();
     
     m_gridSquaresBounds = m_g1.getGridSquaresBounds();
     m_tileAtlasTexture = m_m1.getTileAtlasTexture();

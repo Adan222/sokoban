@@ -1,63 +1,30 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-
-#include <SFML/Window/Keyboard.hpp>
 #include <iostream>
 
-#include "animation/PlayerAnimation.hpp"
-#include "guide/PlayerGuide.hpp"
+#include "Entity.hpp"
+#include "animation/AnimationHandler.hpp"
+#include "guide/Guide.hpp"
 
-enum DIRECTION : int{
-    UP,
-    RIGHT,
-    DOWN,
-    LEFT,
-    NONE
-};
+typedef AnimationHandler PlayerAnimation;
 
-class Player : public sf::Drawable
+class Player : public Entity
 {
     sf::CircleShape m_PlayerShape;
-    float m_radius;
 
-    const float m_maxSpeed = 100.0f;
-
-    bool m_isMoving;
-
-    DIRECTION m_currentDirection;
-
-    //by default it`s {0, 0}
-    sf::Vector2f m_moveVector;
+    const float m_maxSpeed = 1;
 
     PlayerAnimation m_anime;
-    Guide m_playerGuide;
-
-    bool isPlayerWithGuide(DIRECTION d) const;
-    void resetMoveVector();
-    void handleMove(const sf::Keyboard::Key pressedKey);
-
-    //debug purpose
-    void drawPos() const;
 
 public:
-    Player(const int x, const int y);
+    Player();
     ~Player();
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     //void setTexture(sf::IntRect rec); 
     void setTexture(const sf::Color &col);
+    void setAniamtion(DIRECTION type);
 
-    /*
-     * This function is called when one of 
-     * specific buttons was pressed.
-     * It specify which and make specific behaviour.
-     * General input is handle in PlayingState.
-    */
-    void handleInput(const sf::Keyboard::Key pressedKey);
-
-    void update(float deltaTime);
-
+    void update(const float deltaTime) override;
 };
-

@@ -6,7 +6,7 @@
 
 #include "State.hpp"
 #include "Game.hpp"
-#include "Level.hpp"
+#include "level/Level.hpp"
 
 namespace State {
 

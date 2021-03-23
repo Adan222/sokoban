@@ -1,8 +1,10 @@
+#pragma once
+
 #include <vector>
 
 #include <SFML/Graphics.hpp>
 
-#include "../LevelConfig.hpp"
+#include "level/LevelConfig.hpp"
 
 class Grid : public sf::Drawable, public sf::Transformable {
     std::vector<sf::RectangleShape> m_gridSquares;

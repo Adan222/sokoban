@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "states/PlayingState.hpp"
+#include <math.h>
 
 Game::Game() :
     m_window(sf::VideoMode{1024, 768}, "Sokoban:d"),
