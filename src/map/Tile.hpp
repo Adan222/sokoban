@@ -6,8 +6,9 @@
 class Tile : public sf::Drawable, public sf::Transformable {
     uint32_t m_size;
     bool m_selected;
+    bool m_placed;
     int m_textureID;
-    int m_physicID;
+    int m_logicID;
     
     std::vector<sf::Vertex> m_tile;
     sf::Vector2f m_positionOnMap;
@@ -19,8 +20,16 @@ public:
     void noTexture();
 
     int getTextureID() const;
+    int getLogicID() const;
+    void setLogicID(const int logicID);
+
+
+
     bool isSelected() const;
-    void isSelected(bool selected);
+    void isSelected(const bool selected);
+
+    bool isPlaced() const;
+    void isPlaced(const bool placed);
     sf::Sprite getSprite(sf::Texture &tileAtlasTexture) const;
     sf::Vector2f getPositionOnMap() const;
     sf::Vector2u getTextureCoords();
@@ -29,4 +38,7 @@ public:
     Tile(uint32_t tileSize);
     Tile(uint32_t tileSize, bool selected);
     ~Tile();
+
+    
+
 };

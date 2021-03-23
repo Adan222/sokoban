@@ -34,10 +34,16 @@ void LevelEditorState::update(float deltaTime) {
 
 void LevelEditorState::handleEvent(sf::Event e) {
     ImGui::SFML::ProcessEvent(e);
- 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        m_editorGui.placeTile(m_m1);    
+    
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        if(!ImGui::IsAnyItemHovered()) {
+            m_editorGui.placeTile(m_m1); 
+            m_editorGui.selectTile(m_m1, ImGui::GetMousePos());   
+        } 
+        
     }
+    
+   
 
     if(e.type == sf::Event::KeyPressed){
         switch (e.key.code) {

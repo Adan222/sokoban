@@ -8,14 +8,17 @@ Map::Map(const LevelConfig& levelConfig) :
 Map::~Map() {}
 
 uint32_t Map::convertPositionToIndex(sf::Vector2f position2D) {
-    const uint32_t mapColumns = m_levelConfig.getMapColumns();
-    const uint32_t tileSize = m_levelConfig.getTileSize();
+    uint32_t index = 0;
+   
+    if((position2D.y-WINDOW_HEIGHT)* position2D.y <= 0 && (position2D.x-WINDOW_WIDTH) * position2D.x <= 0) { //check if number is in range
+        const uint32_t mapColumns = m_levelConfig.getMapColumns();
+        const uint32_t tileSize = m_levelConfig.getTileSize();
 
-    //normalize to get rows and cols
-    uint32_t row = floor(position2D.y / static_cast<float>(tileSize));
-    uint32_t col = floor(position2D.x / static_cast<float>(tileSize));
-    uint32_t index = row * mapColumns - (mapColumns - col) + mapColumns;
-
+        //normalize to get rows and cols
+        uint32_t row = floor(position2D.y / static_cast<float>(tileSize));
+        uint32_t col = floor(position2D.x / static_cast<float>(tileSize));
+        index = row * mapColumns - (mapColumns - col) + mapColumns;
+    }
 
     return index;
 }
@@ -24,6 +27,23 @@ uint32_t Map::convertPositionToIndex(sf::Vector2f position2D) {
 void Map::updateTile(Tile &selectedTile) {
     uint32_t indexInArray = convertPositionToIndex(selectedTile.getPositionOnMap());
     m_tiles[indexInArray] = selectedTile;
+}
+
+Tile* Map::selectTile(sf::Vector2f mousePosition) {
+    uint32_t indexInArray = convertPositionToIndex(mousePosition);
+    m_gridSquares[indexInArray].setFillColor(sf::Color(0, 255, 0, 120));
+   
+
+    return &m_tiles[indexInArray];
+}
+
+void Map::unselectTile(Tile* selectedTile) {
+    if(selectedTile != nullptr) {
+        uint32_t indexInArray = convertPositionToIndex(selectedTile->getPositionOnMap());
+        m_gridSquares[indexInArray].setFillColor(sf::Color::Transparent);
+        selectedTile = nullptr;
+    }
+
 }
 
 void Map::loadTexture() {
@@ -43,6 +63,8 @@ void Map::loadTexture() {
 void Map::createMap() {
     const uint32_t maxAmountOfTiles = m_levelConfig.getMapTilesAmount();
     const auto visualGrid = m_levelConfig.getTileAtlasVisualGrid();
+    const auto logicGrid = m_levelConfig.getTileAtlasLogicalGrid();
+
     const uint32_t mapColumns = m_levelConfig.getMapColumns();
     const uint32_t tileAtlasColumns = getTileAtlasColumns();
     const uint32_t tileSize = m_levelConfig.getTileSize();
@@ -52,21 +74,28 @@ void Map::createMap() {
 
 
     uint32_t col = 0, row = 0, actualTileElementID = 0;
-    while(actualTileElementID < visualGrid.size()) {
-        int textureID = visualGrid[actualTileElementID];
+    while(actualTileElementID < maxAmountOfTiles) {
+        if(actualTileElementID < visualGrid.size()) {
+            int textureID = visualGrid[actualTileElementID];
 
-        float textureX = (textureID % tileAtlasColumns);
-        float textureY = (floor((float)textureID / (float)tileAtlasColumns)); 
+            float textureX = (textureID % tileAtlasColumns);
+            float textureY = (floor((float)textureID / (float)tileAtlasColumns)); 
+            m_tiles[actualTileElementID].isPlaced(true);
+            
+            if(textureID == -1) { //-1 is default no texture
+                m_tiles[actualTileElementID].noTexture();
+            } else {
+                m_tiles[actualTileElementID].setTextureCoords(textureX, textureY, textureID);
+            }
+        }
+       
 
-        m_tiles[actualTileElementID].setPosition(col, row);
-        
-        if(textureID == -1) { //-1 is default no texture
-            m_tiles[actualTileElementID].noTexture();
-        } else {
-            m_tiles[actualTileElementID].setTextureCoords(textureX, textureY, textureID);
+
+        if(actualTileElementID < logicGrid.size()) {
+            m_tiles[actualTileElementID].setLogicID(logicGrid[actualTileElementID]);
         }
 
-
+        m_tiles[actualTileElementID].setPosition(col, row);
         
         if(actualTileElementID % mapColumns == (mapColumns - 1)) 
             ++row; //new row
@@ -90,6 +119,7 @@ void Map::createGrid() {
         square.setSize(sf::Vector2f(tileSize, tileSize));
         square.setOutlineColor(sf::Color(255, 255, 255, 150));
         square.setFillColor(sf::Color::Transparent);
+        
         square.setOutlineThickness(0.5);
         if(column == mapColumns) {
             column = 0;

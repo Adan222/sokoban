@@ -18,7 +18,7 @@ typedef std::vector<int> TileAtlas;
 
 class LevelConfig {
     std::ifstream m_levelConfigStream;
-    
+    std::filesystem::path m_jsonPath;
     nlohmann::json m_levelConfigJSON;
     nlohmann::json m_mapConfigJSON;
     nlohmann::json m_tileAtlasJSON;

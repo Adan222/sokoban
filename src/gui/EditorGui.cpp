@@ -4,7 +4,7 @@
 
 
 EditorGui::EditorGui(LevelConfig& levelConfig) :  m_levelConfig(levelConfig), m_selectedTile(m_levelConfig.getTileSize()) {
-
+    m_selectedTile2 = nullptr;
 }
 
 EditorGui::~EditorGui() {
@@ -59,15 +59,20 @@ void EditorGui::header() {
 }
 
 void EditorGui::mainPanel(Map& m1) {
-    ImGui::Begin("Lista kafelków", NULL, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_AlwaysAutoResize);
-    if (ImGui::BeginMenuBar()) {
-        if (ImGui::BeginMenu("Plik")) {
-            if (ImGui::MenuItem("Otwórz inny plik z kafelkami", "Ctrl+O")) { /* Do stuff */ }
-            ImGui::EndMenu();
+    ImGui::Begin("Ustawienia", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+    if(ImGui::BeginTabBar("E", ImGuiTabBarFlags_Reorderable)) {
+        if(ImGui::BeginTabItem("Lista kafelkow")) {
+            tileList(m1);
+            ImGui::EndTabItem();
         }
-        ImGui::EndMenuBar();
+        if(ImGui::BeginTabItem("Opcje kafelka")) {
+            tileOptions();
+            ImGui::EndTabItem();
+        }
+        
+        ImGui::EndTabBar();
     }
-    tileList(m1);
+    
     ImGui::End();
 }
 
@@ -113,6 +118,25 @@ void EditorGui::tileList(Map& m1) {
     
 }
 
+void EditorGui::tileOptions() {
+    if(m_selectedTile2 != nullptr) {
+        int e = m_selectedTile2->getLogicID();
+
+        ImGui::RadioButton("Tlo", &e, 0); 
+        ImGui::RadioButton("Sciana", &e, 1);
+        ImGui::RadioButton("Pozycja poczatkowa gracza", &e, 2);
+        ImGui::RadioButton("Box", &e, 3); 
+        ImGui::RadioButton("Miejsce wygrania", &e, 4);  
+        ImGui::RadioButton("Miejsce wygrania odrazu z boxem", &e, 5); 
+        if(e != m_selectedTile2->getLogicID()) {
+            m_selectedTile2->setLogicID(e);
+        }
+    } else {
+        ImGui::Text("No tile selected");
+    }
+
+}
+
 void EditorGui::updateSelectedTilePosition() {
     if(m_selectedTile.isSelected() && 
                 ImGui::GetMousePos().x >= 0 && ImGui::GetMousePos().x <= 1024 && 
@@ -130,10 +154,20 @@ void EditorGui::updateSelectedTilePosition() {
 
 
 void EditorGui::placeTile(Map &m1) {
-    m1.updateTile(m_selectedTile);
-    m_selectedTile.isSelected(false);
-   
+    if(m_selectedTile.isSelected()) {
+        m1.updateTile(m_selectedTile);
+        m_selectedTile.isSelected(false);
+    }
 }
+
+void EditorGui::selectTile(Map &m1, sf::Vector2f mousePosition) {
+    if(!m_selectedTile.isSelected()) {
+
+       m1.unselectTile(m_selectedTile2);
+        
+        m_selectedTile2 = m1.selectTile(mousePosition);
+    }
+} 
 
 
 void EditorGui::draw(sf::RenderTarget& target, sf::RenderStates states) const {

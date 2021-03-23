@@ -2,7 +2,7 @@
 #include <math.h>
 
 Game::Game() :
-    m_window(sf::VideoMode{1024, 768}, "Sokoban:d"),
+    m_window(sf::VideoMode{1024, 768}, "Sokoban:D"),
     m_fps(getWindowWidth())
 {    
     m_window.setFramerateLimit(60);
@@ -13,7 +13,6 @@ void Game::run() {
     //----------------------
     //TODO:
     // - move imgui to LevelEditorState 
-    // - split Map createMap function
     //----------------------
    
     pushState(std::make_unique<State::PlayingState>(*this));

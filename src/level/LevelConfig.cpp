@@ -15,6 +15,7 @@ LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath){
         if(!std::filesystem::exists(fileConfigPath))
             throw std::runtime_error(fileConfigPath.generic_string() + " don`t exist");
 
+        m_jsonPath = fileConfigPath;
         m_levelConfigStream.open(fileConfigPath);
 
         //Check for errors
@@ -47,7 +48,7 @@ LevelConfig::LevelConfig() {
                     "tile_size": 64
                 },
                 "visual_grid" : [1, 2, 3, 3],
-                "logical_grid" : [1, 2, 3, 3],
+                "logical_grid" : [0, 0, 1, 2],
                 
                 "zoom" : 1.0
             }
@@ -86,7 +87,7 @@ uint32_t LevelConfig::getTileSize() const {
     return m_tileAtlasJSON.at("tile_size");
 }
 
-std::filesystem::path LevelConfig::getTileAtlasPath() const{
+std::filesystem::path LevelConfig::getTileAtlasPath() const {
     return m_tileAtlasJSON.at("path").get<std::string>();
 }
 
@@ -95,16 +96,23 @@ void LevelConfig::setTileSize(uint32_t tileSize) {
 }
 
 TileAtlas LevelConfig::getTileAtlasVisualGrid() const {
-    return m_mapConfigJSON["visual_grid"];
+    if(m_mapConfigJSON.contains("visual_grid")) { 
+        return m_mapConfigJSON["visual_grid"];
+    } else {
+        throw std::runtime_error("There is no visual grid object in: " + m_jsonPath.generic_string());
+    }
+
+    //TO DO we shouldnt test it in getters/setters, we should test those when reading file
 }
 
 TileAtlas LevelConfig::getTileAtlasLogicalGrid() const{
     if(m_mapConfigJSON.contains("logical_grid")) {
         return m_mapConfigJSON["logical_grid"];
     } else {
-        throw std::runtime_error("NIE MA LOGICAL GRIDA HALO");
+        throw std::runtime_error("There is no logic grid object in: " + m_jsonPath.generic_string());
     }
-    
+    //TO DO we shouldnt test it in getters/setters, we should test those when reading file
+
 }
 
 LevelConfig::~LevelConfig() {

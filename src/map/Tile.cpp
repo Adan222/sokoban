@@ -2,9 +2,16 @@
 
 Tile::Tile(uint32_t tileSize) : m_size(tileSize) {
     m_tile.resize(4);
+    m_selected = false;
+    m_placed = false;
+    m_logicID = 0;
 }
+
 Tile::Tile(uint32_t tileSize, bool selected) : m_size(tileSize), m_selected(selected) {
     m_tile.resize(4);
+    m_selected = false;
+    m_placed = false;
+    m_logicID = 0;
 }
 
 
@@ -24,15 +31,33 @@ bool Tile::isSelected() const {
     return m_selected;
 }
 
-void Tile::isSelected(bool selected) {
+void Tile::isSelected(const bool selected) {
     m_selected = selected;
+}
+
+bool Tile::isPlaced() const {
+    return m_placed;
+}
+
+void Tile::isPlaced(const bool placed) {
+    m_placed = placed;
+}
+
+int Tile::getLogicID() const { 
+    return m_logicID; 
+}
+
+
+
+void Tile::setLogicID(const int logicID) { 
+    m_logicID = logicID; 
 }
 
 
 void Tile::setPosition(uint32_t col, uint32_t row) {
     row *= m_size;
     col *= m_size;
-    m_positionOnMap = sf::Vector2u(col, row);
+    m_positionOnMap = sf::Vector2f(col, row);
     
     m_tile[0].position = sf::Vector2f(col, row);
     m_tile[1].position = sf::Vector2f(col + m_size, row );
