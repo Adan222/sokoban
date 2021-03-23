@@ -7,7 +7,7 @@ Map::Map(const LevelConfig& levelConfig) :
 
 Map::~Map() {}
 
-uint64_t Map::convertPositionToIndex(sf::Vector2u position2D) {
+uint32_t Map::convertPositionToIndex(sf::Vector2f position2D) {
     const uint32_t mapColumns = m_levelConfig.getMapColumns();
     const uint32_t tileSize = m_levelConfig.getTileSize();
 
@@ -15,6 +15,7 @@ uint64_t Map::convertPositionToIndex(sf::Vector2u position2D) {
     uint32_t row = floor(position2D.y / static_cast<float>(tileSize));
     uint32_t col = floor(position2D.x / static_cast<float>(tileSize));
     uint32_t index = row * mapColumns - (mapColumns - col) + mapColumns;
+
 
     return index;
 }
@@ -58,7 +59,6 @@ void Map::createMap() {
         float textureY = (floor((float)textureID / (float)tileAtlasColumns)); 
 
         m_tiles[actualTileElementID].setPosition(col, row);
-        
         
         if(textureID == -1) { //-1 is default no texture
             m_tiles[actualTileElementID].noTexture();

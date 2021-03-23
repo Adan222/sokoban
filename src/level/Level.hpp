@@ -28,7 +28,7 @@ class Level {
     int m_boxesAmount;
 
     void initMap();
-    void setEntitisPosition();
+    void setEntitiesPosition();
 
     void handleMove(const sf::Keyboard::Key pressedKey);
 

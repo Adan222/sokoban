@@ -4,6 +4,8 @@
 namespace State {
 
 LevelEditorState::LevelEditorState(Game &game) :  State(game), m_m1(m_levelConfig), m_editorGui(m_levelConfig) {
+
+   m_m1.loadTexture();
     m_m1.createMap();
     m_m1.createGrid();
     m_editorGui.setUpTileList(m_m1);

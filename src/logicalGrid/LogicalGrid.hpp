@@ -4,7 +4,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <sys/types.h>
 
-enum LOGIC{
+ enum LOGIC {
     FREE,
     WALL,
     PLAYER,
@@ -12,7 +12,6 @@ enum LOGIC{
     WIN_PLACE,
     BOX_AND_WIN
 };
-
 /*
  * It`s abstract class for class like 
  * EntitiesPosition which looking for entiteis
@@ -20,7 +19,7 @@ enum LOGIC{
  * walls on next move
  */
 
-class LogicalGrid{
+class LogicalGrid {
     protected:
         TileAtlas m_logicalGrid;
         int m_gridWidth;
@@ -42,5 +41,5 @@ class LogicalGrid{
          * This function convert coordinates
          * to to index of logical grid
          */
-        u_int32_t posToIndex(const sf::Vector2i pos);
+        uint32_t posToIndex(const sf::Vector2i pos);
 };

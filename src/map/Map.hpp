@@ -16,7 +16,7 @@ class Map : public sf::Drawable, public sf::Transformable {
     std::vector<sf::RectangleShape> m_gridSquares;
 
 
-    uint64_t convertPositionToIndex(sf::Vector2u position2D);
+    uint32_t convertPositionToIndex(sf::Vector2f position2D);
 public:
     Map(const LevelConfig& levelConfig);
     ~Map();

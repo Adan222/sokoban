@@ -22,7 +22,7 @@ void Box::imNotChosenOne() {
     m_imChosen = false;
 }
 
-bool Box::chcekIfImChosen() const {
+bool Box::checkIfImChosen() const {
     return m_imChosen;
 }
 

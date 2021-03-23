@@ -8,7 +8,7 @@ constexpr unsigned short MAX_BOXES = 12;
 
 //Drawing on std::vector don`t work idk why
 class Box;
-typedef std::array<Box, MAX_BOXES> Boxes;
+typedef std::vector<Box> Boxes;
 
 class Box : public Entity{
     private:
@@ -23,7 +23,7 @@ class Box : public Entity{
 
         void imChosenOne();
         void imNotChosenOne();
-        bool chcekIfImChosen() const;
+        bool checkIfImChosen() const;
 
         void pos();
 };

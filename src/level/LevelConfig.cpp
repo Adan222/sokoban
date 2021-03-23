@@ -30,6 +30,7 @@ LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath){
     } 
     catch(std::exception &e){
         cout << e.what() << "\n";
+        exit(1);
     }
 
 }
@@ -46,15 +47,19 @@ LevelConfig::LevelConfig() {
                     "tile_size": 64
                 },
                 "visual_grid" : [1, 2, 3, 3],
+                "logical_grid" : [1, 2, 3, 3],
+                
                 "zoom" : 1.0
             }
         }
         )"_json;
         
         m_mapConfigJSON = m_levelConfigJSON.at("map").get_ref<json::object_t&>();
+        
         m_tileAtlasJSON = m_mapConfigJSON.at("tile_atlas").get_ref<json::object_t&>();
-    }catch(std::exception &e){
+    } catch(std::exception &e){
         std::cout << e.what() << "\n";
+        exit(1);
     }
     
     
@@ -64,9 +69,7 @@ uint32_t LevelConfig::getMapTilesAmount() const {
     //we assume that screen res is 1024 x 768
     uint32_t cols = 1024 / getTileSize();
     uint32_t rows = 768 / getTileSize();
-    if(getMapColumns() != cols) {
-         //throw std::runtime_error("Map width provided in config is not valid for that tile size.");
-    }
+   
     return cols * rows;
 }
 
@@ -92,12 +95,16 @@ void LevelConfig::setTileSize(uint32_t tileSize) {
 }
 
 TileAtlas LevelConfig::getTileAtlasVisualGrid() const {
-    //!
-    return m_tileAtlasJSON["visual_grid"];
+    return m_mapConfigJSON["visual_grid"];
 }
 
 TileAtlas LevelConfig::getTileAtlasLogicalGrid() const{
-    return m_tileAtlasJSON["logical_grid"];
+    if(m_mapConfigJSON.contains("logical_grid")) {
+        return m_mapConfigJSON["logical_grid"];
+    } else {
+        throw std::runtime_error("NIE MA LOGICAL GRIDA HALO");
+    }
+    
 }
 
 LevelConfig::~LevelConfig() {
@@ -105,16 +112,13 @@ LevelConfig::~LevelConfig() {
 }
 
 void LevelConfig::selfTest() const{
-    try {
-        getMapColumns();
-        getMapTilesAmount();
-        getMapName();
-        getTileSize();
-        getTileAtlasPath();
-        getTileAtlasVisualGrid();
-        getTileAtlasLogicalGrid();
-    } catch (std::exception &e) {
-        std::cout << e.what() << "\n";
-        exit(1);
-    }
+    getMapColumns();
+    getMapTilesAmount();
+    getMapName();
+    
+    getTileSize();
+    getTileAtlasPath();
+    getTileAtlasVisualGrid();
+    getTileAtlasLogicalGrid();
+    
 }

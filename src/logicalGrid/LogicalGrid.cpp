@@ -24,7 +24,7 @@ sf::Vector2i LogicalGrid::indexToPos(u_int32_t index){
     return {-1, -1};
 }
 
-u_int32_t LogicalGrid::posToIndex(const sf::Vector2i pos) {
+uint32_t LogicalGrid::posToIndex(const sf::Vector2i pos) {
     int x = pos.x;
     int y = pos.y;
     return x + y * m_gridWidth;

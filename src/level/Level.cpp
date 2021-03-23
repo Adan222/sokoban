@@ -9,7 +9,7 @@ Level::Level(const std::string& filename) :
 {   
     m_levelConfig.selfTest();
     initMap();
-    setEntitisPosition();
+    setEntitiesPosition();
 }
 
 Level::~Level() {}
@@ -28,7 +28,7 @@ void Level::playerMove(DIRECTION dir) {
 void Level::boxMove(DIRECTION dir) {
     int am = m_boxesAmount;
     for(int i = 0; i < am; i++)
-        if(m_boxes[i].chcekIfImChosen())
+        if(m_boxes[i].checkIfImChosen())
             m_boxes[i].move(dir);
 }
 
@@ -115,15 +115,16 @@ void Level::update(const float deltaTime){
 }
 
 void Level::initMap(){
+    
     m_t1.loadTexture();
     m_t1.createMap();
 }
 
-void Level::setEntitisPosition(){
+void Level::setEntitiesPosition(){
     EntitiesPosition pos(m_levelConfig);
-
     const BoxesPos boxes = pos.getBoxesPos();
     m_boxesAmount = pos.getBoxesAmount();
+    m_boxes.resize(m_boxesAmount);
 
     for(int i = 0; i < m_boxesAmount; i++){
         int x = boxes[i].x;

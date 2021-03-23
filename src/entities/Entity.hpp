@@ -9,8 +9,8 @@
 
 #include <iostream>
 
-constexpr unsigned short TILE_SIZE = 64;
-constexpr unsigned short SPEED = 1;
+inline constexpr unsigned short TILE_SIZE = 64;
+inline constexpr unsigned short SPEED = 1;
 
 enum DIRECTION : int{
     UP,

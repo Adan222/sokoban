@@ -69,7 +69,7 @@ sf::Sprite Tile::getSprite(sf::Texture &tileAtlasTexture) const {
     return temporarySprite;
 }
 
-sf::Vector2u Tile::getPositionOnMap() const {
+sf::Vector2f Tile::getPositionOnMap() const {
     return m_positionOnMap;
 }
 
