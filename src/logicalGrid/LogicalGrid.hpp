@@ -33,7 +33,7 @@ class LogicalGrid{
         {
             m_logicalGrid = lvlcfg.getTileAtlasLogicalGrid();
             //idk why it can`t divide it in init
-            int tileSize = lvlcfg.getTileAtlasTileSize();
+            int tileSize = lvlcfg.getTileSize();
             m_gridWidth = WINDOW_WIDTH / tileSize;
             m_gridHeight = WINDOW_HEIGHT / tileSize;
         };

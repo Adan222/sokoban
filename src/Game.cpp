@@ -36,8 +36,7 @@ void Game::run() {
         lastTime += elapsed;
         lag += elapsed;
 
-        //Event
-        handleEvent();
+        
         
         //Fixed time update
         while(lag > fpc){
@@ -61,6 +60,9 @@ void Game::run() {
         m_window.draw(m_fps);
         ImGui::SFML::Render(m_window);
         m_window.display();
+
+        //Event
+        handleEvent();
     }
 
     ImGui::SFML::Shutdown();
@@ -72,6 +74,8 @@ State::State& Game::getCurrentState() const {
 
 void Game::handleEvent() {
     sf::Event e;
+        
+
     while(m_window.pollEvent(e)) {
         if(!m_states.empty()) { // needed, othwerwise segmentation fault
             getCurrentState().handleEvent(e);
@@ -84,6 +88,7 @@ void Game::handleEvent() {
                 break;
         }
     }
+    
 }
 
 void Game::pushState(std::unique_ptr<State::State>state) {

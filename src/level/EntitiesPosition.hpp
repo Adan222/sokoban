@@ -10,7 +10,7 @@ typedef std::vector<sf::Vector2i> BoxesPos;
  * This class searching for boxes and player
  * on logical_grid in JSON.
  * It`s temporary class, it will be created
- * only once on entities position init
+ * only once on entities position init in level
  */
 class EntitiesPosition : public LogicalGrid
 {

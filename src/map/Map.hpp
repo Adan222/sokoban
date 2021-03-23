@@ -6,17 +6,27 @@
 
 #include <SFML/Graphics.hpp>
 #include "level/LevelConfig.hpp"
+#include "Tile.hpp"
 
 class Map : public sf::Drawable, public sf::Transformable {
+    const LevelConfig& m_levelConfig;
+    
     sf::Texture m_tileAtlas;
-    sf::VertexArray m_tiles;
+    std::vector<Tile> m_tiles;
+    std::vector<sf::RectangleShape> m_gridSquares;
 
-    //It`s less confusion when level config is as class member
-    const LevelConfig &m_levelConfig;
+
+    uint64_t convertPositionToIndex(sf::Vector2u position2D);
 public:
     Map(const LevelConfig& levelConfig);
     ~Map();
 
+    sf::Texture& getTileAtlasTexture();
+    uint32_t getTileAtlasColumns();
+
+    void createGrid();
+    void updateTile(Tile& selectedTile);
+    
     /*
      * Now class have referance to levelconfig
      * and we can`t use m_levelConfig in constructor.
@@ -28,9 +38,7 @@ public:
      * First call loadTexture then others
      */
     void loadTexture();
-    bool createMap();
+    void createMap();
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-    sf::Texture& getTileAtlasTexture();
 };

@@ -6,9 +6,9 @@ Level::Level(const std::string& filename) :
     m_player(),
     m_physics(m_levelConfig, m_boxes),
     m_t1(m_levelConfig),
-    m_grid(m_levelConfig),
     m_boxesAmount(0)
 {   
+    m_levelConfig.selfTest();
     initMap();
     setEntitisPosition();
 }
@@ -23,8 +23,6 @@ void Level::iterate(function func) {
 
 void Level::render(sf::RenderTarget& renderer) {
 
-    //grid
-    renderer.draw(m_grid);
     //Map
     renderer.draw(m_t1);
     //Player

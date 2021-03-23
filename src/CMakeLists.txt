@@ -5,6 +5,8 @@ SET (SOURCE_FILES main.cpp
             Game.cpp
             gui/FpsCounter.hpp
             gui/FpsCounter.cpp
+            gui/EditorGui.hpp
+            gui/EditorGui.cpp
             states/State.hpp
             states/PlayingState.hpp
             states/PlayingState.cpp
@@ -37,10 +39,10 @@ SET (SOURCE_FILES main.cpp
             entities/physics/collisions/BoxCollisions.cpp
             entities/physics/collisions/WallCollisions.hpp
             entities/physics/collisions/WallCollisions.cpp
-            map/Grid.hpp
-            map/Grid.cpp
             map/Map.hpp
             map/Map.cpp
+            map/Tile.hpp
+            map/Tile.cpp
     )
     
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

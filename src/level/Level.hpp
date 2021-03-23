@@ -9,7 +9,6 @@
 #include "LevelConfig.hpp"
 #include "entities/Player.hpp"
 #include "entities/Box.hpp"
-#include "map/Grid.hpp"
 
 #include "EntitiesPosition.hpp"
 
@@ -27,7 +26,6 @@ class Level {
 
     Map m_t1;
     int m_boxesAmount;
-    Grid m_grid;
 
     void initMap();
     void setEntitisPosition();
