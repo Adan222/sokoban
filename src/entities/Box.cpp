@@ -2,7 +2,8 @@
 
 Box::Box() :
     Entity(m_boxShape),
-    m_boxShape({64, 64})
+    m_boxShape({64, 64}),
+    m_imChosen(false)
 {
     m_boxShape.setFillColor(sf::Color::Red);
 }
@@ -14,12 +15,15 @@ void Box::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 }
 
 void Box::imChosenOne() {
-    std::cout << "juhu\n";
-    m_isMoving = true;
+    m_imChosen = true;
 }
 
 void Box::imNotChosenOne() {
-    m_isMoving = false;
+    m_imChosen = false;
+}
+
+bool Box::chcekIfImChosen() const {
+    return m_imChosen;
 }
 
 void Box::pos() {

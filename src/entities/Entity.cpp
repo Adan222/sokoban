@@ -12,46 +12,40 @@ Entity::Entity(sf::Shape &sh) :
 Entity::~Entity() {};
 
 void Entity::move(DIRECTION dir) {
-    /*
-     * This if lock input when
-     * player is in motion
-     */
-    if(!m_isMoving){
-        switch (dir){
-            case UP:{
-                m_currentDirection = UP;
+    
+    switch (dir){
+        case UP:{
+            m_currentDirection = UP;
 
-                m_moveVector.y = -SPEED;
-                m_gridPos.y -= 1; 
-            }break;
+            m_moveVector.y = -SPEED;
+            m_gridPos.y -= 1; 
+        }break;
 
-            case LEFT:{
-                m_currentDirection = LEFT;
+        case LEFT:{
+            m_currentDirection = LEFT;
 
-                m_moveVector.x = -SPEED;
-                m_gridPos.x -= 1;
-            }break;
+           m_moveVector.x = -SPEED;
+            m_gridPos.x -= 1;
+        }break;
 
-            case DOWN: {
-                m_currentDirection = DOWN;
+        case DOWN: {
+            m_currentDirection = DOWN;
 
-                m_moveVector.y = SPEED;
-                m_gridPos.y += 1;
-            }break;
+            m_moveVector.y = SPEED;
+            m_gridPos.y += 1;
+        }break;
 
-            case RIGHT:{
-                m_currentDirection = RIGHT;
+        case RIGHT:{
+            m_currentDirection = RIGHT;
 
-                m_moveVector.x = SPEED;
-                m_gridPos.x += 1;
-            }break;
+            m_moveVector.x = SPEED;
+            m_gridPos.x += 1;
+        }break;
 
-            case NONE:{}break; 
-        } //switch
+        case NONE:{}break; 
+    } //switch
 
-        m_guide.move(m_currentDirection);
-
-    }   //if(!m_isMoving)
+    m_guide.move(m_currentDirection);
 
     m_isMoving = true;
 }
@@ -83,7 +77,11 @@ void Entity::initPosition(const int grid_x, const int grid_y) {
     m_shape.setPosition(grid_x * TILE_SIZE, grid_y * TILE_SIZE);
 
     std::cout << "init pos\n";
-    drawPos();
+    drawGridPos();
+}
+
+bool Entity::isMoving() const {
+    return m_isMoving;
 }
 
 bool Entity::isWithGuide(DIRECTION dir) const {
@@ -113,6 +111,12 @@ void Entity::drawPos() const {
     std::cout << "ent y: " << m_shape.getPosition().y << "\n";
     std::cout << "guide x: " << m_guide.getPosition().x * TILE_SIZE << "\n";
     std::cout << "guide y: " << m_guide.getPosition().y * TILE_SIZE << "\n\n";
+}
+
+void Entity::drawGridPos() const {
+    std::cout << "Grid pos\n";
+    std::cout << "x: " << m_gridPos.x << "\n";
+    std::cout << "y: " << m_gridPos.y << "\n\n";
 }
 
 

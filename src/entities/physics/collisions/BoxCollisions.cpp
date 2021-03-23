@@ -20,7 +20,7 @@ bool BoxCollisions::check(const sf::Vector2i nextPos){
 }
 
 void BoxCollisions::action() {
-    if(m_chosenOneIndex > 0)
+    if(m_chosenOneIndex >= 0)
         m_boxes[m_chosenOneIndex].imChosenOne();
 }
 

@@ -42,6 +42,7 @@ class Entity : public sf::Drawable{
 
         //debug purpose
         void drawPos() const;
+        void drawGridPos() const;
 
     
     public:
@@ -57,4 +58,6 @@ class Entity : public sf::Drawable{
         virtual void update(const float deltaTime);
 
         void initPosition(const int grid_x, const int grid_y);
+
+        bool isMoving() const;
 };

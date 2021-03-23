@@ -4,12 +4,12 @@
 #include <stdexcept>
 #include <vector>
 
+#include "entities/Entity.hpp"
 #include "entities/physics/Physics.hpp"
 #include "map/Map.hpp"
 #include "LevelConfig.hpp"
 #include "entities/Player.hpp"
 #include "entities/Box.hpp"
-
 #include "EntitiesPosition.hpp"
 
 constexpr unsigned short MAP_WITDH  = 16;
@@ -36,6 +36,9 @@ class Level {
     void disappoint();
 
     void iterate(function func);
+
+    void playerMove(DIRECTION dir);
+    void boxMove(DIRECTION dir);
 
 public:
     Level(const std::string& filename);

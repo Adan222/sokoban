@@ -3,7 +3,8 @@
 #include <SFML/System/Vector2.hpp>
 
 Physics::Physics(const LevelConfig &lvlcfg, Boxes &allboxes) :
-    m_boxCollisions(allboxes)
+    m_boxCollisions(allboxes),
+    m_wallCollision(lvlcfg)
 {}
 
 Physics::~Physics() {}
@@ -40,7 +41,7 @@ bool Physics::chcekNextObscatle(const sf::Vector2i currPos, DIRECTION dir){
     //Pos behind box
     makeNext(nextPos, dir, 2);
 
-    if(m_boxCollisions.check(nextPos)) // or wall - but it later
+    if(m_boxCollisions.check(nextPos) || m_wallCollision.check(nextPos))
         return true;
 
     return false;
@@ -50,6 +51,7 @@ void Physics::action() {
     m_boxCollisions.action();
 }
 
-bool Physics::checkWall(const sf::Vector2i currPos, DIRECTION dir){
-    return false;
+bool Physics::checkWall(sf::Vector2i currPos, DIRECTION dir){
+    makeNext(currPos, dir);
+    return m_wallCollision.check(currPos);
 }

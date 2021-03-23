@@ -1,5 +1,4 @@
 #include "Level.hpp"
-#include "level/EntitiesPosition.hpp"
 
 Level::Level(const std::string& filename) : 
     m_levelConfig(filename),
@@ -21,6 +20,18 @@ void Level::iterate(function func) {
         //func(i);
 }
 
+void Level::playerMove(DIRECTION dir) {
+    m_player.move(dir);
+    m_player.setAniamtion(dir);
+}
+
+void Level::boxMove(DIRECTION dir) {
+    int am = m_boxesAmount;
+    for(int i = 0; i < am; i++)
+        if(m_boxes[i].chcekIfImChosen())
+            m_boxes[i].move(dir);
+}
+
 void Level::render(sf::RenderTarget& renderer) {
 
     //Map
@@ -31,7 +42,6 @@ void Level::render(sf::RenderTarget& renderer) {
     int am = m_boxesAmount;
     for(int i = 0; i < am; i++)
         renderer.draw(m_boxes[i]);
-
 }
 
 void Level::input(const sf::Keyboard::Key pressedKey){
@@ -42,40 +52,45 @@ void Level::handleMove(const sf::Keyboard::Key pressedKey){
     using Key = sf::Keyboard;
 
     DIRECTION dir = NONE;
+    /*
+     * Lock input while player is moving.
+     */
+    if(!m_player.isMoving()){
+        if(pressedKey == Key::W){
+            dir = UP;
+        }
 
-    if(pressedKey == Key::W){
-        dir = UP;
-    }
+        if(pressedKey == Key::A){
+            dir = LEFT;
+        }
 
-    if(pressedKey == Key::A){
-        dir = LEFT;
-    }
+        if(pressedKey == Key::S){
+            dir = DOWN;
+        }
 
-    if(pressedKey == Key::S){
-        dir = DOWN;
-    }
+        if(pressedKey == Key::D){
+            dir = RIGHT;
+        }
 
-    if(pressedKey == Key::D){
-        dir = RIGHT;
-    }
-
-    //move
-    if(dir != NONE){
-        if(!m_physics.checkWall(m_player.getGridPos(), dir)){
-            if(m_physics.checkBoxCollision(m_player.getGridPos(), dir)){
-                if(m_physics.chcekNextObscatle(m_player.getGridPos(), dir)){
-                    std::cout << "Can`t move\n";
+        //move
+        if(dir != NONE){
+            if(!m_physics.checkWall(m_player.getGridPos(), dir)){
+                if(m_physics.checkBoxCollision(m_player.getGridPos(), dir)){
+                    if(m_physics.chcekNextObscatle(m_player.getGridPos(), dir)){
+                        std::cout << "Can`t move\n";
+                    }
+                    else{
+                        m_physics.action();
+                        playerMove(dir);
+                        boxMove(dir);
+                    }
                 }
                 else{
-                    m_player.move(dir);
-                    m_player.setAniamtion(dir);
+                    playerMove(dir);
                 }
             }
-            else{
-                m_player.move(dir);
-                m_player.setAniamtion(dir);
-            }
         }
+        disappoint();
     }
 }
 
@@ -86,8 +101,9 @@ void Level::moveBoxes(DIRECTION dir) {
 }
 
 void Level::disappoint() {
-    for(auto &i : m_boxes)
-        i.imNotChosenOne();
+    int am = m_boxesAmount;
+    for(int i = 0; i < am; i++)
+        m_boxes[i].imNotChosenOne();
 }
 
 void Level::update(const float deltaTime){

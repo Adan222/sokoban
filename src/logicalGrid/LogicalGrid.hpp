@@ -16,7 +16,7 @@ enum LOGIC{
 /*
  * It`s abstract class for class like 
  * EntitiesPosition which looking for entiteis
- * position, and WallCollision which looking for
+ * position, and WallCollisions which looking for
  * walls on next move
  */
 
@@ -25,33 +25,22 @@ class LogicalGrid{
         TileAtlas m_logicalGrid;
         int m_gridWidth;
         int m_gridHeight;
+        
     public:
 
-        LogicalGrid(const LevelConfig &lvlcfg) :
-            m_gridWidth(0),
-            m_gridHeight(0)
-        {
-            m_logicalGrid = lvlcfg.getTileAtlasLogicalGrid();
-            //idk why it can`t divide it in init
-            int tileSize = lvlcfg.getTileSize();
-            m_gridWidth = WINDOW_WIDTH / tileSize;
-            m_gridHeight = WINDOW_HEIGHT / tileSize;
-        };
+        LogicalGrid(const LevelConfig &lvlcfg);
 
-        virtual ~LogicalGrid() {};
+        virtual ~LogicalGrid();
 
         /*
          * This function convert index of one dimension table
-         * to coordinates n grid
+         * to coordinates on grid
          */
-        sf::Vector2i indexToPos(unsigned int index){
-            int x = 0;
-            int y = 0;
+        sf::Vector2i indexToPos(u_int32_t index);
 
-            for(int y = 0; y < m_gridHeight; y++)
-                for(int x = 0; x < m_gridWidth; x++)
-                    if(x + y * m_gridWidth == index)
-                        return {x, y};
-            return {-1, -1};
-        }
+        /*
+         * This function convert coordinates
+         * to to index of logical grid
+         */
+        u_int32_t posToIndex(const sf::Vector2i pos);
 };

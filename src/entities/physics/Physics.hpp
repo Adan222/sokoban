@@ -1,5 +1,6 @@
 #pragma once
 
+#include "entities/physics/collisions/WallCollisions.hpp"
 #include "level/LevelConfig.hpp"
 #include "entities/Box.hpp"
 #include "collisions/BoxCollisions.hpp"
@@ -12,6 +13,7 @@
 class Physics{
     private:
         BoxCollisions m_boxCollisions;
+        WallCollisions m_wallCollision;
 
         /*
          * Iterate component depend on direction
