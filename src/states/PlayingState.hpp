@@ -8,10 +8,13 @@
 #include "Game.hpp"
 #include "level/Level.hpp"
 
+#define LEVEL_PATH "../res/levels/"
+
 namespace State {
 
 class PlayingState : public State {
-    Level m_level;
+    Level *m_level;
+    int m_whichLvl;
     
 public:
     PlayingState(Game& game);
@@ -21,7 +24,9 @@ public:
     void draw(sf::RenderTarget& renderer) override;
 
     void update(const float deltaTime) override;
+    
+    void setWhichLvl(const int which);
 };
 
-} //namespace State
+}
 

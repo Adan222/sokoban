@@ -1,6 +1,6 @@
 #include "WallCollisions.hpp"
 
-WallCollisions::WallCollisions(Positions &walls) :
+WallCollisions::WallCollisions(const Positions walls) :
     m_walls(walls)
 {}
 

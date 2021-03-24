@@ -16,10 +16,10 @@ SET (SOURCE_FILES main.cpp
             states/LevelEditorState.cpp
             level/LevelConfig.hpp
             level/LevelConfig.cpp
-            logicalGrid/LogicalGrid.hpp
-            logicalGrid/LogicalGrid.cpp
             level/Level.hpp
             level/Level.cpp
+            level/WinChecker.hpp
+            level/WinChecker.cpp
             entities/Entity.hpp
             entities/Entity.cpp
             entities/Player.hpp

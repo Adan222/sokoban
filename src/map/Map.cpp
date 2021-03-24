@@ -1,7 +1,6 @@
 #include "Map.hpp"
 #include "entities/Box.hpp"
 #include "level/LevelConfig.hpp"
-#include "logicalGrid/LogicalGrid.hpp"
 #include "map/Grid.hpp"
 #include <bits/stdint-uintn.h>
 #include <exception>
@@ -32,9 +31,10 @@ uint32_t Map::convertPositionToIndex(sf::Vector2f position2D) {
     return index;
 }
 
-sf::Vector2i Map::indexToPos(u_int32_t index) {
+sf::Vector2i Map::indexToPos(uint32_t index) {
     uint32_t gridWidth = WINDOW_WIDTH / m_levelConfig.getTileSize();
     uint32_t gridHeight = WINDOW_HEIGHT / m_levelConfig.getTileSize();
+
     for(int y = 0; y < gridHeight; y++)
         for(int x = 0; x < gridWidth; x++)
             if(x + y * gridWidth == index)
@@ -42,20 +42,17 @@ sf::Vector2i Map::indexToPos(u_int32_t index) {
     return {-1, -1};
 }
 
-void Map::findOn(const int index) {
+Positions Map::find(LOGIC what, LOGIC sec) {
     Grid logicalGrid = m_levelConfig.getTileAtlasLogicalGrid();
+    Positions pos;
 
     int am = logicalGrid.size();
-    if(logicalGrid[index] == LOGIC::BOX || logicalGrid[index] == LOGIC::BOX_AND_WIN)
-        m_boxesPos.emplace_back(indexToPos(index));
-    else if(logicalGrid[index] == LOGIC::PLAYER)
-        m_playerPos = indexToPos(index);
+    //idk why iterator don`t work here
+    for(int i = 0; i < am; i++)
+        if(logicalGrid[i] == what || logicalGrid[i] == sec)
+            pos.emplace_back(indexToPos(i));
 
-    else if(logicalGrid[index] == LOGIC::WIN_PLACE || logicalGrid[index] == LOGIC::BOX_AND_WIN)
-        m_winPlaces.emplace_back(indexToPos(index));
-
-    else if(logicalGrid[index] == LOGIC::WALL)
-        m_walls.emplace_back(indexToPos(index));
+    return pos;
 }
 
 
@@ -104,17 +101,11 @@ void Map::createMap() {
 
     const Grid visualGrid = m_levelConfig.getTileAtlasVisualGrid();
     const Grid logicGrid = m_levelConfig.getTileAtlasLogicalGrid();
-    int gridSize = 0;
-
-    if(visualGrid.size() == logicGrid.size())
-        //doesn`t matter which Grid
-        gridSize = visualGrid.size();
 
     for(int i = 0; i < maxAmountOfTiles; i++) {
         
         //Set logic
         if(i < logicGrid.size()){
-            findOn(i);
             m_tiles[i].setLogicID(logicGrid[i]);
         }
         else
@@ -138,22 +129,6 @@ void Map::createMap() {
         else
             m_tiles[i].noTexture();
     }
-}
-
-Positions Map::getBoxesPos() const {
-    return m_boxesPos;
-}
-
-Positions Map::getWallsPos() const {
-    return m_walls;
-}
-
-sf::Vector2i Map::getPlayerPos() const {
-    return m_playerPos;
-}
-
-uint32_t Map::getBoxesAmount() const {
-    return m_boxesPos.size();
 }
 
 void Map::createGrid() {

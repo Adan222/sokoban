@@ -6,7 +6,6 @@ enum LOGIC {
     PLAYER,
     BOX,
     WIN_PLACE,
-    BOX_AND_WIN
+    BOX_AND_WIN,
+    LOGIC_NONE
 };
-
-const unsigned short MAX_LOGIC = BOX_AND_WIN;

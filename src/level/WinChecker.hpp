@@ -1,14 +1,17 @@
 #pragma once
 
 #include "level/LevelConfig.hpp"
-#include "logicalGrid/LogicalGrid.hpp"
+#include "entities/Box.hpp"
+
+#include <SFML/System/Vector2.hpp>
 
 class WinChecker{
     private:
-        BoxesPos &m_boxes;
+        Boxes &m_boxes;
+        const Positions m_winPlaces;
     public:
-        WinChecker(BoxesPos &boxes);
+        WinChecker(Boxes &boxes, const Positions winPlaces);
         ~WinChecker();
 
-        bool winCheck();
+        bool check() const;
 };

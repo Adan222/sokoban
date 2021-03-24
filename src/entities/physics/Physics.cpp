@@ -2,7 +2,7 @@
 #include "entities/Entity.hpp"
 #include <SFML/System/Vector2.hpp>
 
-Physics::Physics(Positions &walls, Boxes &allboxes) :
+Physics::Physics(const Positions walls, Boxes &allboxes) :
     m_boxCollisions(allboxes),
     m_wallCollision(walls)
 {}

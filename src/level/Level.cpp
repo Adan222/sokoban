@@ -1,31 +1,34 @@
 #include "Level.hpp"
+#include "level/LevelConfig.hpp"
+#include "map/Grid.hpp"
 
 Level::Level(const std::string& filename) : 
     m_levelConfig(filename),
     m_player(),
-    m_t1(m_levelConfig),
-    m_physics(m_walls, m_boxes),
-    m_boxesAmount(0)
+    lvlMap(m_levelConfig),
+    m_physics(lvlMap.find(WALL), m_boxes),
+    m_winChecker(m_boxes, lvlMap.find(WIN_PLACE, BOX_AND_WIN)),
+    m_wantExit(false)
 {   
     setEntitiesPosition();
-    m_walls = m_t1.getWallsPos();
 }
 
 Level::~Level() {}
-
+/*
 void Level::iterate(function func) {
     //int am = m_levelConfig.getBoxesAmount();
     //for(int i = 0; i < am; i++)
         //func(i);
-}
+}*/
 
 void Level::playerMove(DIRECTION dir) {
     m_player.move(dir);
     m_player.setAniamtion(dir);
 }
 
-void Level::boxMove(DIRECTION dir) {
-    int am = m_boxesAmount;
+void Level::moveBox(DIRECTION dir) {
+    //!!! iterator don`t work again
+    int am = m_boxes.size();
     for(int i = 0; i < am; i++)
         if(m_boxes[i].checkIfImChosen())
             m_boxes[i].move(dir);
@@ -34,17 +37,20 @@ void Level::boxMove(DIRECTION dir) {
 void Level::render(sf::RenderTarget& renderer) {
 
     //Map
-    renderer.draw(m_t1);
+    renderer.draw(lvlMap);
     //Player
     renderer.draw(m_player);
     //Boxes
-    int am = m_boxesAmount;
-    for(int i = 0; i < am; i++)
-        renderer.draw(m_boxes[i]);
+    for(auto i : m_boxes)
+        renderer.draw(i);
 }
 
 void Level::input(const sf::Keyboard::Key pressedKey){
     handleMove(pressedKey);
+}
+
+bool Level::checkIfWantExit() const {
+    return m_wantExit;
 }
 
 void Level::handleMove(const sf::Keyboard::Key pressedKey){
@@ -73,52 +79,60 @@ void Level::handleMove(const sf::Keyboard::Key pressedKey){
 
         //move
         if(dir != NONE){
+            //Check for wall
             if(!m_physics.checkWall(m_player.getGridPos(), dir)){
+                //Then check for Box
                 if(m_physics.checkBoxCollision(m_player.getGridPos(), dir)){
+                    //And if there`s box, check for obscatle behind him
                     if(m_physics.chcekNextObscatle(m_player.getGridPos(), dir)){
                         std::cout << "Can`t move\n";
                     }
+                    //If there`s no obscate move player and box
                     else{
+                        //allow box to move
                         m_physics.action();
+
                         playerMove(dir);
-                        boxMove(dir);
+                        moveBox(dir);
                     }
                 }
                 else{
                     playerMove(dir);
                 }
             }
-        }
+        }        
+        //now any box can move
         disappoint();
+
+        //exit lvl
+        if(m_winChecker.check()){
+            std::cout << "You win!!!\n";
+            m_wantExit = true;
+        }
+
     }
 }
 
-void Level::moveBoxes(DIRECTION dir) {
-    int am = m_boxesAmount;
-    for(int i = 0; i < am; i++)
-        m_boxes[i].move(dir);
-}
-
 void Level::disappoint() {
-    int am = m_boxesAmount;
+    int am = m_boxes.size();
     for(int i = 0; i < am; i++)
         m_boxes[i].imNotChosenOne();
 }
 
 void Level::update(const float deltaTime){
     m_player.update(deltaTime);
-
-    int am = m_boxesAmount;
+    int am = m_boxes.size();
     for(int i = 0; i < am; i++)
         m_boxes[i].update(deltaTime);
 }
 
 void Level::setEntitiesPosition(){
-    Positions boxesPos = m_t1.getBoxesPos();
-    m_boxesAmount = m_t1.getBoxesAmount();
+    Positions boxesPos = lvlMap.find(BOX, BOX_AND_WIN);
+    int am = boxesPos.size();
 
-    m_boxes.resize(m_boxesAmount);
-    int am = m_boxesAmount;
+    std::cout << am << "\n";
+
+    m_boxes.resize(am);
     for(int i = 0; i < am; i++){
         int x = boxesPos[i].x;
         int y = boxesPos[i].y;
@@ -126,7 +140,7 @@ void Level::setEntitiesPosition(){
         m_boxes[i].initPosition(x, y);
     }
     
-    int x = m_t1.getPlayerPos().x;
-    int y = m_t1.getPlayerPos().y;
-    m_player.initPosition(x, y);
+    //player position
+    Positions playerPos = lvlMap.find(PLAYER);
+    m_player.initPosition(playerPos[0].x, playerPos[0].y);
 }

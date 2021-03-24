@@ -7,10 +7,11 @@
 class WallCollisions
 {
     private:
-        Positions &m_walls;
+        //Walls don`t move
+        const Positions m_walls;
 
     public:
-        WallCollisions(Positions &walls);
+        WallCollisions(const Positions walls);
         ~WallCollisions();
         
         /*

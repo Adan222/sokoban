@@ -10,6 +10,7 @@
 #include "LevelConfig.hpp"
 #include "entities/Player.hpp"
 #include "entities/Box.hpp"
+#include "WinChecker.hpp"
 
 constexpr unsigned short MAP_WITDH  = 16;
 constexpr unsigned short MAP_HEIGHT = 12;
@@ -18,26 +19,31 @@ typedef void(function)(const int index);
 
 class Level {
     const LevelConfig m_levelConfig;
+    bool m_wantExit;
 
-    Map m_t1;
-    int m_boxesAmount;
+    Map lvlMap;
 
     Physics m_physics;
+    WinChecker m_winChecker;
     Player m_player;
     Boxes m_boxes;
-    Positions m_walls;
 
     void setEntitiesPosition();
 
     void handleMove(const sf::Keyboard::Key pressedKey);
+    void playerMove(DIRECTION dir);
 
-    void moveBoxes(DIRECTION dir);
+    /*
+     * This function move selected box
+     */
+    void moveBox(DIRECTION dir);
+
+    /*
+     * This function
+     */
     void disappoint();
 
-    void iterate(function func);
-
-    void playerMove(DIRECTION dir);
-    void boxMove(DIRECTION dir);
+    //void iterate(function func);
 
 public:
     Level(const std::string& filename);
@@ -46,4 +52,10 @@ public:
     void render(sf::RenderTarget& renderer);
     void update(const float deltaTime);
     void input(const sf::Keyboard::Key pressedKey);
+
+    /*
+     * Chek if want to exit this level
+     * and go to the next
+     */
+    bool checkIfWantExit() const;
 };

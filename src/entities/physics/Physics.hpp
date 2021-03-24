@@ -23,7 +23,7 @@ class Physics{
         sf::Vector2i currPlayerPos;
 
     public:
-        Physics(Positions &walls, Boxes &allboxes);
+        Physics(const Positions walls, Boxes &allboxes);
         ~Physics();
 
         /*
