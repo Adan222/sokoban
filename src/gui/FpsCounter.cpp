@@ -2,7 +2,7 @@
 
 FpsCounter::FpsCounter(int windowWidth){
 
-    const std::string arialPath = "../res/font/arial.ttf";
+    const std::string arialPath = "../res/font/Minecraft.ttf";
     //This will display error message
     m_arial.loadFromFile(arialPath);
 

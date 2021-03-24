@@ -3,6 +3,8 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+#include "Grid.hpp"
+
 class Tile : public sf::Drawable, public sf::Transformable {
     uint32_t m_size;
     bool m_selected;

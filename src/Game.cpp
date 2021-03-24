@@ -1,4 +1,6 @@
 #include "Game.hpp"
+#include "states/LevelEditorState.hpp"
+#include "states/PlayingState.hpp"
 #include <math.h>
 
 Game::Game() :
@@ -21,7 +23,6 @@ void Game::run() {
     sf::Time fpc = sf::seconds(1.0 / 30.0f);
 
     sf::Clock clock;
-    sf::Clock deltaClock;
 
     sf::Time lastTime = sf::Time::Zero;
     sf::Time lag = sf::Time::Zero;
@@ -35,29 +36,26 @@ void Game::run() {
         lastTime += elapsed;
         lag += elapsed;
 
-        
-        
         //Fixed time update
         while(lag > fpc){
             lag -= fpc;
             state.update(lag.asSeconds());
         }
 
-
         //Update
         state.update(elapsed.asSeconds());
         m_fps.update(elapsed.asSeconds());
+        ImGui::SFML::Update(m_window, elapsed);
                 
         //Draw
         m_window.resetGLStates(); //temporary, needed only if we dont draw SFML things
 
-        ImGui::SFML::Update(m_window, deltaClock.restart());
-               
-        
         m_window.clear();
+
         state.draw(m_window);
         m_window.draw(m_fps);
         ImGui::SFML::Render(m_window);
+
         m_window.display();
 
         //Event

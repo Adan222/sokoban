@@ -95,7 +95,7 @@ void LevelConfig::setTileSize(uint32_t tileSize) {
     m_tileAtlasJSON.at("tile_size") = tileSize;
 }
 
-TileAtlas LevelConfig::getTileAtlasVisualGrid() const {
+Grid LevelConfig::getTileAtlasVisualGrid() const {
     if(m_mapConfigJSON.contains("visual_grid")) { 
         return m_mapConfigJSON["visual_grid"];
     } else {
@@ -105,7 +105,7 @@ TileAtlas LevelConfig::getTileAtlasVisualGrid() const {
     //TO DO we shouldnt test it in getters/setters, we should test those when reading file
 }
 
-TileAtlas LevelConfig::getTileAtlasLogicalGrid() const{
+Grid LevelConfig::getTileAtlasLogicalGrid() const{
     if(m_mapConfigJSON.contains("logical_grid")) {
         return m_mapConfigJSON["logical_grid"];
     } else {

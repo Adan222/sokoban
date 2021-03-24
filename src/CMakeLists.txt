@@ -18,8 +18,6 @@ SET (SOURCE_FILES main.cpp
             level/LevelConfig.cpp
             logicalGrid/LogicalGrid.hpp
             logicalGrid/LogicalGrid.cpp
-            level/EntitiesPosition.hpp
-            level/EntitiesPosition.cpp
             level/Level.hpp
             level/Level.cpp
             entities/Entity.hpp

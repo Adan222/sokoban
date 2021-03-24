@@ -2,9 +2,9 @@
 #include "entities/Entity.hpp"
 #include <SFML/System/Vector2.hpp>
 
-Physics::Physics(const LevelConfig &lvlcfg, Boxes &allboxes) :
+Physics::Physics(Positions &walls, Boxes &allboxes) :
     m_boxCollisions(allboxes),
-    m_wallCollision(lvlcfg)
+    m_wallCollision(walls)
 {}
 
 Physics::~Physics() {}

@@ -3,13 +3,12 @@
 Level::Level(const std::string& filename) : 
     m_levelConfig(filename),
     m_player(),
-    m_physics(m_levelConfig, m_boxes),
     m_t1(m_levelConfig),
+    m_physics(m_walls, m_boxes),
     m_boxesAmount(0)
 {   
-    m_levelConfig.selfTest();
-    initMap();
     setEntitiesPosition();
+    m_walls = m_t1.getWallsPos();
 }
 
 Level::~Level() {}
@@ -114,25 +113,20 @@ void Level::update(const float deltaTime){
         m_boxes[i].update(deltaTime);
 }
 
-void Level::initMap(){
-    
-    m_t1.loadTexture();
-    m_t1.createMap();
-}
-
 void Level::setEntitiesPosition(){
-    EntitiesPosition pos(m_levelConfig);
-    const BoxesPos boxes = pos.getBoxesPos();
-    m_boxesAmount = pos.getBoxesAmount();
-    m_boxes.resize(m_boxesAmount);
+    Positions boxesPos = m_t1.getBoxesPos();
+    m_boxesAmount = m_t1.getBoxesAmount();
 
-    for(int i = 0; i < m_boxesAmount; i++){
-        int x = boxes[i].x;
-        int y = boxes[i].y;
+    m_boxes.resize(m_boxesAmount);
+    int am = m_boxesAmount;
+    for(int i = 0; i < am; i++){
+        int x = boxesPos[i].x;
+        int y = boxesPos[i].y;
+
         m_boxes[i].initPosition(x, y);
     }
-
-    int x = pos.getPlayerPos().x;
-    int y = pos.getPlayerPos().y;
+    
+    int x = m_t1.getPlayerPos().x;
+    int y = m_t1.getPlayerPos().y;
     m_player.initPosition(x, y);
 }

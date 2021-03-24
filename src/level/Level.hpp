@@ -10,7 +10,6 @@
 #include "LevelConfig.hpp"
 #include "entities/Player.hpp"
 #include "entities/Box.hpp"
-#include "EntitiesPosition.hpp"
 
 constexpr unsigned short MAP_WITDH  = 16;
 constexpr unsigned short MAP_HEIGHT = 12;
@@ -20,14 +19,14 @@ typedef void(function)(const int index);
 class Level {
     const LevelConfig m_levelConfig;
 
-    Physics m_physics;
-    Player m_player;
-    Boxes m_boxes;
-
     Map m_t1;
     int m_boxesAmount;
 
-    void initMap();
+    Physics m_physics;
+    Player m_player;
+    Boxes m_boxes;
+    Positions m_walls;
+
     void setEntitiesPosition();
 
     void handleMove(const sf::Keyboard::Key pressedKey);
