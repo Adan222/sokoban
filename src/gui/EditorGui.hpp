@@ -13,9 +13,10 @@ class Map;
 class EditorGui : public sf::Drawable, public sf::Transformable {
     LevelConfig& m_levelConfig;
     
-    Tile* m_selectedTile2;
+    Tile* m_selectedTile;
+    Tile m_liftedTile;
+    
     std::vector<Tile> m_tilesRectList;
-    Tile m_selectedTile;
     
     uint32_t m_tilesRectColumns;
     uint32_t m_tilesRectRows;

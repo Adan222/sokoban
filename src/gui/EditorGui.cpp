@@ -3,8 +3,8 @@
 #include "map/Map.hpp"
 
 
-EditorGui::EditorGui(LevelConfig& levelConfig) :  m_levelConfig(levelConfig), m_selectedTile(m_levelConfig.getTileSize()) {
-    m_selectedTile2 = nullptr;
+EditorGui::EditorGui(LevelConfig& levelConfig) :  m_levelConfig(levelConfig), m_liftedTile(m_levelConfig.getTileSize()) {
+    m_selectedTile = nullptr;
 }
 
 EditorGui::~EditorGui() {
@@ -104,8 +104,8 @@ void EditorGui::tileList(Map& m1) {
         ImGui::PushID(i);
          
         if(ImGui::ImageButton(t.getSprite(m1.getTileAtlasTexture()), 0)) {
-            m_selectedTile = t;
-            m_selectedTile.isSelected(true);
+            m_liftedTile = t;
+            m_liftedTile.isSelected(true);
         }
         
         ImGui::PopID();
@@ -119,17 +119,17 @@ void EditorGui::tileList(Map& m1) {
 }
 
 void EditorGui::tileOptions() {
-    if(m_selectedTile2 != nullptr) {
-        int e = m_selectedTile2->getLogicID();
+    if(m_selectedTile != nullptr) {
+        int e = m_selectedTile->getLogicID();
 
         ImGui::RadioButton("Tlo", &e, 0); 
         ImGui::RadioButton("Sciana", &e, 1);
         ImGui::RadioButton("Pozycja poczatkowa gracza", &e, 2);
         ImGui::RadioButton("Box", &e, 3); 
         ImGui::RadioButton("Miejsce wygrania", &e, 4);  
-        ImGui::RadioButton("Miejsce wygrania odrazu z boxem", &e, 5); 
-        if(e != m_selectedTile2->getLogicID()) {
-            m_selectedTile2->setLogicID(e);
+        ImGui::RadioButton("Miejsce wygrania wraz z boxem", &e, 5); 
+        if(e != m_selectedTile->getLogicID()) {
+            m_selectedTile->setLogicID(e);
         }
     } else {
         ImGui::Text("No tile selected");
@@ -138,7 +138,7 @@ void EditorGui::tileOptions() {
 }
 
 void EditorGui::updateSelectedTilePosition() {
-    if(m_selectedTile.isSelected() && 
+    if(m_liftedTile.isSelected() && 
                 ImGui::GetMousePos().x >= 0 && ImGui::GetMousePos().x <= 1024 && 
                 ImGui::GetMousePos().y >= 0 && ImGui::GetMousePos().y <= 768) {
         
@@ -146,26 +146,22 @@ void EditorGui::updateSelectedTilePosition() {
         //TO DO rename variables here
         uint32_t ex = floor(ImGui::GetMousePos().x / static_cast<float>(tileAtlasTileSize));
         uint32_t ey = floor(ImGui::GetMousePos().y / static_cast<float>(tileAtlasTileSize));
-        m_selectedTile.setPosition(ex, ey);
+        m_liftedTile.setPosition(ex, ey);
     }
-    
-
 }
 
 
 void EditorGui::placeTile(Map &m1) {
-    if(m_selectedTile.isSelected()) {
-        m1.updateTile(m_selectedTile);
-        m_selectedTile.isSelected(false);
+    if(m_liftedTile.isSelected()) {
+        m1.updateTile(m_liftedTile);
+        m_liftedTile.isSelected(false);
     }
 }
 
 void EditorGui::selectTile(Map &m1, sf::Vector2f mousePosition) {
-    if(!m_selectedTile.isSelected()) {
-
-       m1.unselectTile(m_selectedTile2);
-        
-        m_selectedTile2 = m1.selectTile(mousePosition);
+    if(!m_liftedTile.isSelected()) {
+        m1.unselectTile(m_selectedTile);
+        m_selectedTile = m1.selectTile(mousePosition);
     }
 } 
 
@@ -173,7 +169,7 @@ void EditorGui::selectTile(Map &m1, sf::Vector2f mousePosition) {
 void EditorGui::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     
-    if(m_selectedTile.isSelected()) {
-        target.draw(m_selectedTile, states); 
+    if(m_liftedTile.isSelected()) {
+        target.draw(m_liftedTile, states); 
     }
 }

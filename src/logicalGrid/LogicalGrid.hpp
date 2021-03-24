@@ -35,7 +35,7 @@ class LogicalGrid {
          * This function convert index of one dimension table
          * to coordinates on grid
          */
-        sf::Vector2i indexToPos(u_int32_t index);
+        sf::Vector2i indexToPos(uint32_t index);
 
         /*
          * This function convert coordinates
