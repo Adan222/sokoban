@@ -1,7 +1,7 @@
 #this project is using vcpkg as dependecy manager please use build.sh for building
 cmake_minimum_required(VERSION 3.15)
 
-project(sokoban VERSION 0.0.0
+project(sokoban VERSION 0.0.5
                 DESCRIPTION "Sokoban - Motorola Science Cup"
                 LANGUAGES CXX)
 
@@ -17,10 +17,9 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-#c++17 standard
+#c++20 standard
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-#add_compile_options(-std=c++17)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -30,10 +29,11 @@ find_package(nlohmann_json CONFIG REQUIRED)
 find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 find_package(ImGui-SFML CONFIG REQUIRED)
+find_package(unofficial-nativefiledialog CONFIG REQUIRED)
 
 target_link_libraries(sokoban PRIVATE nlohmann_json nlohmann_json::nlohmann_json)
 target_link_libraries(sokoban PRIVATE sfml-system sfml-graphics sfml-window)
 target_link_libraries(sokoban PRIVATE ImGui-SFML::ImGui-SFML)
 target_link_libraries(sokoban PRIVATE imgui::imgui)
-target_link_libraries(sokoban PRIVATE stdc++fs)
+target_link_libraries(main PRIVATE unofficial::nativefiledialog::nfd)
 
