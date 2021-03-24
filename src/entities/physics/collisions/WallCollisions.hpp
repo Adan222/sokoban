@@ -1,13 +1,16 @@
 #pragma once
 
 #include "level/LevelConfig.hpp"
-#include "logicalGrid/LogicalGrid.hpp"
+
 #include <SFML/System/Vector2.hpp>
 
-class WallCollisions : public LogicalGrid
+class WallCollisions
 {
+    private:
+        Positions &m_walls;
+
     public:
-        WallCollisions(const LevelConfig &lvlcfg);
+        WallCollisions(Positions &walls);
         ~WallCollisions();
         
         /*

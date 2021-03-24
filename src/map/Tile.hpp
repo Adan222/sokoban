@@ -3,11 +3,14 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+#include "Grid.hpp"
+
 class Tile : public sf::Drawable, public sf::Transformable {
     uint32_t m_size;
     bool m_selected;
     int m_textureID;
     int m_physicID;
+    LOGIC m_logic;
     
     std::vector<sf::Vertex> m_tile;
     sf::Vector2f m_positionOnMap;
@@ -16,6 +19,7 @@ public:
     void setPosition(uint32_t col, uint32_t row);
     void setTextureCoords(uint32_t atlasCol, uint32_t atlasRow, int textureID);
     void setTexture(uint32_t atlasCol, uint32_t atlasRow, sf::Texture& tileAtlasTexture);
+    void setLogic(LOGIC log);
     void noTexture();
 
     int getTextureID() const;

@@ -1,9 +1,18 @@
 #include "Map.hpp"
+#include "entities/Box.hpp"
+#include "level/LevelConfig.hpp"
+#include "logicalGrid/LogicalGrid.hpp"
+#include "map/Grid.hpp"
+#include <bits/stdint-uintn.h>
 #include <exception>
 
 Map::Map(const LevelConfig& levelConfig) : 
     m_levelConfig(levelConfig) 
-{}
+{
+    loadTexture();
+    createGrid();
+    createMap();
+}
 
 Map::~Map() {}
 
@@ -18,6 +27,30 @@ uint32_t Map::convertPositionToIndex(sf::Vector2f position2D) {
 
 
     return index;
+}
+
+sf::Vector2i Map::indexToPos(u_int32_t index) {
+    uint32_t gridWidth = WINDOW_WIDTH / m_levelConfig.getTileSize();
+    uint32_t gridHeight = WINDOW_HEIGHT / m_levelConfig.getTileSize();
+    for(int y = 0; y < gridHeight; y++)
+        for(int x = 0; x < gridWidth; x++)
+            if(x + y * gridWidth == index)
+                return {x, y};
+    return {-1, -1};
+}
+
+void Map::findOn(const int index) {
+    Grid logicalGrid = m_levelConfig.getTileAtlasLogicalGrid();
+
+    int am = logicalGrid.size();
+    if(logicalGrid[index] == LOGIC::BOX || logicalGrid[index] == LOGIC::BOX_AND_WIN)
+        m_boxesPos.emplace_back(indexToPos(index));
+    else if(logicalGrid[index] == LOGIC::PLAYER)
+        m_playerPos = indexToPos(index);
+    else if(logicalGrid[index] == LOGIC::WIN_PLACE || logicalGrid[index] == LOGIC::BOX_AND_WIN)
+        m_winPlaces.emplace_back(indexToPos(index));
+    else if(logicalGrid[index] == LOGIC::WALL)
+        m_walls.emplace_back(indexToPos(index));
 }
 
 
@@ -38,11 +71,8 @@ void Map::loadTexture() {
     }
 }
 
-
-
 void Map::createMap() {
     const uint32_t maxAmountOfTiles = m_levelConfig.getMapTilesAmount();
-    const auto visualGrid = m_levelConfig.getTileAtlasVisualGrid();
     const uint32_t mapColumns = m_levelConfig.getMapColumns();
     const uint32_t tileAtlasColumns = getTileAtlasColumns();
     const uint32_t tileSize = m_levelConfig.getTileSize();
@@ -50,30 +80,55 @@ void Map::createMap() {
     m_tiles.clear();
     m_tiles.resize(maxAmountOfTiles, Tile(tileSize));
 
+    const Grid visualGrid = m_levelConfig.getTileAtlasVisualGrid();
+    const Grid logicalGrid = m_levelConfig.getTileAtlasLogicalGrid();
+    int gridSize = 0;
 
-    uint32_t col = 0, row = 0, actualTileElementID = 0;
-    while(actualTileElementID < visualGrid.size()) {
-        int textureID = visualGrid[actualTileElementID];
+    if(visualGrid.size() == logicalGrid.size())
+        //doesn`t matter which Grid
+        gridSize = visualGrid.size();
 
-        float textureX = (textureID % tileAtlasColumns);
-        float textureY = (floor((float)textureID / (float)tileAtlasColumns)); 
-
-        m_tiles[actualTileElementID].setPosition(col, row);
+    for(int i = 0; i < gridSize; i++) {
         
-        if(textureID == -1) { //-1 is default no texture
-            m_tiles[actualTileElementID].noTexture();
-        } else {
-            m_tiles[actualTileElementID].setTextureCoords(textureX, textureY, textureID);
+        findOn(i);
+
+        //Set logic
+        if(!(logicalGrid[i] > MAX_LOGIC))
+            m_tiles[i].setLogic(static_cast<LOGIC>(logicalGrid[i]));
+
+        //Set position of Tile
+        int x = indexToPos(i).x;
+        int y = indexToPos(i).y;
+
+        m_tiles[i].setPosition(x, y);
+
+        //Set texture of Tile
+        int textureID = visualGrid[i];
+        if(textureID == -1) //-1 is default no texture
+            m_tiles[i].noTexture();
+        else {
+            float textureX = (textureID % tileAtlasColumns);
+            float textureY = (floor((float)textureID / (float)tileAtlasColumns)); 
+
+            m_tiles[i].setTextureCoords(textureX, textureY, textureID);
         }
-
-
-        
-        if(actualTileElementID % mapColumns == (mapColumns - 1)) 
-            ++row; //new row
-        
-        ++actualTileElementID;
-        col = actualTileElementID % mapColumns; //new column
     }
+}
+
+Positions Map::getBoxesPos() const {
+    return m_boxesPos;
+}
+
+Positions Map::getWallsPos() const {
+    return m_walls;
+}
+
+sf::Vector2i Map::getPlayerPos() const {
+    return m_playerPos;
+}
+
+uint32_t Map::getBoxesAmount() const {
+    return m_boxesPos.size();
 }
 
 void Map::createGrid() {
@@ -118,6 +173,5 @@ void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for(const auto& square : m_gridSquares) {
         target.draw(square);
     }
-    
 }
 

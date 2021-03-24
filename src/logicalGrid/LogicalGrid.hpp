@@ -1,17 +1,11 @@
 #pragma once
 
 #include "level/LevelConfig.hpp"
+#include "map/Map.hpp"
+
 #include <SFML/System/Vector2.hpp>
 #include <sys/types.h>
 
- enum LOGIC {
-    FREE,
-    WALL,
-    PLAYER,
-    BOX,
-    WIN_PLACE,
-    BOX_AND_WIN
-};
 /*
  * It`s abstract class for class like 
  * EntitiesPosition which looking for entiteis
@@ -21,7 +15,7 @@
 
 class LogicalGrid {
     protected:
-        TileAtlas m_logicalGrid;
+        Grid m_logicalGrid;
         int m_gridWidth;
         int m_gridHeight;
         
@@ -35,7 +29,7 @@ class LogicalGrid {
          * This function convert index of one dimension table
          * to coordinates on grid
          */
-        sf::Vector2i indexToPos(u_int32_t index);
+        sf::Vector2i indexToPos(uint32_t index);
 
         /*
          * This function convert coordinates

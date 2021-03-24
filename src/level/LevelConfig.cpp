@@ -94,11 +94,11 @@ void LevelConfig::setTileSize(uint32_t tileSize) {
     m_tileAtlasJSON.at("tile_size") = tileSize;
 }
 
-TileAtlas LevelConfig::getTileAtlasVisualGrid() const {
+Grid LevelConfig::getTileAtlasVisualGrid() const {
     return m_mapConfigJSON["visual_grid"];
 }
 
-TileAtlas LevelConfig::getTileAtlasLogicalGrid() const{
+Grid LevelConfig::getTileAtlasLogicalGrid() const{
     if(m_mapConfigJSON.contains("logical_grid")) {
         return m_mapConfigJSON["logical_grid"];
     } else {

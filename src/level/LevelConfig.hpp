@@ -14,7 +14,8 @@
 const unsigned int WINDOW_WIDTH  = 1024;
 const unsigned int WINDOW_HEIGHT = 768;
 
-typedef std::vector<int> TileAtlas;
+typedef std::vector<uint32_t> Grid;
+typedef std::vector<sf::Vector2i> Positions;
 
 class LevelConfig {
     std::ifstream m_levelConfigStream;
@@ -33,8 +34,8 @@ public:
     uint32_t getTileSize() const; //tiles size
     std::filesystem::path getTileAtlasPath() const; //path to tile atlas file
 
-    TileAtlas getTileAtlasVisualGrid() const; 
-    TileAtlas getTileAtlasLogicalGrid() const;
+    Grid getTileAtlasVisualGrid() const; 
+    Grid getTileAtlasLogicalGrid() const;
 
 
     void setTileSize(uint32_t tileSize);

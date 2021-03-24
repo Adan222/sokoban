@@ -32,7 +32,7 @@ void Tile::isSelected(bool selected) {
 void Tile::setPosition(uint32_t col, uint32_t row) {
     row *= m_size;
     col *= m_size;
-    m_positionOnMap = sf::Vector2u(col, row);
+    m_positionOnMap = sf::Vector2f(col, row);
     
     m_tile[0].position = sf::Vector2f(col, row);
     m_tile[1].position = sf::Vector2f(col + m_size, row );
@@ -52,6 +52,10 @@ void Tile::setTextureCoords(uint32_t atlasCol, uint32_t atlasRow, int textureID)
     m_tile[1].texCoords = sf::Vector2f(atlasCol + m_size, atlasRow);
     m_tile[2].texCoords = sf::Vector2f(atlasCol + m_size, atlasRow + m_size);
     m_tile[3].texCoords = sf::Vector2f(atlasCol, atlasRow + m_size);
+}
+
+void Tile::setLogic(LOGIC log) {
+    m_logic = log;
 }
 
 
