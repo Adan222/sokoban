@@ -13,7 +13,7 @@ LogicalGrid::LogicalGrid(const LevelConfig &lvlcfg) :
 
 LogicalGrid::~LogicalGrid() {}
 
-sf::Vector2i LogicalGrid::indexToPos(u_int32_t index){
+sf::Vector2i LogicalGrid::indexToPos(uint32_t index){
     int x = 0;
     int y = 0;
 

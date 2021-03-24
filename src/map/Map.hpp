@@ -41,6 +41,8 @@ public:
 
     void createGrid();
     void updateTile(Tile& selectedTile);
+    Tile* selectTile(sf::Vector2f mousePostion);
+    void unselectTile(Tile* selectedTile);
     
     /*
      * Now class have referance to levelconfig
