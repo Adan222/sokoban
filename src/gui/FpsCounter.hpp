@@ -1,19 +1,16 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include <SFML/Graphics/Drawable.hpp>
 #include <string>
 
+#include "menu/wText.hpp"
 
-class FpsCounter : public sf::Drawable{
-    private:
-        sf::Font m_arial;
-        sf::Text m_fpsText;
-
+class FpsCounter : public wText
+{
     public:
         FpsCounter(int windowWidth);
         ~FpsCounter();
 
-        void draw(sf::RenderTarget& renderer, sf::RenderStates states) const override;
-        void update(float deltaTime);
+        void update(const float deltaTime);
 };

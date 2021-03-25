@@ -28,7 +28,7 @@ void LevelEditorState::draw(sf::RenderTarget &renderer) {
 
 
 
-void LevelEditorState::update(float deltaTime) {
+void LevelEditorState::update(const float deltaTime) {
     m_editorGui.updateSelectedTilePosition();
 }
 

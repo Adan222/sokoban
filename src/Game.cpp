@@ -1,7 +1,8 @@
 #include "Game.hpp"
 #include "states/LevelEditorState.hpp"
+#include "states/MainMenuState.hpp"
 #include "states/PlayingState.hpp"
-#include <math.h>
+#include <SFML/Window/Mouse.hpp>
 
 Game::Game() :
     m_window(sf::VideoMode{1024, 768}, "Sokoban:D"),
@@ -17,7 +18,7 @@ void Game::run() {
     // - move imgui to LevelEditorState 
     //----------------------
    
-    pushState(std::make_unique<State::LevelEditorState>(*this));
+    pushState(std::make_unique<State::MainMenuState>(*this));
 
     // ticks per seconds
     sf::Time fpc = sf::seconds(1.0 / 30.0f);
@@ -72,7 +73,6 @@ State::State& Game::getCurrentState() const {
 void Game::handleEvent() {
     sf::Event e;
         
-
     while(m_window.pollEvent(e)) {
         if(!m_states.empty()) { // needed, othwerwise segmentation fault
             getCurrentState().handleEvent(e);
@@ -101,6 +101,10 @@ void Game::popState() {
         getCurrentState().resume();
 }
 
+void Game::exit(){
+    m_window.close();
+}
+
 sf::Vector2u Game::getWindowSize() const {
     return m_window.getSize();
 }
@@ -111,6 +115,14 @@ uint32_t Game::getWindowWidth() const {
 
 uint32_t Game::getWindowHeight() const {
     return m_window.getSize().y;
+}
+
+sf::Vector2i Game::getMousePos() const {
+    return sf::Mouse::getPosition(m_window);
+}
+
+const sf::RenderWindow &Game::getWindow() const {
+    return m_window;
 }
 
 Game::~Game() {}

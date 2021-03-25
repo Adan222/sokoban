@@ -1,4 +1,5 @@
 #include "PlayingState.hpp"
+#include <SFML/System/Time.hpp>
 
 namespace State {
 
@@ -7,7 +8,7 @@ PlayingState::PlayingState(Game& game) :
     m_level(nullptr),
     m_whichLvl(0)
 {
-    
+    m_level = new Level("../res/levels/official/test.json");
 }
 
 PlayingState::~PlayingState() {
@@ -32,10 +33,7 @@ void PlayingState::handleEvent(sf::Event e) {
 }
 
 void PlayingState::update(const float deltaTime){
-    if(m_level->checkIfWantExit())
-        m_level = new Level("../res/level_configs/test2.json");
-    else
-        m_level->update(deltaTime);
+    m_level->update(deltaTime);
 }
 
 void PlayingState::setWhichLvl(const int which) {

@@ -7,6 +7,15 @@ SET (SOURCE_FILES main.cpp
             gui/FpsCounter.cpp
             gui/EditorGui.hpp
             gui/EditorGui.cpp
+            gui/menu/wText.hpp
+            gui/menu/wText.cpp
+            gui/menu/Button.hpp
+            gui/menu/Button.cpp
+            gui/menu/Title.hpp
+            gui/menu/Title.cpp
+            gui/menu/Widget.hpp
+            gui/menu/WidgetStack.hpp
+            gui/menu/WidgetStack.cpp
             states/State.hpp
             states/PlayingState.hpp
             states/PlayingState.cpp
