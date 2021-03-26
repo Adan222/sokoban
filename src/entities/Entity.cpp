@@ -1,9 +1,7 @@
 #include "Entity.hpp"
-#include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/Shape.hpp>
 
-Entity::Entity(sf::Shape &sh) :
-    m_shape(sh),
+Entity::Entity(sf::Transformable &tr) :
+    m_transform(tr),
     m_isMoving(false),
     m_guide(),
     m_currentDirection(NONE)
@@ -66,7 +64,7 @@ void Entity::update(const float deltaTime) {
              * due to precision, and move by little value 
              * is smoth too
              */
-            m_shape.move(m_moveVector);
+            m_transform.move(m_moveVector);
         }
     }
 }
@@ -74,7 +72,7 @@ void Entity::update(const float deltaTime) {
 void Entity::initPosition(const int grid_x, const int grid_y) {
     m_guide.init({grid_x, grid_y});
     m_gridPos = {grid_x, grid_y};
-    m_shape.setPosition(grid_x * TILE_SIZE, grid_y * TILE_SIZE);
+    m_transform.setPosition(grid_x * TILE_SIZE, grid_y * TILE_SIZE);
 
     std::cout << "init pos\n";
     drawGridPos();
@@ -85,8 +83,8 @@ bool Entity::isMoving() const {
 }
 
 bool Entity::isWithGuide(DIRECTION dir) const {
-    const float ent_x = m_shape.getPosition().x;
-    const float ent_y = m_shape.getPosition().y;
+    const float ent_x = m_transform.getPosition().x;
+    const float ent_y = m_transform.getPosition().y;
 
     const float gu_x = m_guide.getPosition().x * TILE_SIZE;
     const float gu_y = m_guide.getPosition().y * TILE_SIZE;
@@ -107,8 +105,8 @@ void Entity::resetMoveVector(){
 }
 
 void Entity::drawPos() const {
-    std::cout << "ent x: " << m_shape.getPosition().x << "\n";
-    std::cout << "ent y: " << m_shape.getPosition().y << "\n";
+    std::cout << "ent x: " << m_transform.getPosition().x << "\n";
+    std::cout << "ent y: " << m_transform.getPosition().y << "\n";
     std::cout << "guide x: " << m_guide.getPosition().x * TILE_SIZE << "\n";
     std::cout << "guide y: " << m_guide.getPosition().y * TILE_SIZE << "\n\n";
 }

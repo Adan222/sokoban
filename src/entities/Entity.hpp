@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Shape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include "guide/Guide.hpp"
@@ -13,18 +15,19 @@ inline constexpr unsigned short TILE_SIZE = 64;
 inline constexpr unsigned short SPEED = 1;
 
 enum DIRECTION : int{
-    UP,
-    RIGHT,
-    DOWN,
     LEFT,
+    DOWN,
+    RIGHT,
+    UP,
     NONE
 };
 
 //DRY
 
-class Entity : public sf::Drawable{
+class Entity : public sf::Drawable
+{
     protected:
-        sf::Shape &m_shape;
+        sf::Transformable &m_transform;
 
         bool m_isMoving;
         
@@ -46,10 +49,10 @@ class Entity : public sf::Drawable{
 
     
     public:
-        Entity(sf::Shape &sh);
+        Entity(sf::Transformable &tr);
         virtual ~Entity();
 
-        void draw(sf::RenderTarget &target, sf::RenderStates states) const = 0;
+        virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const = 0;
 
         void move(DIRECTION dir);
         

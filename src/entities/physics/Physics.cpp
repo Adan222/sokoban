@@ -5,7 +5,9 @@
 Physics::Physics(const Positions walls, Boxes &allboxes) :
     m_boxCollisions(allboxes),
     m_wallCollision(walls)
-{}
+{
+    std::cout << "physics const\n";
+}
 
 Physics::~Physics() {}
 

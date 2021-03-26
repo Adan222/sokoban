@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics/Rect.hpp>
 #include <array>
 
 #include "Animation.hpp"
@@ -34,5 +35,5 @@ class AnimationHandler{
          * This function just return color
          * of current frame 
         */
-        sf::Color starterAniamtion() const;
+        sf::IntRect starterAniamtion() const;
 };

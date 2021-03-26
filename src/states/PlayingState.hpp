@@ -3,6 +3,7 @@
 #include <SFML/System/Time.hpp>
 #include <iostream>
 #include <exception>
+#include <memory>
 
 #include "State.hpp"
 #include "Game.hpp"
@@ -13,8 +14,7 @@
 namespace State {
 
 class PlayingState : public State {
-    Level *m_level;
-
+    Level m_level;
     int m_whichLvl;
     
 public:

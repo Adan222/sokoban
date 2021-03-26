@@ -1,15 +1,18 @@
 #include "Animation.hpp"
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 Animation::Animation() :
     m_progres(0),
     m_currentFrameIndex(0)
-{}
+{
+    m_frames.reserve(4);
+}
 
 Animation::~Animation() {}
 
-void Animation::addFrame(const Frame &fr){
-    m_frames.emplace_back(fr);
+void Animation::addFrame(const Frame fr){
+    m_frames.push_back(fr);
 }
 
 bool Animation::update(float deltaTime){
@@ -33,6 +36,6 @@ void Animation::reset(){
     m_progres = 0;
 }
 
-sf::Color Animation::getColor() const{
-    return m_frames[m_currentFrameIndex].color;
+sf::IntRect Animation::getCurrFrame() const{
+    return m_frames[m_currentFrameIndex].pos;
 }

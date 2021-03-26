@@ -2,6 +2,7 @@
 
 #include <string>
 #include <stdexcept>
+#include <functional>
 #include <vector>
 
 #include "entities/Entity.hpp"
@@ -14,8 +15,6 @@
 
 constexpr unsigned short MAP_WITDH  = 16;
 constexpr unsigned short MAP_HEIGHT = 12;
-
-typedef void(function)(const int index);
 
 class Level {
     const LevelConfig m_levelConfig;
@@ -43,7 +42,7 @@ class Level {
      */
     void disappoint();
 
-    //void iterate(function func);
+    void iterate(std::function<void(int)> func);
 
 public:
     Level(const std::string& filename);

@@ -18,7 +18,7 @@ void Game::run() {
     // - move imgui to LevelEditorState 
     //----------------------
    
-    pushState(std::make_unique<State::MainMenuState>(*this));
+    pushState(std::make_unique<State::PlayingState>(*this));
 
     // ticks per seconds
     sf::Time fpc = sf::seconds(1.0 / 30.0f);
@@ -91,7 +91,6 @@ void Game::handleEvent() {
 void Game::pushState(std::unique_ptr<State::State>state) {
     if(!m_states.empty())
         getCurrentState().pause();
-        
     m_states.push_back(std::move(state));
 }
 

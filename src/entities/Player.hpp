@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <iostream>
 
 #include "Entity.hpp"
@@ -10,9 +12,8 @@ typedef AnimationHandler PlayerAnimation;
 
 class Player : public Entity
 {
-    sf::CircleShape m_PlayerShape;
-
-    const float m_maxSpeed = 1;
+    sf::Sprite m_playerSprite;
+    sf::Texture m_playerTexture;
 
     PlayerAnimation m_anime;
 
@@ -22,8 +23,7 @@ public:
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-    //void setTexture(sf::IntRect rec); 
-    void setTexture(const sf::Color &col);
+    void setTexture(const sf::IntRect &col);
     void setAniamtion(DIRECTION type);
 
     void update(const float deltaTime) override;

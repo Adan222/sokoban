@@ -12,7 +12,7 @@ MainMenuState::MainMenuState(Game &game) :
     auto b = std::make_unique<Button>(WIDE);
     b->setString("Play");
     b->setPosition({100, 100});
-    b->setFunction([this](){
+    b->setFunction([&](){
         m_game.pushState(std::make_unique<PlayingState>(m_game));
     }
     );
