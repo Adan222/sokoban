@@ -9,10 +9,8 @@
  * This struct represent
  * one frame of animation
 */
-
 struct Frame{
-    //sf::IntRect
-    const sf::Color color;
+    const sf::IntRect pos;
     const float duration; //in seconds
 };
 
@@ -28,9 +26,9 @@ class Animation{
         Animation();
         ~Animation();
 
-        void addFrame(const Frame &fr);
+        void addFrame(const Frame fr);
         bool update(float deltaTime);
         void reset();
 
-        sf::Color getColor() const;
+        sf::IntRect getCurrFrame() const;
 };

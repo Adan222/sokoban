@@ -11,3 +11,4 @@ vcpkg/
 compile_commands.json
 compile.sh
 config.hpp
+workspace.code-workspace

@@ -1,6 +1,4 @@
 #include "Level.hpp"
-#include "level/LevelConfig.hpp"
-#include "map/Grid.hpp"
 
 Level::Level(const std::string& filename) : 
     m_levelConfig(filename),
@@ -14,12 +12,12 @@ Level::Level(const std::string& filename) :
 }
 
 Level::~Level() {}
-/*
-void Level::iterate(function func) {
-    //int am = m_levelConfig.getBoxesAmount();
-    //for(int i = 0; i < am; i++)
-        //func(i);
-}*/
+
+void Level::iterate(std::function<void(int)> func) {
+    int am = m_boxes.size();
+    for(int i = 0; i < am; i++)
+        func(i);
+}
 
 void Level::playerMove(DIRECTION dir) {
     m_player.move(dir);
@@ -27,11 +25,10 @@ void Level::playerMove(DIRECTION dir) {
 }
 
 void Level::moveBox(DIRECTION dir) {
-    //!!! iterator don`t work again
-    int am = m_boxes.size();
-    for(int i = 0; i < am; i++)
+    iterate([&](int i){
         if(m_boxes[i].checkIfImChosen())
             m_boxes[i].move(dir);
+    });
 }
 
 void Level::render(sf::RenderTarget& renderer) {
@@ -114,16 +111,17 @@ void Level::handleMove(const sf::Keyboard::Key pressedKey){
 }
 
 void Level::disappoint() {
-    int am = m_boxes.size();
-    for(int i = 0; i < am; i++)
+    iterate([&](int i){
         m_boxes[i].imNotChosenOne();
+    });
 }
 
 void Level::update(const float deltaTime){
     m_player.update(deltaTime);
-    int am = m_boxes.size();
-    for(int i = 0; i < am; i++)
+
+    iterate([&](int i){
         m_boxes[i].update(deltaTime);
+    });  
 }
 
 void Level::setEntitiesPosition(){

@@ -1,4 +1,6 @@
 #pragma once
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Window.hpp>
 #include <cstddef>
 #include <vector>
 #include <memory>
@@ -33,6 +35,7 @@ public:
     Game();
     ~Game();
 
+    void exit();
 
     void pushState(std::unique_ptr<State::State> state);
     void popState();
@@ -41,4 +44,8 @@ public:
     sf::Vector2u getWindowSize() const;
     uint32_t getWindowWidth() const;
     uint32_t getWindowHeight() const;
+
+    sf::Vector2i getMousePos() const;
+
+    const sf::RenderWindow &getWindow() const;
 };

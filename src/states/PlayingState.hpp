@@ -1,8 +1,9 @@
 #pragma once
 
+#include <SFML/System/Time.hpp>
 #include <iostream>
-#include <chrono>
 #include <exception>
+#include <memory>
 
 #include "State.hpp"
 #include "Game.hpp"
@@ -13,7 +14,7 @@
 namespace State {
 
 class PlayingState : public State {
-    Level *m_level;
+    Level m_level;
     int m_whichLvl;
     
 public:
@@ -24,7 +25,7 @@ public:
     void draw(sf::RenderTarget& renderer) override;
 
     void update(const float deltaTime) override;
-    
+
     void setWhichLvl(const int which);
 };
 

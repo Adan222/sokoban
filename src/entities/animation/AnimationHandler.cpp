@@ -1,9 +1,11 @@
 #include "AnimationHandler.hpp"
+#include "entities/Entity.hpp"
 #include "entities/Player.hpp"
+#include <SFML/Graphics/Rect.hpp>
 
 AnimationHandler::AnimationHandler(Player &player) :
     m_player(player),
-    m_currentAnimation(NONE)
+    m_currentAnimation(LEFT)
 {
     initAniamtion();
 }
@@ -11,23 +13,20 @@ AnimationHandler::AnimationHandler(Player &player) :
 AnimationHandler::~AnimationHandler() {}
 
 void AnimationHandler::initAniamtion(){
-
-    int size = m_animations.size()-1;
-    for(int i = 0; i < size; i++){
-        m_animations[i].addFrame({sf::Color::Red, 0.2});
-        m_animations[i].addFrame({sf::Color::Green, 0.2});
-        m_animations[i].addFrame({sf::Color::Blue, 0.2});
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 3; j++){
+            sf::IntRect pos = {j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE};
+            m_animations[i].addFrame({pos, 0.1});
+        }
     }
-
-    m_animations[NONE].addFrame({sf::Color::White, 0.2});
-}
+}   
 
 void AnimationHandler::update(float deltaTime){
 
-    sf::Color col = m_animations[m_currentAnimation].getColor();
+    sf::IntRect pos = m_animations[m_currentAnimation].getCurrFrame();
 
     if(m_animations[m_currentAnimation].update(deltaTime))
-        m_player.setTexture(col);
+        m_player.setTexture(pos);
 }
 
 void AnimationHandler::changeAniamtion(AniamtionType an){
@@ -40,6 +39,6 @@ void AnimationHandler::changeAniamtion(AniamtionType an){
     m_currentAnimation = an;
 }
 
-sf::Color AnimationHandler::starterAniamtion() const{
-    return m_animations[m_currentAnimation].getColor();
+sf::IntRect AnimationHandler::starterAniamtion() const{
+    return m_animations[m_currentAnimation].getCurrFrame();
 }
