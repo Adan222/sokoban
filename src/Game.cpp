@@ -40,16 +40,16 @@ void Game::run() {
         while(lag > fpc){
             lag -= fpc;
             state.update(lag.asSeconds());
+
         }
 
         //Update
         state.update(elapsed.asSeconds());
         m_fps.update(elapsed.asSeconds());
         ImGui::SFML::Update(m_window, elapsed);
-                
-        //Draw
-        m_window.resetGLStates(); //temporary, needed only if we dont draw SFML things
 
+  
+        //Draw
         m_window.clear();
 
         state.draw(m_window);

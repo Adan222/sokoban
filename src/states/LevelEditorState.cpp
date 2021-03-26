@@ -1,60 +1,36 @@
 #include "LevelEditorState.hpp"
+#include "imgui-SFML.h"
 
 
 namespace State {
 
-LevelEditorState::LevelEditorState(Game &game) :  State(game), m_m1(m_levelConfig), m_editorGui(m_levelConfig) {
 
-   m_m1.loadTexture();
-    m_m1.createMap();
-    m_m1.createGrid();
-    m_editorGui.setUpTileList(m_m1);
-    
+
+LevelEditorState::LevelEditorState(Game &game) :  State(game), m_editor(m_levelConfig, false) {
+    m_jsonPath.generic_string() = "";
+
 }
+
 
 
 void LevelEditorState::draw(sf::RenderTarget &renderer) {
-    sf::RenderStates s;
-    s.texture = &m_m1.getTileAtlasTexture();
-    
-    
-    m_editorGui.header();
-    m_editorGui.mainPanel(m_m1);
-    
-    renderer.draw(m_m1);
-    renderer.draw(m_editorGui, s);
+    m_editor.render(renderer);
+
 }
 
-
-
-
 void LevelEditorState::update(float deltaTime) {
-    m_editorGui.updateSelectedTilePosition();
+
+    m_editor.update(deltaTime, m_jsonPath);
+                                     
+    if(m_jsonPath.generic_string() != "") {
+        m_levelConfig = LevelConfig(m_jsonPath);
+        m_editor = LevelEditor(m_levelConfig, true);
+        m_jsonPath = "";
+    }
 }
 
 void LevelEditorState::handleEvent(sf::Event e) {
-    ImGui::SFML::ProcessEvent(e);
-    
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        if(!ImGui::IsAnyItemHovered()) {
-            m_editorGui.placeTile(m_m1); 
-            m_editorGui.selectTile(m_m1, ImGui::GetMousePos());   
-        } 
-        
-    }
-    
-   
-
-    if(e.type == sf::Event::KeyPressed){
-        switch (e.key.code) {
-            case sf::Keyboard::Escape:
-                m_game.popState();
-                break;
-          
-            default:
-                break;
-        }   
-    }
+    m_editor.input(e);
 
 }
 

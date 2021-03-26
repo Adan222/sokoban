@@ -35,5 +35,5 @@ target_link_libraries(sokoban PRIVATE nlohmann_json nlohmann_json::nlohmann_json
 target_link_libraries(sokoban PRIVATE sfml-system sfml-graphics sfml-window)
 target_link_libraries(sokoban PRIVATE ImGui-SFML::ImGui-SFML)
 target_link_libraries(sokoban PRIVATE imgui::imgui)
-target_link_libraries(main PRIVATE unofficial::nativefiledialog::nfd)
+target_link_libraries(sokoban PRIVATE unofficial::nativefiledialog::nfd)
 

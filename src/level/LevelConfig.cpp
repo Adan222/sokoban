@@ -9,6 +9,7 @@
 LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath){
     using json = nlohmann::json;
     using std::cout;
+    std::ifstream m_levelConfigStream;
 
     try {
         //Check if file exist
@@ -70,7 +71,7 @@ uint32_t LevelConfig::getMapTilesAmount() const {
     //we assume that screen res is 1024 x 768
     uint32_t cols = 1024 / getTileSize();
     uint32_t rows = 768 / getTileSize();
-   
+    
     return cols * rows;
 }
 
@@ -95,6 +96,29 @@ void LevelConfig::setTileSize(uint32_t tileSize) {
     m_tileAtlasJSON.at("tile_size") = tileSize;
 }
 
+bool LevelConfig::validateJSON(const std::filesystem::path& fileConfigPath) {
+  
+    
+}
+
+nlohmann::json LevelConfig::parseJSON(const std::filesystem::path& fileConfigPath) {
+    using json = nlohmann::json;
+    std::ifstream m_levelConfigStream;
+
+    if(!std::filesystem::exists(fileConfigPath))
+        throw std::runtime_error(fileConfigPath.generic_string() + " don`t exist");
+
+    m_jsonPath = fileConfigPath;
+    m_levelConfigStream.open(fileConfigPath);
+
+    //Check for errors
+    if(m_levelConfigStream.fail())
+        throw std::runtime_error(fileConfigPath.generic_string() + ": " + std::strerror(errno));
+
+    //can throw parsing error, thats why we are using try catch
+    m_levelConfigJSON = json::parse(m_levelConfigStream);
+}
+
 Grid LevelConfig::getTileAtlasVisualGrid() const {
     if(m_mapConfigJSON.contains("visual_grid")) { 
         return m_mapConfigJSON["visual_grid"];
@@ -116,7 +140,6 @@ Grid LevelConfig::getTileAtlasLogicalGrid() const{
 }
 
 LevelConfig::~LevelConfig() {
-    m_levelConfigStream.close();
 }
 
 void LevelConfig::selfTest() const{

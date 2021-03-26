@@ -11,7 +11,10 @@
 #include "level/LevelConfig.hpp"
 #include "gui/EditorGui.hpp"
 #include "map/Map.hpp"
+#include "level/LevelEditor.hpp"
 #include "Game.hpp"
+#include <nfd.h>
+
 
 namespace State {
 
@@ -19,8 +22,8 @@ namespace State {
 class LevelEditorState : public State {
     //LevelConfig must be first here 
     LevelConfig m_levelConfig;
-    EditorGui m_editorGui;
-    Map m_m1;
+    LevelEditor m_editor;
+    std::filesystem::path m_jsonPath;
 
 public:
     LevelEditorState(Game& game);

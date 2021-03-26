@@ -13,7 +13,7 @@
 #include "Grid.hpp"
 
 class Map : public sf::Drawable, public sf::Transformable {
-    const LevelConfig& m_levelConfig;
+    LevelConfig m_levelConfig;
     
     sf::Texture m_tileAtlas;
     std::vector<Tile> m_tiles;

@@ -1,10 +1,13 @@
 #include "EditorGui.hpp"
 #include <SFML/Graphics.hpp>
 #include "map/Map.hpp"
+#include <nfd.h>
 
 
 EditorGui::EditorGui(LevelConfig& levelConfig) :  m_levelConfig(levelConfig), m_liftedTile(m_levelConfig.getTileSize()) {
     m_selectedTile = nullptr;
+    m_initialPopupShowed = false;
+    m_jsonPath = "";
 }
 
 EditorGui::~EditorGui() {
@@ -39,8 +42,6 @@ void EditorGui::setUpTileList(Map &m1) {
         ++column;
     }
 
-    m_tilesRectRows = row;
-    m_tilesRectColumns = column;
 }
 
 void EditorGui::header() {
@@ -56,6 +57,7 @@ void EditorGui::header() {
     ImGui::EndMainMenuBar();
     }
     ImGui::PopStyleVar();
+    initialPrompt();
 }
 
 void EditorGui::mainPanel(Map& m1) {
@@ -67,6 +69,10 @@ void EditorGui::mainPanel(Map& m1) {
         }
         if(ImGui::BeginTabItem("Opcje kafelka")) {
             tileOptions();
+            ImGui::EndTabItem();
+        }
+        if(ImGui::BeginTabItem("Opcje mapy")) {
+            mapSettings();
             ImGui::EndTabItem();
         }
         
@@ -137,6 +143,59 @@ void EditorGui::tileOptions() {
 
 }
 
+void EditorGui::fileDialog() {
+    nfdchar_t* tempPath = nullptr;
+    if(NFD_OpenDialog("json", NULL, &tempPath) == NFD_OKAY) {
+        m_jsonPath = tempPath;
+        LevelConfig::validateJSON("asd");
+    }
+}
+
+
+void EditorGui::mapSettings() {
+    if(ImGui::Button("Otworz")) {
+        fileDialog();
+    }
+    int a = 0;
+    ImGui::SliderInt("Przyblizenie mapy: ", &a, 100, 255);
+    
+    ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+    ImGui::Button("Zapisz");
+    ImGui::PopStyleVar();
+}
+
+void EditorGui::initialPopupShowed(bool showed) {
+    m_initialPopupShowed = showed;
+} 
+
+std::filesystem::path& EditorGui::getNewConfigPath() {
+    return m_jsonPath;
+}
+
+void EditorGui::initialPrompt() {
+    if(!m_initialPopupShowed) {
+        ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+        ImGui::OpenPopup("Chcesz zaladowac istniejaca mape?");
+    }
+
+    if (ImGui::BeginPopupModal("Chcesz zaladowac istniejaca mape?")) {
+        
+        if(ImGui::Button("Wybierz plik")) {
+            fileDialog();
+            ImGui::CloseCurrentPopup();
+            m_initialPopupShowed = true;
+        }
+        ImGui::SameLine();
+
+        
+        if(ImGui::Button("Nowy")) {
+            ImGui::CloseCurrentPopup();
+            m_initialPopupShowed = true;
+        }
+        ImGui::EndPopup();
+    }
+}
+
 void EditorGui::updateSelectedTilePosition() {
     if(m_liftedTile.isSelected() && 
                 ImGui::GetMousePos().x >= 0 && ImGui::GetMousePos().x <= 1024 && 
@@ -163,7 +222,9 @@ void EditorGui::selectTile(Map &m1, sf::Vector2f mousePosition) {
         m1.unselectTile(m_selectedTile);
         m_selectedTile = m1.selectTile(mousePosition);
     }
-} 
+}
+
+
 
 
 void EditorGui::draw(sf::RenderTarget& target, sf::RenderStates states) const {
