@@ -32,7 +32,7 @@ public:
 
     bool isPlaced() const;
     void isPlaced(const bool placed);
-    sf::Sprite getSprite(sf::Texture &tileAtlasTexture) const;
+    sf::Sprite getSprite(const sf::Texture &tileAtlasTexture) const;
     sf::Vector2f getPositionOnMap() const;
     sf::Vector2u getTextureCoords();
 

@@ -7,19 +7,25 @@
 #include <nfd.h>
 
 class LevelEditor {
-    LevelConfig m_levelConfig;    
+    std::reference_wrapper<LevelConfig> m_levelConfig; 
+    
+    Map m_m1;
     EditorGui m_editorGui;
 
-    Map m_m1;
 
     sf::RenderStates m_attachedTextureRS;
 
 public:
-    LevelEditor(LevelConfig levelConfig, bool initialPopupShowed);
+    LevelEditor(LevelConfig& levelConfig);
+    LevelEditor(LevelConfig& levelConfig, bool initialPopupShowed);
+
+
     ~LevelEditor();
 
+    bool wantsReload() const;
+
     void render(sf::RenderTarget& renderer);
-    void update(const float deltaTime,  std::filesystem::path& jsonPath);
+    void update(const float deltaTime);
     void input(sf::Event e);
 
 };

@@ -23,8 +23,6 @@ class LevelEditorState : public State {
     //LevelConfig must be first here 
     LevelConfig m_levelConfig;
     LevelEditor m_editor;
-    std::filesystem::path m_jsonPath;
-
 public:
     LevelEditorState(Game& game);
     ~LevelEditorState();

@@ -13,8 +13,9 @@
 #include "Grid.hpp"
 
 class Map : public sf::Drawable, public sf::Transformable {
-    LevelConfig m_levelConfig;
-    
+    std::reference_wrapper<LevelConfig> m_levelConfig;
+  
+
     sf::Texture m_tileAtlas;
     std::vector<Tile> m_tiles;
     std::vector<sf::RectangleShape> m_gridSquares;
@@ -23,16 +24,18 @@ class Map : public sf::Drawable, public sf::Transformable {
     sf::Vector2i indexToPos(u_int32_t index);
 
 public:
-    Map(const LevelConfig& levelConfig);
+    Map(LevelConfig& m_levelConfig);
     ~Map();
 
-    sf::Texture& getTileAtlasTexture();
+    const sf::Texture& getTileAtlasTexture();
     uint32_t getTileAtlasColumns();
 
     void createGrid();
     void updateTile(Tile& selectedTile);
     Tile* selectTile(sf::Vector2f mousePostion);
     void unselectTile(Tile* selectedTile);
+
+    void saveGrids();
     
     /*
      * Now class have referance to levelconfig
@@ -47,7 +50,7 @@ public:
     void loadTexture();
     void createMap();
 
-    Positions find(LOGIC what,LOGIC sec = LOGIC_NONE);
+    Positions find(LOGIC what, LOGIC sec = LOGIC_NONE);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

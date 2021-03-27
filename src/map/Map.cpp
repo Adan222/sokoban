@@ -5,13 +5,9 @@
 #include <bits/stdint-uintn.h>
 #include <exception>
 
-Map::Map(const LevelConfig& levelConfig) : 
+Map::Map(LevelConfig& levelConfig) : 
     m_levelConfig(levelConfig) 
-{
-    loadTexture();
-    createGrid();
-    createMap();
-}
+{}
 
 Map::~Map() {}
 
@@ -19,8 +15,8 @@ uint32_t Map::convertPositionToIndex(sf::Vector2f position2D) {
     uint32_t index = 0;
    
     if((position2D.y-WINDOW_HEIGHT)* position2D.y <= 0 && (position2D.x-WINDOW_WIDTH) * position2D.x <= 0) { //check if number is in range
-        const uint32_t mapColumns = m_levelConfig.getMapColumns();
-        const uint32_t tileSize = m_levelConfig.getTileSize();
+        const uint32_t mapColumns = m_levelConfig.get().getMapColumns();
+        const uint32_t tileSize =  m_levelConfig.get().getTileSize();
 
         //normalize to get rows and cols
         uint32_t row = floor(position2D.y / static_cast<float>(tileSize));
@@ -32,8 +28,8 @@ uint32_t Map::convertPositionToIndex(sf::Vector2f position2D) {
 }
 
 sf::Vector2i Map::indexToPos(uint32_t index) {
-    uint32_t gridWidth = WINDOW_WIDTH / m_levelConfig.getTileSize();
-    uint32_t gridHeight = WINDOW_HEIGHT / m_levelConfig.getTileSize();
+    uint32_t gridWidth = WINDOW_WIDTH / m_levelConfig.get().getTileSize();
+    uint32_t gridHeight = WINDOW_HEIGHT / m_levelConfig.get().getTileSize();
 
     for(int y = 0; y < gridHeight; y++)
         for(int x = 0; x < gridWidth; x++)
@@ -43,7 +39,7 @@ sf::Vector2i Map::indexToPos(uint32_t index) {
 }
 
 Positions Map::find(LOGIC what, LOGIC sec) {
-    Grid logicalGrid = m_levelConfig.getTileAtlasLogicalGrid();
+    auto logicalGrid = m_levelConfig.get().getLogicGrid();
     Positions pos;
 
     int am = logicalGrid.size();
@@ -78,8 +74,21 @@ void Map::unselectTile(Tile* selectedTile) {
 
 }
 
+void Map::saveGrids() {
+    std::vector<int> logicGrid;
+    std::vector<int> visualGrid;
+
+    for(const auto& t : m_tiles) {
+        logicGrid.push_back(t.getLogicID());
+        visualGrid.push_back(t.getTextureID());
+    }
+    m_levelConfig.get().saveLogicGrid(logicGrid);
+    m_levelConfig.get().saveVisualGrid(visualGrid);
+
+}
+
 void Map::loadTexture() {
-    const auto tileAtlasPath = m_levelConfig.getTileAtlasPath();
+    const auto& tileAtlasPath = m_levelConfig.get().getTileAtlasPath();
     try{
         //try to open texture(tile atlas) file
         if(!m_tileAtlas.loadFromFile("../res/graphics/" + tileAtlasPath.generic_string()))
@@ -91,17 +100,17 @@ void Map::loadTexture() {
 }
 
 void Map::createMap() {
-    const uint32_t maxAmountOfTiles = m_levelConfig.getMapTilesAmount();
-    const uint32_t mapColumns = m_levelConfig.getMapColumns();
+    const uint32_t maxAmountOfTiles = m_levelConfig.get().getMapTilesAmount();
+    const uint32_t mapColumns = m_levelConfig.get().getMapColumns();
     const uint32_t tileAtlasColumns = getTileAtlasColumns();
-    const uint32_t tileSize = m_levelConfig.getTileSize();
+    const uint32_t tileSize = m_levelConfig.get().getTileSize();
 
     m_tiles.clear();
     m_tiles.resize(maxAmountOfTiles, Tile(tileSize));
 
-    const Grid visualGrid = m_levelConfig.getTileAtlasVisualGrid();
-    const Grid logicGrid = m_levelConfig.getTileAtlasLogicalGrid();
-
+    const auto visualGrid = m_levelConfig.get().getVisualGrid();
+    
+    const auto logicGrid = m_levelConfig.get().getLogicGrid();
     for(int i = 0; i < maxAmountOfTiles; i++) {
         
         //Set logic
@@ -132,9 +141,10 @@ void Map::createMap() {
 }
 
 void Map::createGrid() {
-    const uint32_t maxAmountOfTiles = m_levelConfig.getMapTilesAmount();
-    const uint32_t mapColumns = m_levelConfig.getMapColumns();
-    const uint32_t tileSize = m_levelConfig.getTileSize();
+    const uint32_t maxAmountOfTiles = m_levelConfig.get().getMapTilesAmount();
+    const uint32_t mapColumns = m_levelConfig.get().getMapColumns();
+    const uint32_t tileSize = m_levelConfig.get().getTileSize();
+
 
     m_gridSquares.clear();
     m_gridSquares.resize(maxAmountOfTiles);
@@ -156,17 +166,18 @@ void Map::createGrid() {
     }
 }
 
-sf::Texture& Map::getTileAtlasTexture() {
+const sf::Texture& Map::getTileAtlasTexture() {
     return m_tileAtlas;
 }
 
 uint32_t Map::getTileAtlasColumns() {
-    return (getTileAtlasTexture().getSize().x + 1) / m_levelConfig.getTileSize();
+    return (getTileAtlasTexture().getSize().x + 1) / m_levelConfig.get().getTileSize();
 }
 
 void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     states.texture = &m_tileAtlas;
+
 
     for(const auto& tile : m_tiles) {
         target.draw(tile, states);

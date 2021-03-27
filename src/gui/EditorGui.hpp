@@ -13,34 +13,47 @@
 class Map;
 
 class EditorGui : public sf::Drawable, public sf::Transformable {
-    LevelConfig m_levelConfig;
+private:
+    std::reference_wrapper<LevelConfig> m_levelConfig;
+    
     
     Tile* m_selectedTile;
     Tile m_liftedTile;
     
     std::vector<Tile> m_tilesRectList;
     bool m_initialPopupShowed;
-    std::filesystem::path m_jsonPath;
-   
-    void fileDialog();
+    bool m_reload;
+
+
+    //json files
+    std::filesystem::path m_openPath; 
+    std::filesystem::path m_savePath;
+
+private:
+    void openFileDialog();
+    void saveFileDialog(Map& m1);
+
     void tileList(Map& m1);
     void tileOptions();
-    void mapSettings();
-
+    void mapSettings(Map& m1);
+    void errorFileLoading();
     void initialPrompt();
+
 public:
-    void setUpTileList(Map &m1);
-    void header();
-    void mainPanel(Map &m1);
+    EditorGui(LevelConfig& levelConfig, bool initialPopupShowed);
+    ~EditorGui();
 
+    void setUpTileList(Map& m1);
+    void mainPanel(Map& m1);
+    
+    void placeTile(Map& m1);
+    void selectTile(Map& m1, sf::Vector2f mousePosition);
     void updateSelectedTilePosition();
-    void placeTile(Map &m1);
-    void selectTile(Map &m1, sf::Vector2f mousePosition);
 
-    void initialPopupShowed(bool showed);
-    std::filesystem::path& getNewConfigPath();
+    std::filesystem::path& getOpenPath();
+    bool wantsReload() const;
+
+
     //inherited from Drawable
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    EditorGui(LevelConfig& levelConfig);
-    ~EditorGui();
 };
