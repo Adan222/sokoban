@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "map/Map.hpp"
 #include <nfd.h>
-
+#include "ImGuiStyle.hpp"
 
 
 EditorGui::EditorGui(LevelConfig& levelConfig, bool initialPopupShowed) :       
@@ -13,6 +13,9 @@ EditorGui::EditorGui(LevelConfig& levelConfig, bool initialPopupShowed) :
         m_reload(false),
         m_selectedTile(nullptr)
 {
+    loadImGuiStyle();
+    ImGui::SFML::UpdateFontTexture(); 
+
     m_savePath = m_openPath;
 }
 
@@ -38,7 +41,7 @@ void EditorGui::setUpTileList(Map& m1) {
     m_tilesRectList.resize(numberOfTiles, Tile(tileSize));
 
     for(auto &t : m_tilesRectList) {
-        if(column %  tileAtlasColumns  == 0) {
+        if(column % tileAtlasColumns == 0 && actualTileTextureID != 0) {
             column = 0;
             ++row;
         }
@@ -53,7 +56,7 @@ void EditorGui::setUpTileList(Map& m1) {
 
 
 void EditorGui::mainPanel(Map& m1) {
-        //initialPrompt();
+    initialPrompt();
 
     ImGui::Begin("Ustawienia", NULL, ImGuiWindowFlags_AlwaysAutoResize);
     if(ImGui::BeginTabBar("E", ImGuiTabBarFlags_Reorderable)) {
@@ -80,21 +83,33 @@ void EditorGui::mainPanel(Map& m1) {
 void EditorGui::tileList(Map& m1) {
     std::filesystem::path tileAtlasFilePath = m_levelConfig.get().getTileAtlasPath();
     uint32_t tileAtlasColumns =  m1.getTileAtlasColumns();
-    int tileSize = m_levelConfig.get().getTileSize();
+    int tileSize = m_levelConfig.get().getTileSize(); //using int, because imgui is not supporting uint32_t
     
-    uint16_t im_previousTileSize = tileSize;
-    ImGui::InputInt("Wielkosc kafelkow w atlasie", &tileSize, 32, 64);
+
+    //tile size
+    uint32_t im_previousTileSize = tileSize;
+   
+    ImGui::Text("Wielkosc kafelkow w atlasie"); ImGui::SameLine();
+    ImGui::InputInt("", &tileSize, 32, 64);
     if(tileSize < 1 || tileSize > 256 || tileSize % 32 != 0) tileSize = im_previousTileSize; //checking if tile size provided by user is multiple of 32 etc.
     if(tileSize != im_previousTileSize) {
         m_levelConfig.get().setTileSize(tileSize);
         m_reload = true;
     }
  
-    //set tileatlas tile size
 
-    std::string im_atlasFilePath = tileAtlasFilePath.generic_string();
-    ImGui::InputText("Sciezka do atlasu kafelkow", &im_atlasFilePath, 128);
-    tileAtlasFilePath = im_atlasFilePath;
+    //tile atlas path
+    ImGui::Text("Sciezka do atlasu kafelkow"); ImGui::SameLine();
+    std::string toshow = tileAtlasFilePath.generic_string();
+    ImGui::InputText("", &toshow, ImGuiInputTextFlags_ReadOnly); ImGui::SameLine();
+    if(ImGui::Button("...")) {
+        nfdchar_t* tempPath = nullptr;
+        if(NFD_OpenDialog("png", NULL, &tempPath) == NFD_OKAY) { 
+            m_levelConfig.get().setTileAtlasFilePath(tempPath);
+            m_reload = true;
+        }
+    }
+
 
     uint32_t row = 0;
     for(uint32_t i = 0; const auto& t: m_tilesRectList) {
@@ -104,13 +119,11 @@ void EditorGui::tileList(Map& m1) {
             m_liftedTile = t;
             m_liftedTile.isSelected(true);
         }
-        
         ImGui::PopID();
-        if((i % tileAtlasColumns) != 0) {
+        if((i % tileAtlasColumns) != 0) 
             ImGui::SameLine(); 
-        } else {
+        else 
             ++row;
-        }
     }
     
     
@@ -137,7 +150,6 @@ void EditorGui::tileOptions() {
 
 void EditorGui::openFileDialog() {
     nfdchar_t* tempPath = nullptr;
-    
     if(NFD_OpenDialog("json", NULL, &tempPath) == NFD_OKAY) {
         std::filesystem::path temp = tempPath;
         if(LevelConfig::validateJSON(temp)) {
@@ -163,10 +175,10 @@ void EditorGui::saveFileDialog(Map& m1) {
 
 
 void EditorGui::mapSettings(Map& m1) {
-    if(ImGui::Button("Otworz")) {
+    if(ImGui::Button("Otworz")) 
         openFileDialog();
-    }
-    errorFileLoading(); //it shows only on call, must be here
+
+    ImGui::SameLine();
     if(ImGui::Button("Zapisz")) {
         if(m_savePath == "") {
             saveFileDialog(m1);
@@ -174,15 +186,18 @@ void EditorGui::mapSettings(Map& m1) {
             m1.saveGrids();
             m_levelConfig.get().saveToFile(m_savePath);
         }
-    }
+    } ImGui::SameLine();
+   
 
-    if(ImGui::Button("Zapisz jako")) {
+    if(ImGui::Button("Zapisz jako")) 
         saveFileDialog(m1);
-    }
+    
+    
     
     int a = 0;
     ImGui::SliderInt("Przyblizenie mapy: ", &a, 100, 255);
     
+    errorFileLoading(); //it shows only on call, must be here
 }
 
 void EditorGui::errorFileLoading() {
@@ -212,9 +227,8 @@ bool EditorGui::wantsReload() const {
 void EditorGui::initialPrompt() {
     if(!m_initialPopupShowed) {
         ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-        ImGui::SetNextWindowSize({300,250});
+        ImGui::SetNextWindowSize({300,150});
         ImGui::OpenPopup("Chcesz zaladowac istniejaca mape?");
-
     }
 
     if (ImGui::BeginPopupModal("Chcesz zaladowac istniejaca mape?")) {
@@ -227,7 +241,7 @@ void EditorGui::initialPrompt() {
             m_initialPopupShowed = true;
         }
 
-        errorFileLoading(); //it shows only on call, must be here
+        errorFileLoading(); //it shows only when called, must be here
         ImGui::EndPopup();
     }
 

@@ -29,7 +29,7 @@ public:
 
     void handleEvent(sf::Event e) override;
     void draw(sf::RenderTarget& renderer) override;
-    void update(const float deltaTime) override;
+    void update(const sf::Time deltaTime, bool fixed = false) override;
 
     void pause() override;
     void resume() override;

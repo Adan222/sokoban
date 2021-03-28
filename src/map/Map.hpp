@@ -20,8 +20,8 @@ class Map : public sf::Drawable, public sf::Transformable {
     std::vector<Tile> m_tiles;
     std::vector<sf::RectangleShape> m_gridSquares;
 
-    uint32_t convertPositionToIndex(sf::Vector2f position2D);
-    sf::Vector2i indexToPos(u_int32_t index);
+    uint32_t positionToIndex(sf::Vector2f position2D);
+    sf::Vector2i indexToPosition(uint32_t index);
 
 public:
     Map(LevelConfig& m_levelConfig);

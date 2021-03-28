@@ -14,6 +14,8 @@ LevelEditor::LevelEditor(LevelConfig& levelConfig, bool initialPopupShowed)
     m_m1.createMap();
     m_m1.createGrid();
     m_editorGui.setUpTileList(m_m1);
+
+
 }
 
 

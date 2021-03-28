@@ -25,7 +25,7 @@ void MainMenuState::draw(sf::RenderTarget &renderer) {
     renderer.draw(m_firstPage);
 }
 
-void MainMenuState::update(const float deltaTime) {
+void MainMenuState::update(const sf::Time deltaTime, bool fixed ) {
 
 }
 

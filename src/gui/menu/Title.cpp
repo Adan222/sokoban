@@ -1,7 +1,6 @@
 #include "Title.hpp"
 #include "gui/menu/Widget.hpp"
 #include "level/LevelConfig.hpp"
-#include <bits/stdint-uintn.h>
 
 Title::Title() :
     Widget(),

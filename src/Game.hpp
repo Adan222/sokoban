@@ -24,28 +24,24 @@
 class Game {
 private:
     sf::RenderWindow m_window;
+    FpsCounter m_fps;
     std::vector<std::unique_ptr<State::State>> m_states;
 
     State::State& getCurrentState() const;
     void handleEvent();
-
-    FpsCounter m_fps;
-    
 public:
     Game();
     ~Game();
 
-    void exit();
-
     void pushState(std::unique_ptr<State::State> state);
     void popState();
     void run();
+    void exit();
 
+public:    
     sf::Vector2u getWindowSize() const;
     uint32_t getWindowWidth() const;
     uint32_t getWindowHeight() const;
-
     sf::Vector2i getMousePos() const;
-
-    const sf::RenderWindow &getWindow() const;
+    sf::RenderWindow &getWindow() ;
 };

@@ -5,7 +5,7 @@
 wText::wText() :
     m_font()
 {
-    const std::string arialPath = "../res/font/Minecraft.ttf";
+    const std::string arialPath = "../res/fonts/Minecraft.ttf";
     if(!m_font.loadFromFile(arialPath))
         std::cout << "Can`t load font\n";
 

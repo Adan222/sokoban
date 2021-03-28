@@ -43,6 +43,7 @@ public:
 
     void setTileSize(const uint32_t tileSize);
     void setJsonFilePath(const std::filesystem::path& openPath);
+    void setTileAtlasFilePath(const std::filesystem::path& tileAtlasPath);
 
 
 public:

@@ -29,8 +29,8 @@ void PlayingState::handleEvent(sf::Event e) {
     }
 }
 
-void PlayingState::update(const float deltaTime){
-    m_level.update(deltaTime);
+void PlayingState::update(const sf::Time deltaTime, bool fixed){
+    m_level.update(deltaTime.asSeconds());
 }
 
 void PlayingState::setWhichLvl(const int which) {

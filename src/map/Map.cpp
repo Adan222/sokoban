@@ -2,7 +2,6 @@
 #include "entities/Box.hpp"
 #include "level/LevelConfig.hpp"
 #include "map/Grid.hpp"
-#include <bits/stdint-uintn.h>
 #include <exception>
 
 Map::Map(LevelConfig& levelConfig) : 
@@ -11,7 +10,7 @@ Map::Map(LevelConfig& levelConfig) :
 
 Map::~Map() {}
 
-uint32_t Map::convertPositionToIndex(sf::Vector2f position2D) {
+uint32_t Map::positionToIndex(sf::Vector2f position2D) {
     uint32_t index = 0;
    
     if((position2D.y-WINDOW_HEIGHT)* position2D.y <= 0 && (position2D.x-WINDOW_WIDTH) * position2D.x <= 0) { //check if number is in range
@@ -27,7 +26,7 @@ uint32_t Map::convertPositionToIndex(sf::Vector2f position2D) {
     return index;
 }
 
-sf::Vector2i Map::indexToPos(uint32_t index) {
+sf::Vector2i Map::indexToPosition(uint32_t index) {
     uint32_t gridWidth = WINDOW_WIDTH / m_levelConfig.get().getTileSize();
     uint32_t gridHeight = WINDOW_HEIGHT / m_levelConfig.get().getTileSize();
 
@@ -46,20 +45,20 @@ Positions Map::find(LOGIC what, LOGIC sec) {
     //idk why iterator don`t work here
     for(int i = 0; i < am; i++)
         if(logicalGrid[i] == what || logicalGrid[i] == sec)
-            pos.emplace_back(indexToPos(i));
+            pos.emplace_back(indexToPosition(i));
 
     return pos;
 }
 
 
 void Map::updateTile(Tile &selectedTile) {
-    uint32_t indexInArray = convertPositionToIndex(selectedTile.getPositionOnMap());
+    uint32_t indexInArray = positionToIndex(selectedTile.getPositionOnMap());
     m_tiles[indexInArray] = selectedTile;
 }
 
 Tile* Map::selectTile(sf::Vector2f mousePosition) {
-    uint32_t indexInArray = convertPositionToIndex(mousePosition);
-    m_gridSquares[indexInArray].setFillColor(sf::Color(0, 255, 0, 120));
+    uint32_t indexInArray = positionToIndex(mousePosition);
+    m_gridSquares[indexInArray].setFillColor(sf::Color(51, 217, 178, 120));
    
 
     return &m_tiles[indexInArray];
@@ -67,7 +66,7 @@ Tile* Map::selectTile(sf::Vector2f mousePosition) {
 
 void Map::unselectTile(Tile* selectedTile) {
     if(selectedTile != nullptr) {
-        uint32_t indexInArray = convertPositionToIndex(selectedTile->getPositionOnMap());
+        uint32_t indexInArray = positionToIndex(selectedTile->getPositionOnMap());
         m_gridSquares[indexInArray].setFillColor(sf::Color::Transparent);
         selectedTile = nullptr;
     }
@@ -90,9 +89,11 @@ void Map::saveGrids() {
 void Map::loadTexture() {
     const auto& tileAtlasPath = m_levelConfig.get().getTileAtlasPath();
     try{
+        std::filesystem::path pre = "";
+        if(!tileAtlasPath.is_absolute()) pre = "../res/graphics/";
         //try to open texture(tile atlas) file
-        if(!m_tileAtlas.loadFromFile("../res/graphics/" + tileAtlasPath.generic_string()))
-            throw std::runtime_error("Can`t open file: ../res/graphics/" + tileAtlasPath.generic_string());
+        if(!m_tileAtlas.loadFromFile(pre.generic_string() + tileAtlasPath.generic_string()))
+            throw std::runtime_error("Can`t open file: " + pre.generic_string() + tileAtlasPath.generic_string());
             //TO DO check size of tile map, (size + 1) % tilesize
     }catch(std::exception &e){
         std::cout << e.what() << "\n";
@@ -109,34 +110,36 @@ void Map::createMap() {
     m_tiles.resize(maxAmountOfTiles, Tile(tileSize));
 
     const auto visualGrid = m_levelConfig.get().getVisualGrid();
-    
     const auto logicGrid = m_levelConfig.get().getLogicGrid();
+
     for(int i = 0; i < maxAmountOfTiles; i++) {
         
         //Set logic
-        if(i < logicGrid.size()){
+        if(i < logicGrid.size())
             m_tiles[i].setLogicID(logicGrid[i]);
-        }
         else
             m_tiles[i].setLogicID(0);
 
         //Set position of Tile
-        int x = indexToPos(i).x;
-        int y = indexToPos(i).y;
+        int x = indexToPosition(i).x;
+        int y = indexToPosition(i).y;
 
         m_tiles[i].setPosition(x, y);
 
         //Set texture of Tile
-        int textureID = visualGrid[i];
-
-        if(i < visualGrid.size() && textureID != -1){
-            float textureX = (textureID % tileAtlasColumns);
-            float textureY = (floor((float)textureID / (float)tileAtlasColumns)); 
-
-            m_tiles[i].setTextureCoords(textureX, textureY, textureID);
-        }
-        else
+        if(i < visualGrid.size()) {
+            int textureID = visualGrid[i];
+            if(textureID != -1) {
+                float textureX = (textureID % tileAtlasColumns);
+                float textureY = (floor((float)textureID / (float)tileAtlasColumns)); 
+                m_tiles[i].setTextureCoords(textureX, textureY, textureID);
+            } else {
+                m_tiles[i].noTexture();
+            }
+        } else {
             m_tiles[i].noTexture();
+        }
+
     }
 }
 

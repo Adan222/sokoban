@@ -47,8 +47,8 @@ LevelConfig::LevelConfig() : m_newConfigPath(false) {
                 "path" : "iso-64x64-outside.png",
                 "tile_size": 64
             },
-            "visual_grid" : [1, 2, 3, 3],
-            "logic_grid" : [0, 0, 1, 2],
+            "visual_grid" : [],
+            "logic_grid" : [],
             
             "zoom" : 1.0
         }
@@ -63,6 +63,9 @@ LevelConfig::LevelConfig() : m_newConfigPath(false) {
     //}
 
 }
+
+LevelConfig::~LevelConfig() {}
+
 
 uint32_t LevelConfig::getMapTilesAmount() const {
     uint32_t cols = WINDOW_WIDTH / getTileSize();
@@ -85,7 +88,7 @@ uint32_t LevelConfig::getTileSize() const {
 
 std::filesystem::path LevelConfig::getTileAtlasPath()  {
     //std::string is required here, otherwise, mingw throws error
-    return m_levelConfigJson.at("map").at("tile_atlas").at("path");
+    return m_levelConfigJson.at("map").at("tile_atlas").at("path").get<std::string>();
 }
 
 std::filesystem::path& LevelConfig::getJsonFilePath() {
@@ -99,6 +102,10 @@ void LevelConfig::setTileSize(const uint32_t tileSize) {
 void LevelConfig::setJsonFilePath(const std::filesystem::path& openPath) {
     m_jsonPath = openPath;
     m_newConfigPath = true;
+}
+
+void LevelConfig::setTileAtlasFilePath(const std::filesystem::path& tileAtlasPath) {
+    m_levelConfigJson.at("map").at("tile_atlas").at("path") = tileAtlasPath.generic_string();
 }
 
 bool LevelConfig::validateJSON(const nlohmann::json& levelConfig) {
@@ -136,22 +143,18 @@ bool LevelConfig::validateJSON(const std::filesystem::path& fileConfigPath) {
 
 std::vector<int> LevelConfig::getVisualGrid() {
     //using [], if data is null it will create empty object
-    //slow
+    //slow, we are copying it
     return m_levelConfigJson.at("map")["visual_grid"];
 }
 
 std::vector<int> LevelConfig::getLogicGrid() {
     //using [], if data is null it will create empty object
-    //slow
+    //slow, we are copying it
     return m_levelConfigJson.at("map")["logic_grid"];
 }
 
 bool LevelConfig::isNewConfigPathSet() const {
     return m_newConfigPath;
-}
-
-LevelConfig::~LevelConfig() {
-
 }
 
 void LevelConfig::saveLogicGrid(std::vector<int> logicGrid) {
