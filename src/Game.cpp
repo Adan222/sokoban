@@ -13,7 +13,7 @@ Game::Game() :
 }
 
 void Game::run() {
-    pushState(std::make_unique<State::LevelEditorState>(*this));
+    pushState(std::make_unique<State::MainMenuState>(*this));
 
     // ticks per seconds
     sf::Time fpc = sf::seconds(1.0f / 30.0f);

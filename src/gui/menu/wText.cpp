@@ -1,13 +1,13 @@
 #include "wText.hpp"
-#include <SFML/Graphics/Rect.hpp>
-#include <SFML/System/Vector2.hpp>
 
-wText::wText() :
-    m_font()
+//std::shared_ptr<sf::Font> wText::m_font(nullptr);
+
+wText::wText() 
 {
     const std::string arialPath = "../res/fonts/Minecraft.ttf";
     if(!m_font.loadFromFile(arialPath))
         std::cout << "Can`t load font\n";
+
 
     setString("0");
     setFont(m_font);
@@ -22,11 +22,4 @@ uint32_t wText::getWidth() const{
 
 uint32_t wText::getHeight() const {
     return getLocalBounds().height;
-}
-
-
-bool wText::isPositionOnIt(const sf::Vector2i pos) const{
-    sf::FloatRect rect = getGlobalBounds();
-    sf::Vector2f f = {static_cast<float>(pos.x), static_cast<float>(pos.y)};
-    return rect.contains(f);
 }
