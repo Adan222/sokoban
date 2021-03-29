@@ -9,13 +9,14 @@ Level::Level(const std::string& filename) :
     m_wantExit(false)
 {   
     setEntitiesPosition();
+
+    m_soundManager.setFile<SoundManager::Type::Boxes>("a");
 }
 
 Level::~Level() {}
 
 void Level::iterate(std::function<void(int)> func) {
-    int am = m_boxes.size();
-    for(int i = 0; i < am; i++)
+    for(int i = 0; i < m_boxes.size(); i++)
         func(i);
 }
 

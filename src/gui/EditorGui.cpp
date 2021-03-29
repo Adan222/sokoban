@@ -13,7 +13,7 @@ EditorGui::EditorGui(LevelConfig& levelConfig, bool initialPopupShowed) :
         m_reload(false),
         m_selectedTile(nullptr)
 {
-    loadImGuiStyle();
+    ImGui::Style::Load();
     ImGui::SFML::UpdateFontTexture(); 
 
     m_savePath = m_openPath;

@@ -12,16 +12,13 @@
 #include "entities/Player.hpp"
 #include "entities/Box.hpp"
 #include "WinChecker.hpp"
+#include "sound/SoundManager.hpp"
 
-constexpr unsigned short MAP_WITDH  = 16;
-constexpr unsigned short MAP_HEIGHT = 12;
 
 class Level {
-     LevelConfig m_levelConfig;
-    bool m_wantExit;
-
+    LevelConfig m_levelConfig;
+    SoundManager m_soundManager;
     Map lvlMap;
-
     Physics m_physics;
     WinChecker m_winChecker;
     Player m_player;
@@ -32,6 +29,7 @@ class Level {
     void handleMove(const sf::Keyboard::Key pressedKey);
     void playerMove(DIRECTION dir);
 
+    bool m_wantExit;
     /*
      * This function move selected box
      */
