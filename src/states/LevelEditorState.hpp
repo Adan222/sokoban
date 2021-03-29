@@ -11,7 +11,10 @@
 #include "level/LevelConfig.hpp"
 #include "gui/EditorGui.hpp"
 #include "map/Map.hpp"
+#include "level/LevelEditor.hpp"
 #include "Game.hpp"
+#include <nfd.h>
+
 
 namespace State {
 
@@ -19,16 +22,14 @@ namespace State {
 class LevelEditorState : public State {
     //LevelConfig must be first here 
     LevelConfig m_levelConfig;
-    EditorGui m_editorGui;
-    Map m_m1;
-
+    LevelEditor m_editor;
 public:
     LevelEditorState(Game& game);
     ~LevelEditorState();
 
     void handleEvent(sf::Event e) override;
     void draw(sf::RenderTarget& renderer) override;
-    void update(const float deltaTime) override;
+    void update(const sf::Time deltaTime, bool fixed = false) override;
 
     void pause() override;
     void resume() override;

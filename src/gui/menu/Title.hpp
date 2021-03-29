@@ -2,7 +2,6 @@
 
 #include "gui/menu/Widget.hpp"
 #include "gui/menu/wText.hpp"
-#include <string>
 
 class Title : public Widget
 {

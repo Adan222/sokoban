@@ -4,15 +4,7 @@
 
 wText::wText() 
 {
-    /*
-    if(m_font == nullptr){
-        m_font = std::make_shared<sf::Font>();
-        const std::string arialPath = "../res/font/Minecraft.ttf";
-        if(!m_font->loadFromFile(arialPath))
-            std::cout << "Can`t load font\n";
-    }*/
-
-    const std::string arialPath = "../res/font/Minecraft.ttf";
+    const std::string arialPath = "../res/fonts/Minecraft.ttf";
     if(!m_font.loadFromFile(arialPath))
         std::cout << "Can`t load font\n";
 

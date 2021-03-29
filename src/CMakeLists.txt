@@ -30,6 +30,8 @@ SET (SOURCE_FILES main.cpp
             level/Level.cpp
             level/WinChecker.hpp
             level/WinChecker.cpp
+            level/LevelEditor.hpp
+            level/LevelEditor.cpp
             entities/Entity.hpp
             entities/Entity.cpp
             entities/Player.hpp

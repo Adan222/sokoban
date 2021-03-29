@@ -17,7 +17,7 @@ constexpr unsigned short MAP_WITDH  = 16;
 constexpr unsigned short MAP_HEIGHT = 12;
 
 class Level {
-    const LevelConfig m_levelConfig;
+     LevelConfig m_levelConfig;
     bool m_wantExit;
 
     Map lvlMap;

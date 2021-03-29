@@ -5,28 +5,21 @@
 #include <SFML/Window/Mouse.hpp>
 
 Game::Game() :
-    m_window(sf::VideoMode{1024, 768}, "Sokoban:D"),
+    m_window(sf::VideoMode{1024, 768}, "Sokoban - MSC"),
     m_fps(getWindowWidth())
 {    
     m_window.setFramerateLimit(60);
-    ImGui::SFML::Init(m_window);
+    ImGui::SFML::Init(m_window); //must be here
 }
 
 void Game::run() {
-    //----------------------
-    //TODO:
-    // - move imgui to LevelEditorState 
-    //----------------------
-   
     pushState(std::make_unique<State::MainMenuState>(*this));
 
     // ticks per seconds
-    sf::Time fpc = sf::seconds(1.0 / 30.0f);
-
+    sf::Time fpc = sf::seconds(1.0f / 30.0f);
     sf::Clock clock;
-
-    sf::Time lastTime = sf::Time::Zero;
-    sf::Time lag = sf::Time::Zero;
+    sf::Time lastTime{sf::Time::Zero};
+    sf::Time lag{sf::Time::Zero};
 
     while (m_window.isOpen() && !m_states.empty()) {
         auto &state = getCurrentState();
@@ -40,30 +33,24 @@ void Game::run() {
         //Fixed time update
         while(lag > fpc){
             lag -= fpc;
-            state.update(lag.asSeconds());
+            state.update(lag, true);
         }
 
-        //Update
-        state.update(elapsed.asSeconds());
+        //update
+        state.update(elapsed);
         m_fps.update(elapsed.asSeconds());
-        ImGui::SFML::Update(m_window, elapsed);
-                
-        //Draw
-        m_window.resetGLStates(); //temporary, needed only if we dont draw SFML things
 
+  
+        //draw
         m_window.clear();
-
         state.draw(m_window);
         m_window.draw(m_fps);
-        ImGui::SFML::Render(m_window);
-
         m_window.display();
 
-        //Event
+        //handle event last, because of exceptions
         handleEvent();
     }
 
-    ImGui::SFML::Shutdown();
 }
 
 State::State& Game::getCurrentState() const {
@@ -120,7 +107,7 @@ sf::Vector2i Game::getMousePos() const {
     return sf::Mouse::getPosition(m_window);
 }
 
-const sf::RenderWindow &Game::getWindow() const {
+sf::RenderWindow &Game::getWindow() {
     return m_window;
 }
 

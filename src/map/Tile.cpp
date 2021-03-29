@@ -1,4 +1,5 @@
 #include "Tile.hpp"
+#include <iostream>
 
 Tile::Tile(uint32_t tileSize) : m_size(tileSize) {
     m_tile.resize(4);
@@ -82,7 +83,7 @@ void Tile::noTexture() {
 }
 
 
-sf::Sprite Tile::getSprite(sf::Texture &tileAtlasTexture) const {
+sf::Sprite Tile::getSprite(const sf::Texture &tileAtlasTexture) const {
     auto temporarySprite = sf::Sprite(tileAtlasTexture);
     temporarySprite.setTextureRect(sf::IntRect(static_cast<sf::Vector2i>(m_textureCords), sf::Vector2i(m_size, m_size)));
     temporarySprite.setScale(this->getScale());

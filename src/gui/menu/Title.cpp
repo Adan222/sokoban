@@ -1,5 +1,4 @@
 #include "Title.hpp"
-#include "gui/menu/Widget.hpp"
 
 Title::Title() :
     Widget(),
