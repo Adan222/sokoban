@@ -37,7 +37,6 @@ public:
     void popState();
     void run();
     void exit();
-    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight);
 public:    
     sf::Vector2u getWindowSize() const;
     uint32_t getWindowWidth() const;

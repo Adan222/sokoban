@@ -10,10 +10,17 @@ Level::Level(const std::string& filename) :
 {   
     setEntitiesPosition();
 
-    m_soundManager.setFile<SoundManager::Type::Boxes>("a");
+    m_soundManager.setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
+    m_soundManager.setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
+    m_soundManager.getSound<SoundManager::Type::Theme>().play();
+    m_soundManager.getSound<SoundManager::Type::PlayerEngine>().play();
 }
 
-Level::~Level() {}
+Level::~Level() {
+    m_soundManager.getSound<SoundManager::Type::Theme>().stop();
+    m_soundManager.getSound<SoundManager::Type::PlayerEngine>().stop();
+
+}
 
 void Level::iterate(std::function<void(int)> func) {
     for(int i = 0; i < m_boxes.size(); i++)
@@ -22,7 +29,7 @@ void Level::iterate(std::function<void(int)> func) {
 
 void Level::playerMove(DIRECTION dir) {
     m_player.move(dir);
-    m_player.setAniamtion(dir);
+    m_player.setAnimation(dir);
 }
 
 void Level::moveBox(DIRECTION dir) {
@@ -33,7 +40,6 @@ void Level::moveBox(DIRECTION dir) {
 }
 
 void Level::render(sf::RenderTarget& renderer) {
-
     //Map
     renderer.draw(lvlMap);
     //Player

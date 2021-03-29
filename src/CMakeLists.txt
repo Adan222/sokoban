@@ -50,6 +50,8 @@ SET (SOURCE_FILES main.cpp
             entities/physics/collisions/BoxCollisions.cpp
             entities/physics/collisions/WallCollisions.hpp
             entities/physics/collisions/WallCollisions.cpp
+            sound/SoundManager.hpp
+            sound/SoundManager.cpp
             map/Map.hpp
             map/Map.cpp
             map/Tile.hpp

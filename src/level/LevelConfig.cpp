@@ -36,21 +36,18 @@ LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath) : m_newCon
 
 }
 
-LevelConfig::LevelConfig() : m_newConfigPath(false) {
-    using json = nlohmann::json;
-   
+LevelConfig::LevelConfig() : m_newConfigPath(false) {   
     m_levelConfigJson = R"(
     {
         "map" : {
             "name" : "Default",
             "tile_atlas" : {
-                "path" : "iso-64x64-outside.png",
+                "path" : "res/graphics/iso-64x64-outside.png",
                 "tile_size": 64
             },
             "visual_grid" : [],
-            "logic_grid" : [],
-            
-            "zoom" : 1.0
+            "logic_grid" : [],  
+            "theme_song" : "res/sounds/level/level_1.wav"
         }
     }
     )"_json;
@@ -95,6 +92,10 @@ std::filesystem::path& LevelConfig::getJsonFilePath() {
     return m_jsonPath;
 }
 
+std::filesystem::path LevelConfig::getThemeSongPath() {
+    return m_levelConfigJson.at("map").at("theme_song").get<std::string>();
+}
+
 void LevelConfig::setTileSize(const uint32_t tileSize) {
     m_levelConfigJson.at("map").at("tile_atlas").at("tile_size") = tileSize;
 }
@@ -115,7 +116,6 @@ bool LevelConfig::validateJSON(const nlohmann::json& levelConfig) {
             auto tile_atlas = map.at("tile_atlas");
             if(map.contains("visual_grid") &&
                     map.contains("logic_grid") &&
-                    map.contains("zoom") &&
                     map.contains("name") &&
                     tile_atlas.contains("path") && 
                     tile_atlas.contains("tile_size")) {

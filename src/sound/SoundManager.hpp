@@ -7,16 +7,18 @@
 #include <SFML/Audio.hpp>
 
 class SoundManager {
-    std::array<sf::SoundBuffer, 3> m_buffers;
-    std::array<sf::Sound, 3> m_sounds;
-    
 public:
     enum Type {
         Theme,
         Boxes,
-        Win
+        Win,
+        PlayerEngine,
+        TypeCount
     };
-   
+
+private:
+    std::array<sf::SoundBuffer, Type::TypeCount> m_buffers;
+    std::array<sf::Sound, Type::TypeCount> m_sounds;
     template <Type T> 
     void setBuffer(sf::SoundBuffer m_buffer) {
         m_buffers[T] = m_buffer;
@@ -37,7 +39,19 @@ public:
 
 public:
     template <Type T> 
-    bool SoundManager::setFile(const std::filesystem::path& path);
+    bool setFile(const std::filesystem::path& path) {
+        if (T == TypeCount) 
+            return false;
+        
+        if(!getBuffer<T>().loadFromFile(path.generic_string())) 
+            return false;
+
+        getSound<T>().setBuffer(getBuffer<T>());
+        if constexpr (T == Type::Theme || T == Type::PlayerEngine)
+            getSound<T>().setLoop(true);
+        
+        return true;
+    }
     
     template <Type T> 
     sf::Sound& getSound() {

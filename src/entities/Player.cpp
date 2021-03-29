@@ -26,8 +26,8 @@ void Player::setTexture(const sf::IntRect &col){
     m_playerSprite.setTextureRect(col);
 }
 
-void Player::setAniamtion(DIRECTION type) {
-    m_anime.changeAniamtion(type);
+void Player::setAnimation(DIRECTION type) {
+    m_anime.changeAnimation(type);
 }
 
 void Player::update(const float deltaTime){
