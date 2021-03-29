@@ -11,12 +11,16 @@
 class Widget : public sf::Drawable
 {
     public:
-        Widget() {}
-        virtual ~Widget() {}
+        Widget() {};
+        virtual ~Widget() {};
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
         virtual void handleEvent(sf::Event e, const sf::RenderWindow &window) {}
 
         virtual sf::Vector2f getPos() const = 0;
+
+        virtual uint32_t getWidth() const = 0;
+        virtual uint32_t getHeight() const = 0;
+
 };

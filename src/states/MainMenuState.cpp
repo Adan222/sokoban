@@ -1,28 +1,39 @@
 #include "MainMenuState.hpp"
-#include "gui/menu/Button.hpp"
-#include <memory>
-#include <type_traits>
 
 namespace State {
 
+
 MainMenuState::MainMenuState(Game &game) :
     State(game),
-    m_firstPage(game.getWindow())
+    m_pageWantExit(false)
 {
-    auto b = std::make_unique<Button>(WIDE);
-    b->setString("Play");
-    b->setPosition({100, 100});
-    b->setFunction([&](){
-        m_game.pushState(std::make_unique<PlayingState>(m_game));
-    }
-    );
+    /**
+     * We have to reserve elemnts in vector
+     * couse we can`t copy WidgetStack
+     */
+    m_pages.reserve(10);
 
-    m_firstPage.addItem(std::move(b));
+    createMenuPage();
+}
 
+MainMenuState::~MainMenuState() {}
+
+uint32_t MainMenuState::getCurrentPage() const {
+    return m_pages.size()-1;
+}
+
+void MainMenuState::pushPage() {
+    m_pages.emplace_back(WidgetStack(m_game.getWindow()));
+}
+
+void MainMenuState::popPage() {
+    if(!m_pages.empty())
+        m_pages.pop_back();
 }
 
 void MainMenuState::draw(sf::RenderTarget &renderer) {
-    renderer.draw(m_firstPage);
+    if(!m_pageWantExit)
+        renderer.draw(m_pages[getCurrentPage()]);
 }
 
 void MainMenuState::update(const float deltaTime) {
@@ -40,13 +51,13 @@ void MainMenuState::handleEvent(sf::Event e) {
         }   
     }
     if(e.type == sf::Event::MouseButtonPressed){
-        m_firstPage.handleEvent(e);
+        m_pages[getCurrentPage()].handleEvent(e);
+    }
+
+    if(m_pageWantExit){
+        popPage();
+        m_pageWantExit = false;
     }
 }
-
-MainMenuState::~MainMenuState(){
-
-}
-
 
 }   //namespace State

@@ -1,14 +1,18 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Font.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <bits/stdint-uintn.h>
 
 #include <iostream>
+#include <memory>
 
 class wText : public sf::Text
 {
-    protected:
+    private:
+        //maybe later
+        //static std::shared_ptr<sf::Font> m_font;
         sf::Font m_font;
         
     public:
@@ -17,6 +21,4 @@ class wText : public sf::Text
 
         uint32_t getWidth() const;
         uint32_t getHeight() const;
-        
-        bool isPositionOnIt(const sf::Vector2i pos) const;
 };
