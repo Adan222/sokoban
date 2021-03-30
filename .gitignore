@@ -5,16 +5,10 @@ build/*
 CMakeFiles/
 src/CMakeFiles/
 Makefile
-
 .vscode/
 compile_commands.json
 compile.sh
 config.hpp
 workspace.code-workspace
-
-
 vcpkg/*
-!vcpkg/ports/
-
-vcpkg/ports/*
-!vcpkg/ports/soloud/*
+vcpkg

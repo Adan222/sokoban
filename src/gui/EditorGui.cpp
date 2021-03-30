@@ -202,7 +202,7 @@ void EditorGui::mapSettings(Map& m1) {
 
 void EditorGui::errorFileLoading() {
     
-    //ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+    ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
     ImGui::SetNextWindowSize({400, 80});
     
     if(ImGui::BeginPopupModal("Blad")) {
@@ -227,7 +227,7 @@ bool EditorGui::wantsReload() const {
 
 void EditorGui::initialPrompt() {
     if(!m_initialPopupShowed) {
-       // ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+        ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
         ImGui::SetNextWindowSize({300,150});
         ImGui::OpenPopup("Chcesz zaladowac istniejaca mape?");
     }
