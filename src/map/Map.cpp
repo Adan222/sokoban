@@ -20,7 +20,7 @@ uint32_t Map::positionToIndex(sf::Vector2f position2D) {
         //normalize to get rows and cols
         uint32_t row = floor(position2D.y / static_cast<float>(tileSize));
         uint32_t col = floor(position2D.x / static_cast<float>(tileSize));
-        index = row * mapColumns - (mapColumns - col) + mapColumns;
+        index = row * mapColumns + col;
     }
 
     return index;
@@ -41,9 +41,8 @@ Positions Map::find(LOGIC what, LOGIC sec) {
     auto logicalGrid = m_levelConfig.get().getLogicGrid();
     Positions pos;
 
-    int am = logicalGrid.size();
     //idk why iterator don`t work here
-    for(int i = 0; i < am; i++)
+    for(int i = 0; i < logicalGrid.size(); i++)
         if(logicalGrid[i] == what || logicalGrid[i] == sec)
             pos.emplace_back(indexToPosition(i));
 
@@ -90,7 +89,7 @@ void Map::loadTexture() {
     const auto& tileAtlasPath = m_levelConfig.get().getTileAtlasPath();
     try{
         std::filesystem::path pre = "";
-        if(!tileAtlasPath.is_absolute()) pre = "../res/graphics/";
+        if(!tileAtlasPath.is_absolute()) pre = "../";
         //try to open texture(tile atlas) file
         if(!m_tileAtlas.loadFromFile(pre.generic_string() + tileAtlasPath.generic_string()))
             throw std::runtime_error("Can`t open file: " + pre.generic_string() + tileAtlasPath.generic_string());

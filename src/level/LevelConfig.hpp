@@ -37,9 +37,11 @@ public:
 
     bool isNewConfigPathSet() const;
 public:
+    //saves grids to json object, used mainly in editor
     void saveLogicGrid(std::vector<int> logicGrid);
     void saveVisualGrid(std::vector<int> visualGrid);
 
+    //save json to file
     void saveToFile(std::filesystem::path savePath);
 
     void setTileSize(const uint32_t tileSize);
