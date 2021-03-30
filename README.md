@@ -1,8 +1,9 @@
 # Sokoban - Motorola Science Cup
 
-Polska wersja dokumentacji użytkownika - [dok_uzyt](./dok_uzyt.md)
-English version of the user documentation - [doc_user](./doc_user.md)
-Polska wersja dokumentacji technicznej - [dok_tech](./dok_tech.md)
+- Polish version of the user documentation - [dok_uzyt](./dok_uzyt.md).
+- English version of the user documentation - [doc_user](./doc_user.md).
+- Polish version of the code documentation - [dok_tech](./dok_tech.md).
+
 
 In build folder you will find prebuilt windows-x64 and linux-x64 binares.
 

@@ -4,8 +4,8 @@
 Sokoban game design for the Motorola Science Cup 2020 competition
 *Impostors* team
 
-Polska wersja dokumentacji - [dok_uzyt](./dok_uzyt.md)
-Technical documentation is available in the file [dok_tech](./dok_tech.md)
+Polska wersja dokumentacji - [dok_uzyt](./dok_uzyt.md).
+Technical documentation is available in the file [dok_tech](./dok_tech.md).
 
 
 ![logo](https://github.com/Adan222/sokoban/blob/master/res/graphics/game/player_all.png "Logo")
