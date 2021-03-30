@@ -14,7 +14,7 @@ workspace.code-workspace
 
 
 vcpkg/*
-vcpkg/ports/*
-
 !vcpkg/ports/
+
+vcpkg/ports/*
 !vcpkg/ports/soloud/*
