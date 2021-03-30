@@ -12,10 +12,9 @@ compile.sh
 config.hpp
 workspace.code-workspace
 
-vcpkg/
-!vcpkg/*
-vcpkg/ports/*
-!vcpkg/ports/
 
-!vcpkg/ports/soloud/
+vcpkg/*
+vcpkg/ports/*
+
+!vcpkg/ports/
 !vcpkg/ports/soloud/*
