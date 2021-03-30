@@ -9,7 +9,7 @@ English version of the documentation - [doc_user](./doc_user.md).
 Dokumentacja techniczna dostępna jest w pliku [dok_tech](./dok_tech.md).
 
 
-![logo](https://github.com/Adan222/sokoban/blob/master/res/graphics/game/player_all.png "Logo")
+![logo](https://github.com/Adan222/sokoban/blob/master/res/graphics/game/player.png "Logo")
 
 - ## Sokoban
 

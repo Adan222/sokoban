@@ -8,7 +8,7 @@ Polska wersja dokumentacji - [dok_uzyt](./dok_uzyt.md).
 Technical documentation is available in the file [dok_tech](./dok_tech.md).
 
 
-![logo](https://github.com/Adan222/sokoban/blob/master/res/graphics/game/player_all.png "Logo")
+![logo](https://github.com/Adan222/sokoban/blob/master/res/graphics/game/player.png "Logo")
 
 - ## Sokoban
 
@@ -52,7 +52,7 @@ make
 
 ```
 ### For cross building to Windows 
-If any error occures during cmake command(eg. freetype missing), please try rerunning.
+If any error occures during `cmake` command(eg. freetype missing), please try rerunning.
 
 ```sh
 ./vcpkg install sfml imgui imgui-sfml nlohmann-json soloud --triplet x64-mingw-static
