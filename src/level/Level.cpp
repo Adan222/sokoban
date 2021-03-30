@@ -12,8 +12,9 @@ Level::Level(const std::string& filename) :
 
     m_soundManager.setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
     m_soundManager.setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
-    m_soundManager.getSound<SoundManager::Type::Theme>().play();
-    m_soundManager.getSound<SoundManager::Type::PlayerEngine>().play();
+    m_soundManager.play<SoundManager::Type::Theme>();
+        m_soundManager.play<SoundManager::Type::PlayerEngine>();
+
 }
 
 Level::~Level() {

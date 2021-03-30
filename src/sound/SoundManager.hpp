@@ -4,7 +4,8 @@
 #include <array>
 #include <type_traits>
 
-#include <SFML/Audio.hpp>
+#include "soloud/soloud.h"
+#include "soloud/soloud_wav.h"
 
 class SoundManager {
 public:
@@ -17,14 +18,10 @@ public:
     };
 
 private:
-    std::array<sf::SoundBuffer, Type::TypeCount> m_buffers;
-    std::array<sf::Sound, Type::TypeCount> m_sounds;
-    template <Type T> 
-    void setBuffer(sf::SoundBuffer m_buffer) {
-        m_buffers[T] = m_buffer;
-    }
-
-    template <Type T> 
+    SoLoud::Soloud m_soundEngine;
+    std::array<SoLoud::Wav, Type::TypeCount> m_sounds;
+   
+   /* template <Type T> 
     sf::SoundBuffer& getBuffer() {
         return m_buffers[T];
     }
@@ -33,34 +30,39 @@ private:
     void setSound(sf::Sound m_sound) {
         m_sounds[T] = m_sound;
     }
+*/
 
 
 
+    
 
 public:
+    template <Type T> 
+    SoLoud::Wav& getSound() {
+        return m_sounds[T];
+    }
     template <Type T> 
     bool setFile(const std::filesystem::path& path) {
         if (T == TypeCount) 
             return false;
         
-        if(!getBuffer<T>().loadFromFile(path.generic_string())) 
+        if(!getSound<T>().load(path.generic_string().c_str())) 
             return false;
 
-        getSound<T>().setBuffer(getBuffer<T>());
         if constexpr (T == Type::Theme || T == Type::PlayerEngine)
-            getSound<T>().setLoop(true);
+            getSound<T>().setLooping(true);
         
         return true;
     }
     
-    template <Type T> 
-    sf::Sound& getSound() {
-        return m_sounds[T];
-    }
 
 
+    template <Type T>
+    void play() {
+        m_soundEngine.play(getSound<T>());
 
-
+    } 
+    
     SoundManager();
     ~SoundManager();
 };
