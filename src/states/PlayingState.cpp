@@ -7,7 +7,7 @@ namespace State {
 PlayingState::PlayingState(Game& game) : 
     State(game),
     m_whichLvl(0),
-    m_level("../res/levels/official/test.json")
+    m_level("../res/levels/official/lvl17.json")
 {}
 
 PlayingState::~PlayingState() {}

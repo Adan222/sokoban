@@ -10,6 +10,8 @@ Level::Level(const std::string& filename) :
 {   
     setEntitiesPosition();
 
+    lvlMap.loadTexture();
+    lvlMap.createMap();
     m_soundManager.setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
     m_soundManager.setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
     m_soundManager.play<SoundManager::Type::Theme>();
@@ -18,8 +20,7 @@ Level::Level(const std::string& filename) :
 }
 
 Level::~Level() {
-    m_soundManager.getSound<SoundManager::Type::Theme>().stop();
-    m_soundManager.getSound<SoundManager::Type::PlayerEngine>().stop();
+    m_soundManager.stop<SoundManager::Type::PlayerEngine>();
 
 }
 
@@ -46,7 +47,7 @@ void Level::render(sf::RenderTarget& renderer) {
     //Player
     renderer.draw(m_player);
     //Boxes
-    for(auto i : m_boxes)
+    for(const auto& i : m_boxes)
         renderer.draw(i);
 }
 
