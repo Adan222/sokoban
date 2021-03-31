@@ -10,5 +10,7 @@ compile_commands.json
 compile.sh
 config.hpp
 workspace.code-workspace
+res/levels/official/test
 vcpkg/*
 vcpkg
+

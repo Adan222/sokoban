@@ -2,17 +2,19 @@
 
 #include "Entity.hpp"
 
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <iostream>
+#include <memory>
+#include <filesystem>
 
-constexpr unsigned short MAX_BOXES = 12;
-
-//Drawing on std::vector don`t work idk why
 class Box;
 typedef std::vector<Box> Boxes;
 
 class Box : public Entity{
     private:
-        sf::RectangleShape m_boxShape;
+        sf::Sprite m_boxShape;
+        sf::Texture m_boxTexture;
         bool m_imChosen;
 
     public:

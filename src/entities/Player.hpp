@@ -7,6 +7,7 @@
 #include "Entity.hpp"
 #include "animation/AnimationHandler.hpp"
 #include "guide/Guide.hpp"
+#include "gui/menu/wText.hpp"
 
 typedef AnimationHandler PlayerAnimation;
 
@@ -16,7 +17,6 @@ class Player : public Entity
     sf::Texture m_playerTexture;
 
     PlayerAnimation m_anime;
-
 public:
     Player();
     ~Player();

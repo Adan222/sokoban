@@ -8,6 +8,8 @@ namespace State {
 class State {
 protected:
     Game& m_game;
+    bool m_wantExit = false;
+
 public:
     
     State(Game& game) : m_game(game) {};
@@ -18,8 +20,20 @@ public:
     virtual void handleEvent(sf::Event e) = 0;
 
     virtual void pause() {}
-    virtual void resume() {};
+    virtual void resume() {}
 
+    void wantExit(){
+        m_wantExit = true;
+    }
+
+    bool checkIfWnatToExit(){
+        return m_wantExit;
+    }
+
+    std::string makePath(const int which) {
+        return "../res/levels/official/lvl" + std::to_string(which) + ".json"; 
+        //return "../res/levels/official/test0.json";
+    }
 };
 
 } // namespace State

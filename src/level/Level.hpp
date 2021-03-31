@@ -20,12 +20,14 @@ class Level {
     PlayerConfig* m_playerConfig;
 
     LevelConfig m_levelConfig;
-    SoundManager m_soundManager;
+    std::reference_wrapper<SoundManager> m_soundManager;
     Map m_levelMap;
     Physics m_physics;
     WinChecker m_winChecker;
     Player m_player;
     Boxes m_boxes;
+
+    int m_moves;
 
     void setEntitiesPosition();
 
@@ -46,17 +48,22 @@ class Level {
     void iterate(std::function<void(int)> func);
 
 public:
-    Level(const std::string& filename);
-    Level(PlayerConfig& playerConfig);
+    Level(const std::string& filename, SoundManager &soundM);
+    Level(PlayerConfig& playerConfig, SoundManager &soundM);
+
     ~Level();
 
     void render(sf::RenderTarget& renderer);
     void update(const float deltaTime);
     void input(const sf::Keyboard::Key pressedKey);
-    void initSound();
+
+    void savePlayerConfig(std::string &name, const int score);
+
     /*
      * Chek if want to exit this level
      * and go to the next
      */
     bool checkIfWantExit() const;
+
+    int getMoves() const;
 };

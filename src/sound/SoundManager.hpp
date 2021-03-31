@@ -49,8 +49,9 @@ public:
         return true;
     }
 
-    
-
+    void clear() {
+        m_sounds.fill(SoLoud::Wav{});
+    }
 
     
     SoundManager();

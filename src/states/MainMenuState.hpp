@@ -19,12 +19,19 @@
 #include "gui/menu/WidgetStack.hpp"
 #include "level/LevelConfig.hpp"
 
-
 namespace State {
 
-enum LevelOfDifficulty{
+/**
+ * There will be: */
+ const uint8_t EASY_LVL = 7;
+ const uint8_t NORMAL_LVL = 7;
+ const uint8_t HARD_LVL = 6;
+
+const uint8_t MAX_OFFICIAL_LVL = 20;
+
+enum LevelDifficult{
     EASY,
-    MEDIUM,
+    NORMAL,
     HARD
 };
 
@@ -39,10 +46,21 @@ class MainMenuState : public State
          */
         void createMenuPage();
         void createModulesPage();
-        void createOfficialLevelsPage();
+        void createAllLevelsPage();
         void createCustomLevels();
 
-        void createErrorPopUp(const std::string &errorMsg);
+        /**
+         * Create pop button with error.
+         * If changeErrFlag is false m_isError
+         * flag won`t change on exit 
+         */
+        void createErrorPopUp(const std::string &errorMsg, const bool changeErrFlag = true);
+        void createBackBtn();
+
+        void playOnce(LevelDifficult diff);
+        void playUntilExit(const int whichLvl);
+
+        void validateAll();
 
         /**
          * We have to erase page at the end of frame.
@@ -62,6 +80,16 @@ class MainMenuState : public State
          */
         uint32_t getCurrentPage() const;
 
+        //Generate random number
+        int randomNumber(const int start, const int numbers);
+
+        /**
+         * When error flag is set we can`t create
+         * error message on screen.
+         * When there is more then one error button
+         * and we click it, we have "segmentation fault"
+         */
+        bool m_isError;
 
     public:
         MainMenuState(Game& game);

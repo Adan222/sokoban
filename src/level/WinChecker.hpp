@@ -7,8 +7,8 @@
 
 class WinChecker{
     private:
-        std::reference_wrapper<Boxes> m_boxes;
-         Positions m_winPlaces;
+        Boxes& m_boxes;
+        Positions m_winPlaces;
     public:
         WinChecker(Boxes &boxes, const Positions winPlaces);
         ~WinChecker();

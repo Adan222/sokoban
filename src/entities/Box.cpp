@@ -2,10 +2,17 @@
 
 Box::Box() :
     Entity(m_boxShape),
-    m_boxShape({64, 64}),
-    m_imChosen(false)
+    m_imChosen(false),
+    m_boxTexture(),
+    m_boxShape()
 {
-    m_boxShape.setFillColor(sf::Color::Red);
+    sf::IntRect boxPos = {4 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE};
+
+    std::string path = "../res/graphics/tile_new.png";
+    if(!m_boxTexture.loadFromFile(path, boxPos))
+        std::cout << "Can`t load box texutre\n";
+
+    m_boxShape.setTexture(m_boxTexture);
 }
 
 Box::~Box() {}

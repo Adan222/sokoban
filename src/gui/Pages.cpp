@@ -1,7 +1,4 @@
-#include "gui/menu/WidgetStack.hpp"
 #include "states/MainMenuState.hpp"
-#include <SFML/Graphics/Color.hpp>
-#include <array>
 
 namespace State{
 
@@ -49,6 +46,8 @@ void MainMenuState::createMenuPage(){
     m_pages[getCurrentPage()].addItem(std::move(tit));
 }
 
+
+
 void MainMenuState::createModulesPage(){
     pushPage();
     std::cout << "create Modules Page\n";
@@ -72,10 +71,10 @@ void MainMenuState::createModulesPage(){
         "Editor"
     };
     const std::array<std::function<void(void)>, btnAmmount> btnFunc = {
-        [this](){ std::cout << "Easy\n"; },
-        [this](){ std::cout << "Medium\n"; },
-        [this](){ std::cout << "Hard\n"; },
-        [this](){ createOfficialLevelsPage(); },
+        [this](){ playOnce(LevelDifficult::EASY); },
+        [this](){ playOnce(LevelDifficult::NORMAL); },
+        [this](){ playOnce(LevelDifficult::HARD); },
+        [this](){ createAllLevelsPage(); },
         [this](){ std::cout << "Editor\n"; }
     };
     const std::array<sf::Color, btnAmmount> btnColor = {
@@ -102,20 +101,12 @@ void MainMenuState::createModulesPage(){
     }
     m_pages[getCurrentPage()].addItem(std::move(tit));
 
-    //Back button
-    auto backBtn = std::make_unique<Button>(ButtonType::WIDE);
-    backBtn->setString("<-");
-    backBtn->setColor(sf::Color::Transparent);
-    backBtn->setPosition({10, 10});
-
-    backBtn->setFunction([this](){
-        m_pageWantExit = true;
-    });
-
-    m_pages[getCurrentPage()].addItem(std::move(backBtn));
+    createBackBtn();
 }
 
-void MainMenuState::createOfficialLevelsPage(){
+
+
+void MainMenuState::createAllLevelsPage(){
     pushPage();
     std::cout << "create Official Levels Page\n";
     std::cout << "page index: " << getCurrentPage() << "\n";
@@ -126,22 +117,26 @@ void MainMenuState::createOfficialLevelsPage(){
     auto test = std::make_unique<Button>(ButtonType::CUBE);
 
     //x axis start with padding
-    const int padding_x_amount = 7;
-    const float padding_x = float(WINDOW_WIDTH - 6 * test->getWidth()) / padding_x_amount;
+    const int cols = 5;
+    const int padding_x_amount = cols + 1;
+    const float padding_x = float(WINDOW_WIDTH - cols * test->getWidth()) / padding_x_amount;
 
+    const int row = 4;
     const float start_y = tit->getPos().y + tit->getHeight() + 60;
-    const int padding_y_amount = 5;
-    const float padding_y = (WINDOW_HEIGHT - start_y - 5 * test->getHeight()) / padding_y_amount;
+
+    const int padding_y_amount = cols;
+    const float padding_y = (WINDOW_HEIGHT - start_y - row * test->getHeight()) / padding_y_amount;
 
     float last_x = 0;
     float last_y = 0;
 
-    for(int i = 0; i < 5; i++){
-        for(int j = 0; j < 6; j++){ 
-            const int index = j + i * 6;
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j < cols; j++){ 
+            const int index = j + i * cols;
             auto btn = std::make_unique<Button>(ButtonType::CUBE);
             btn->setString(std::to_string(index + 1));
             
+            //set positions
             float x = 0;
             float y = start_y + i * (btn->getHeight() + padding_y);
 
@@ -151,24 +146,61 @@ void MainMenuState::createOfficialLevelsPage(){
                 x = last_x + btn->getWidth() + padding_x;
 
             last_x = x;
+            btn->setPosition({x, y});
+
             
+            //set colors
             btn->setColor(sf::Color::Green);
-            if(index >= 10)
+            if(index >= NORMAL_LVL)
                 btn->setColor(sf::Color::Blue);
-            if(index >= 20)
+            if(index >= EASY_LVL + NORMAL_LVL)
                 btn->setColor(sf::Color::Red);
 
-            //const std::string pathToLevel = "../res/levels/official/level" + std::to_string(index);
+            btn->setFunction([this, index](){
+                //you can play if there is no error
+                if(!m_isError)
+                    playUntilExit(index); 
+            });
 
-            btn->setFunction([this](){ createOfficialLevelsPage(); });
-
-            btn->setPosition({x, y});
             m_pages[getCurrentPage()].addItem(std::move(btn));
         }
         last_x = 0;
     }
 
-    //Back button
+    createBackBtn();
+    m_pages[getCurrentPage()].addItem(std::move(tit));
+
+    validateAll();
+}
+
+void MainMenuState::createErrorPopUp(const std::string &errorMsg, const bool makePerm)
+{
+    auto errBtn = std::make_unique<Button>(ButtonType::WIDE);
+    errBtn->setString(errorMsg);
+    errBtn->setColor(sf::Color::Red);
+
+    float x = float(WINDOW_WIDTH - errBtn->getWidth()) / 2;
+    float y = 150;
+    errBtn->setPosition({x, y});
+
+    /**
+     * We assume that error btn is last element of the
+     * current WidgetStack
+     */
+    errBtn->setFunction([this](){
+        m_pages[getCurrentPage()].eraseLastItem();
+    });
+    if(makePerm){
+        errBtn->setExitFunction([this](){
+            m_isError = false;
+        });
+    }
+
+    m_pages[getCurrentPage()].addItem(std::move(errBtn));
+    m_isError = true;
+}
+
+void MainMenuState::createBackBtn(){
     auto backBtn = std::make_unique<Button>(ButtonType::WIDE);
     backBtn->setString("<-");
     backBtn->setColor(sf::Color::Transparent);
@@ -179,11 +211,6 @@ void MainMenuState::createOfficialLevelsPage(){
     });
 
     m_pages[getCurrentPage()].addItem(std::move(backBtn));
-    m_pages[getCurrentPage()].addItem(std::move(tit));
-}
-
-void MainMenuState::createErrorPopUp(const std::string &errorMsg){
-    
 }
 
 } //namespace

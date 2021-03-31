@@ -38,11 +38,12 @@ sf::Vector2i Map::indexToPosition(uint32_t index) {
 }
 
 Positions Map::find(LOGIC what, LOGIC sec) {
+    auto logiGrid = m_levelConfig.get().getLogicGrid();
     Positions pos;
 
     //idk why iterator don`t work here
-    for(int i = 0; i < m_tiles.size(); i++)
-        if(m_tiles[i].getLogicID() == what || m_tiles[i].getLogicID() == sec)
+    for(int i = 0; i < logiGrid.size(); i++)
+        if(logiGrid[i] == what || logiGrid[i] == sec)
             pos.emplace_back(indexToPosition(i));
 
     return pos;
@@ -104,7 +105,7 @@ void Map::loadTexture() {
         if(!tileAtlasPath.is_absolute()) pre = "../";
         //try to open texture(tile atlas) file
         if(!m_tileAtlas.loadFromFile(pre.generic_string() + tileAtlasPath.generic_string()))
-            throw std::runtime_error("Can`t open file: " + pre.generic_string() + tileAtlasPath.generic_string());
+            throw std::runtime_error("Map: Can`t open file: " + pre.generic_string() + tileAtlasPath.generic_string());
             //TO DO check size of tile map, (size + 1) % tilesize
     }catch(std::exception &e){
         std::cout << e.what() << "\n";

@@ -1,57 +1,51 @@
 #include "Level.hpp"
+#include "entities/Box.hpp"
 
-Level::Level(const std::string& filename) : 
-    m_player(),
+Level::Level(const std::string& filename, SoundManager &soundM) : 
     m_levelConfig(filename),
     m_levelMap(m_levelConfig),
     m_physics(m_levelMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
     m_wantExit(false),
-    m_playerConfig(nullptr)
+    m_playerConfig(nullptr),
+    m_soundManager(soundM)
 {   
     m_levelMap.loadTexture();
     m_levelMap.createMap();
 
     //set entites postion must be under create map
     setEntitiesPosition();    
-    initSound();
 }
 
 
-Level::Level(PlayerConfig& playerConfig) : 
+Level::Level(PlayerConfig& playerConfig, SoundManager &soundM) : 
     m_player(),
     m_levelConfig(playerConfig.getLastPlayedLevel()),
     m_levelMap(m_levelConfig),
     m_physics(m_levelMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
     m_wantExit(false),
-    m_playerConfig(&playerConfig)
-{   
+    m_moves(0),
+    m_soundManager(soundM)
+{
+    std::cout << m_levelConfig.getThemeSongPath() << "\n";
+    setEntitiesPosition();
+
     m_levelMap.loadTexture();
     m_levelMap.createMap();
+    
+    m_soundManager.get().setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
+    m_soundManager.get().setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
+    m_soundManager.get().play<SoundManager::Type::Theme>();
+    m_soundManager.get().play<SoundManager::Type::PlayerEngine>();
 
-
-    //not optiamal but more more understandable, we
-    if(m_playerConfig->exists()) {
-        m_levelMap.setLogicGrid();
-    }
-    //set entites postion must be under create map
-    setEntitiesPosition();    
-    initSound();
-}
-
-
-
-void Level::initSound() {
-    m_soundManager.setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
-    m_soundManager.setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
-    m_soundManager.play<SoundManager::Type::Theme>();
-    m_soundManager.play<SoundManager::Type::PlayerEngine>();
 }
 
 Level::~Level() {
-    m_soundManager.stop<SoundManager::Type::PlayerEngine>();
-
+    std::cout << "levvel dest\n";
+    m_soundManager.get().stop<SoundManager::Type::Theme>();
+    m_soundManager.get().stop<SoundManager::Type::PlayerEngine>();
+    m_soundManager.get().clear();
 }
 
 void Level::iterate(std::function<void(int)> func) {
@@ -85,10 +79,16 @@ void Level::input(const sf::Keyboard::Key pressedKey){
     handleMove(pressedKey);
 }
 
-
+void Level::savePlayerConfig(std::string &name, const int score) {
+    std::cout << name << " " << score << "\n";
+}
 
 bool Level::checkIfWantExit() const {
     return m_wantExit;
+}
+
+int Level::getMoves() const {
+    return m_moves;
 }
 
 void Level::handleMove(const sf::Keyboard::Key pressedKey){
@@ -117,6 +117,8 @@ void Level::handleMove(const sf::Keyboard::Key pressedKey){
 
         //move
         if(dir != NONE){
+            m_moves++;
+
             //Check for wall
             if(!m_physics.checkWall(m_player.getGridPos(), dir)){
                 //Then check for Box
@@ -168,8 +170,6 @@ void Level::update(const float deltaTime){
 void Level::setEntitiesPosition(){
     Positions boxesPos = m_levelMap.find(BOX, BOX_AND_WIN);
     int am = boxesPos.size();
-
-    std::cout << am << "\n";
 
     m_boxes.resize(am);
     for(int i = 0; i < am; i++){

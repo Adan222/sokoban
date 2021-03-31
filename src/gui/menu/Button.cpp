@@ -4,13 +4,15 @@
 Button::Button() :
     m_text(),
     m_shape(),
-    m_func([](){})
+    m_func([](){}),
+    m_exitFunc([](){})
 {}
 
 Button::Button(ButtonType type) :
     m_text(),
     m_shape(),
-    m_func([](){})
+    m_func([](){}),
+    m_exitFunc([](){})
 {
     switch (type) {
         case ButtonType::CUBE:
@@ -23,9 +25,22 @@ Button::Button(ButtonType type) :
     m_shape.setFillColor(sf::Color::Red);
 }
 
-Button::~Button() {}
+Button::~Button() {
+    m_exitFunc();
+}
 
 void Button::update() {
+    /*
+     * When text witdh is greater then shape width
+     * Resize it shape to text width
+     */
+    if(m_text.getWidth() > m_shape.getGlobalBounds().width){
+        float nwidth = m_text.getWidth() + 30;
+        float nheight = m_shape.getGlobalBounds().height;
+
+        m_shape.setSize({nwidth, nheight});
+    }
+
     const sf::Vector2f pos = m_shape.getPosition();
     const sf::FloatRect sr = m_shape.getGlobalBounds();
 
@@ -54,12 +69,18 @@ void Button::setString(const std::string &str) {
 }
 
 void Button::setPosition(const sf::Vector2f pos) {
-    m_shape.setPosition(pos);
+    sf::Vector2f rel = m_relativePos + pos;
+    m_shape.setPosition(rel);
+
     update();
 }
 
 void Button::setFunction(std::function<void(void)> func) {
     m_func = func;
+}
+
+void Button::setExitFunction(std::function<void(void)> func) {
+    m_exitFunc = func;
 }
 
 void Button::setColor(const sf::Color col) {
