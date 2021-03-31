@@ -1,4 +1,5 @@
 #include "PlayingState.hpp"
+#include "PlayerConfig.hpp"
 
 namespace State {
 
@@ -55,7 +56,7 @@ PlayingState::PlayingState(Game& game, PlayerConfig playerConfig) :
 
     if(id > 0 && id <= 20) {
         m_whichLvl = id;
-        m_level = std::make_unique<Level>(m_sound, path.generic_string());
+        m_level = std::make_unique<Level>(m_sound, playerConfig);
     } else {
         //play only once if save was played on custom level
         PlayingState(game, path);

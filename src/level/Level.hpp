@@ -51,7 +51,7 @@ public:
     Level(const Level&) = delete;
     
     Level(SoundManager& soundManager, const std::filesystem::path& filename);
-    Level(SoundManager& soundManager, PlayerConfig playerConf);
+    Level(SoundManager& soundManager, PlayerConfig &playerConf);
 
     ~Level();
 

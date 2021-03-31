@@ -51,6 +51,7 @@ LevelConfig::LevelConfig(PlayerConfig play) :
 
     try {
         std::filesystem::path savePath = m_playerConfig.getLastPlayedLevelPath();
+        std::cout << "savePath: " << savePath.generic_string() << "\n";
 
         std::ifstream save(savePath);
 
@@ -175,7 +176,7 @@ std::vector<int> LevelConfig::getVisualGrid() {
     return m_levelConfigJson.at("map")["visual_grid"];
 }
 
-std::vector<int> LevelConfig::getLogicGrid() { 
+std::vector<int> LevelConfig::getLogicGrid() {
     if(m_levelFromPlayerConfig && m_playerConfig.hasPlayed()) {
         return m_playerConfig.getSavedLogicGrid();
     }
