@@ -91,12 +91,13 @@ void Level::savePlayerConfig(std::string &name, const int score) {
     auto logicGrid = m_levelConfig.getLogicGrid();
     auto tileSize = m_levelConfig.getTileSize();
 
+    for(auto &i : logicGrid)
+        if(i == LOGIC::BOX || i == LOGIC::PLAYER)
+            i = LOGIC::FREE;
     uint32_t playerIndex =
         m_levelMap.positionToIndex(
             sf::Vector2f{float(m_player.getGridPos().x * tileSize), float(m_player.getGridPos().y * tileSize) });
-    
-    std::cout << "playerIndex: " << playerIndex << "\n";
-            
+                
     logicGrid[playerIndex] = LOGIC::PLAYER;
 
     for(const auto& box : m_boxes) {
@@ -105,6 +106,7 @@ void Level::savePlayerConfig(std::string &name, const int score) {
         logicGrid[boxIndex] = LOGIC::BOX;
     }
 
+    m_levelConfig.getPlayerConfig().setMadeMoves(getMoves());
     m_levelConfig.getPlayerConfig().setScore(score);
     m_levelConfig.getPlayerConfig().setLogicGrid(logicGrid);
     m_levelConfig.getPlayerConfig().saveConfig(name, m_levelConfig.getJsonFilePath());

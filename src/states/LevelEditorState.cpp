@@ -1,5 +1,6 @@
 #include "LevelEditorState.hpp"
 #include "imgui-SFML.h"
+#include <SFML/Window/Keyboard.hpp>
 
 
 namespace State {
@@ -33,6 +34,8 @@ void LevelEditorState::update(const sf::Time deltaTime, bool fixed) {
 }
 
 void LevelEditorState::handleEvent(sf::Event e) {
+    if(e.key.code == sf::Keyboard::Escape)
+        wantExit();
     m_editor.input(e);
 }
 

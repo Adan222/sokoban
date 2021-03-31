@@ -2,6 +2,7 @@
 #include "states/LevelEditorState.hpp"
 #include "states/MainMenuState.hpp"
 #include "states/PlayingState.hpp"
+#include <SFML/Graphics/Image.hpp>
 #include <SFML/Window/Mouse.hpp>
 
 Game::Game() :
@@ -9,6 +10,10 @@ Game::Game() :
     m_fps(getWindowWidth())
 {    
     m_window.setFramerateLimit(60);
+
+    m_icon.loadFromFile("../res/graphics/icon3.png");
+
+    m_window.setIcon(64, 64, m_icon.getPixelsPtr());
     ImGui::SFML::Init(m_window); //must be here
 }
 

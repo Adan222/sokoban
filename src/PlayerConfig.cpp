@@ -8,6 +8,7 @@ PlayerConfig::PlayerConfig() : m_hasPlayed(false) {
         {
             "player_name" : "Adam", 
             "score" : 0,
+            "moves" : 0,
             "last_played_map" : {
                     "path" : "none",
                     "logic_grid" : []
@@ -83,6 +84,10 @@ void PlayerConfig::setScore(const int score) {
 
 void PlayerConfig::setLogicGrid(std::vector<int> logicGrid) {
     m_playerConfigJson.at("last_played_map").at("logic_grid") = logicGrid;
+}
+
+void PlayerConfig::setMadeMoves(const int moves) {
+    m_playerConfigJson.at("moves") = moves;
 }
 
 void PlayerConfig::saveConfig(const std::string &playerName, const std::filesystem::path& levelConfigPath) {

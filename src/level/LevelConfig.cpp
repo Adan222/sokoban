@@ -15,9 +15,6 @@ LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath) : m_newCon
 
     m_jsonPath = "";
 
-    std::cout << "konstruktor vez playera\n";
-
-
     try {
         //Check if file exist
         if(!std::filesystem::exists(fileConfigPath))
@@ -47,8 +44,6 @@ LevelConfig::LevelConfig(PlayerConfig play) :
 
     m_levelFromPlayerConfig = true;
 
-    std::cout << "konstruktor z playera\n";
-
     try {
         std::filesystem::path savePath = m_playerConfig.getLastPlayedLevelPath();
         std::cout << "savePath: " << savePath.generic_string() << "\n";
@@ -71,7 +66,7 @@ LevelConfig::LevelConfig() : m_newConfigPath(false), m_levelFromPlayerConfig(fal
         "map" : {
             "name" : "Default",
             "tile_atlas" : {
-                "path" : "res/graphics/iso-64x64-outside.png",
+                "path" : "res/graphics/tile_new.png",
                 "tile_size": 64
             },
             "visual_grid" : [],
@@ -177,9 +172,8 @@ std::vector<int> LevelConfig::getVisualGrid() {
 }
 
 std::vector<int> LevelConfig::getLogicGrid() {
-    if(m_levelFromPlayerConfig && m_playerConfig.hasPlayed()) {
+    if(m_levelFromPlayerConfig && m_playerConfig.hasPlayed()) 
         return m_playerConfig.getSavedLogicGrid();
-    }
     //using [], if data is null it will create empty object
     //slow, we are copying it
     return m_levelConfigJson.at("map")["logic_grid"];

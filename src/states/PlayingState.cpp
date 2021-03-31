@@ -38,7 +38,7 @@ PlayingState::PlayingState(Game& game, PlayerConfig playerConfig) :
     m_isPopUpOnScreen(true),
     m_isWinNow(false),
     m_scoreText(),
-    m_score(0)
+    m_score(playerConfig.getScore())
 {
     m_playerName = playerConfig.getPlayerName();
 
@@ -116,6 +116,7 @@ void PlayingState::createAfterWinPopUp() {
     exitBtn->setColor(sf::Color::Blue);
 
     nextBtn->setFunction([this](){ 
+        //SELF MADE score
         m_score += m_whichLvl;
         m_isPopUpOnScreen = false;
         m_isWinNow = false;

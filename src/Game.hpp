@@ -25,6 +25,8 @@ class Game {
 private:
     sf::RenderWindow m_window;
     FpsCounter m_fps;
+    sf::Image m_icon;
+
     std::vector<std::unique_ptr<State::State>> m_states;
 
     State::State& getCurrentState() const;

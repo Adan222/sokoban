@@ -14,6 +14,7 @@ public:
     int getScore();
     void setScore(const int score);
     void setLogicGrid(std::vector<int> logicGrid);
+    void setMadeMoves(const int moves);
     void saveConfig(const std::string &playerName, const std::filesystem::path& levelConfigPath);
     
     bool hasPlayed() const;

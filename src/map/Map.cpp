@@ -38,12 +38,12 @@ sf::Vector2i Map::indexToPosition(uint32_t index) {
 }
 
 Positions Map::find(LOGIC what, LOGIC sec) {
-    auto logiGrid = m_levelConfig.get().getLogicGrid();
+    auto logicGrid = m_levelConfig.get().getLogicGrid();
     Positions pos;
 
     //idk why iterator don`t work here
-    for(int i = 0; i < logiGrid.size(); i++)
-        if(logiGrid[i] == what || logiGrid[i] == sec)
+    for(int i = 0; i < logicGrid.size(); i++)
+        if(logicGrid[i] == what || logicGrid[i] == sec)
             pos.emplace_back(indexToPosition(i));
 
     return pos;
