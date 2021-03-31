@@ -33,7 +33,7 @@ zespół *Impostorzy*
 #### Opis użytych funkcji oraz ich działanie znajduje się w komentarzach w kodzie 
 
 ***
-##### Do systemów zapisu oraz do poziomów użyliśmy formatu JSON, w edytorze skorzystaliśmy z rozwiązania Immediate Mode GUI
+#### Do systemów zapisu oraz do poziomów użyliśmy formatu JSON, w edytorze skorzystaliśmy z rozwiązania Immediate Mode GUI
 
 ### Użyte repozytoria
 
