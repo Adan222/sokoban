@@ -1,4 +1,4 @@
-#Dokumentacja techniczna
+# Dokumentacja techniczna
 
 Projekt gry Sokoban na konkurs Motorola Science Cup 2020 
 zespół *Impostorzy*
@@ -8,7 +8,7 @@ zespół *Impostorzy*
 - English version of technical documentation - [doc_tech](./doc_tech.md).
 
 ***
-###Użyte języki 
+### Użyte języki 
 - **C++20**
 - **CMake**
 
@@ -30,7 +30,7 @@ zespół *Impostorzy*
 
 ***
 
-###Użyte repozytoria
+### Użyte repozytoria
 
 - VCPKG
 - Nlohmann JSON

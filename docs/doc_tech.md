@@ -1,4 +1,4 @@
-#Technical Documentation
+# Technical Documentation
 
 Sokoban game design for the Motorola Science Cup 2020 competition
 *Impostors* team
