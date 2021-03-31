@@ -4,11 +4,33 @@
 Sokoban game design for the Motorola Science Cup 2020 competition
 *Impostors* team
 
-Polska wersja dokumentacji - [dok_uzyt](./dok_uzyt.md).
-Technical documentation is available in the file [dok_tech](./dok_tech.md).
+- Polish version of user documentation - [dok_uzyt](./dok_uzyt.md).
+- English version of technical documentation - [doc_tech](./doc_tech.md).
+- Polish version of technical documentation - [dok_tech](./dok_tech.md).
 
 
 ![logo](https://github.com/Adan222/sokoban/blob/master/res/graphics/game/player.png "Logo")
+
+## Authors
+- Kacper Kosmal
+    *
+    *
+- Kamil Fugiel
+    *
+    *
+- Bartłomiej Kuleta
+    * Textures
+    * Level design
+    * Logos
+- Karol Basak
+    * Music
+    * Sounds
+    * Tests
+- Konrad Ucisko
+    * Textures
+    * Level design
+    * Documentation
+***
 
 - ## Sokoban
 
@@ -17,14 +39,21 @@ Each level is different so will require a different strategy.
 ***
 
 - ## Game rules
+You control the bulldozer that aligns the boxes, with as few moves as possible place the boxes in the designated places, your score will depend on the number of moves you make. You can only move the boxes with the front of the bulldozer (shovel), while driving the bulldozer remember that you can only move one box at a time. There are 20 levels in front of you with different levels of difficulty. Good luck!
+***
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a lobortis orci, sit amet malesuada justo. Nullam sagittis mauris purus, ut vehicula nibh lacinia id. Ut vitae suscipit metus. Vivamus enim nisl, pretium et fringilla et, porttitor eget nisi. Integer mollis rhoncus elementum. Duis a lacinia ipsum. Vivamus dapibus, nibh id porta fringilla, turpis lacus pretium ante, nec vestibulum tellus elit et massa. Mauris sodales, ligula eu imperdiet blandit, nunc massa posuere nisl, at vulputate odio ligula ac est.
+- ## How to play
+
+We move the bulldozer with the WSAD keys, which are used to move up, down, left and right respectively.
+For main menu press ESC.
 ***
 
 - ## Preparing the game
 
 To run the game on Windows systems, search for the file **sokoban.exe** in the build folder, similarly to Linux-based systems, then run the file **sokoban** from this folder.
 ***
+
+
 
 - ## Building
 ```sh
@@ -64,9 +93,7 @@ ln -s /usr/x86_64-w64-mingw32/lib/libopengl32.a /usr/x86_64-w64-mingw32/lib/libO
 make
 ```
 
-- ## How to play
 
-In the game, we move the bulldozer with the WSAD keys, which are used to move up, down, left and right respectively.
 
 
 

@@ -5,11 +5,37 @@ Projekt gry Sokoban na konkurs Motorola Science Cup 2020
 zespół *Impostorzy*
 
 
-English version of the documentation - [doc_user](./doc_user.md).
-Dokumentacja techniczna dostępna jest w pliku [dok_tech](./dok_tech.md).
+- English version of the documentation - [doc_user](./doc_user.md).
+- Polska wersja dokumentacji technicznej - [dok_tech](./dok_tech.md).
+- English version of the technical documentation - [doc_tech](./doc_tech.md).
+
+
 
 
 ![logo](https://github.com/Adan222/sokoban/blob/master/res/graphics/game/player.png "Logo")
+
+ ## Autorzy 
+- Kacper Kosmal
+    * 
+    * 
+- Kamil Fugiel 
+    * 
+    * 
+- Bartłomiej Kuleta 
+    * Tekstury
+    * Projektowanie poziomów
+    * Loga
+- Karol Basak 
+    * Muzyka 
+    * Dźwięki 
+    * Testy
+- Konrad Ucisko
+    * Tekstury 
+    * Projektowanie poziomów
+    * Dokumentacja
+
+
+***
 
 - ## Sokoban
 
@@ -19,12 +45,18 @@ Każdy poziom jest inny, więc będzie wymagał innej strategii.
 
 - ## Zasady gry
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a lobortis orci, sit amet malesuada justo. Nullam sagittis mauris purus, ut vehicula nibh lacinia id. Ut vitae suscipit metus. Vivamus enim nisl, pretium et fringilla et, porttitor eget nisi. Integer mollis rhoncus elementum. Duis a lacinia ipsum. Vivamus dapibus, nibh id porta fringilla, turpis lacus pretium ante, nec vestibulum tellus elit et massa. Mauris sodales, ligula eu imperdiet blandit, nunc massa posuere nisl, at vulputate odio ligula ac est.
+Kierujesz buldożerem ustawiającym skrzynki, przy jak najmniejszej liczbie ruchów umieść skrzynki w wyznaczonych miejscach, od liczby wykonanych ruchów będzie zależał twój wynik. Skrzynki możesz jedynie przesuwać przodem buldożera (łopatą), kierując buldożerem pamiętaj, że możesz przesunąć tylko jedną skrzynkę na raz. Przed tobą 20 poziomów z różnym poziomem trudności. Powodzenia!
+***
+
+- ## Jak grać
+
+Buldożerem poruszamy się za pomocą klawiszy WSAD które odpowienio służą do poruszania się w górę, dół, lewo oraz prawo.
+Aby wyjśc do menu naciśnij klawisz ESC.
 ***
 
 - ## Przygotowanie gry
 
-Aby uruchomić grę na systemach Windows wyszukujemy w folderze build plik **sokoban.exe**, podobnie jest w przypadku systemów opartych na Linuxie, z tego folderu uruchamiamy wówczas plik **sokoban**
+Aby uruchomić grę na systemach Windows wyszukujemy w folderze build plik **sokoban.exe**, podobnie jest w przypadku systemów opartych na Linuxie, z tego folderu uruchamiamy wówczas plik **sokoban**.
 ***
 
 - ## Kompilowanie
@@ -65,9 +97,7 @@ ln -s /usr/x86_64-w64-mingw32/lib/libopengl32.a /usr/x86_64-w64-mingw32/lib/libO
 make
 ```
 
-- ## Jak grać
 
-W grze poruszamy się buldożerem za pomocą klawiszy WSAD które odpowienio służą do poruszania się w górę, dół, lewo oraz prawo. Nasz buldożer przesuwa skrzynki które muszą trafić na miejsca zaznaczone krzyżykiem 
 
 
 
