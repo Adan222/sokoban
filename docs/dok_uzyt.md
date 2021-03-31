@@ -1,7 +1,7 @@
 
 #Dokumentacja użytkownika
 
-![icon](https://github.com/Adan222/sokoban/blob/master/res/graphics/icon2.png "Icon")
+![icon](https://github.com/Adan222/sokoban/blob/master/res/graphics/icon2.png "Icon")<br>
 Projekt gry Sokoban na konkurs Motorola Science Cup 2020 
 zespół *Impostorzy*
 
@@ -50,8 +50,18 @@ Kierujesz buldożerem ustawiającym skrzynki, przy jak najmniejszej liczbie ruch
 
 - ## Jak grać
 
-Buldożerem poruszamy się za pomocą klawiszy WSAD które odpowienio służą do poruszania się w górę, dół, lewo oraz prawo.
-Aby wyjśc do menu naciśnij klawisz ESC.
+Buldożerem poruszamy się za pomocą klawiszy <kbd>W</kbd><kbd>S</kbd><kbd>A</kbd><kbd>D</kbd>, które odpowienio służą do poruszania się w górę, dół, lewo oraz prawo.
+Aby wyjśc do menu będąc na poziomie mapy naciśnij klawisz <kbd>ESC</kbd>.
+
+- ## Menu <br>
+#### Przycisk <kbd style="background-color: red; color:white"> Graj</kbd> 
+Przenosi nas w miejsce wyboru losowego poziomu z podziałem na poziom trudności: łatwy, średni, trudny. W tym miejscu możemy również wybrać <kbd style="background-color: red; color:white">All lvls</kbd> i wybrać który dokładnie poziom chcemy spróbować przejść. Przycisk <kbd style="background-color: lightblue;">Editor</kbd> przenosi nas do edytora map w którym możemy tworzyć własne mapy a także edytować już istniejące. Aby wyjść do menu głównego kliknij strzałkę w lewym, górnym rogu.
+
+#### Przycisk <kbd style="background-color: red; color:white"> Leaderboard</kbd> 
+W tym miejscu możemy zobaczyć nasze wyniki z wszystkich map. Aby wyjść do menu głównego kliknij strzałkę w lewym, górnym rogu.
+
+#### Przycisk <kbd style="background-color: red; color:white"> Exit</kbd> 
+Przycisk ten służy do wyłączenia gry, aby to zrobić możemy również użyć klawisza <kbd> ESC</kbd> 
 ***
 
 - ## Przygotowanie gry
