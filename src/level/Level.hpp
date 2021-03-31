@@ -17,10 +17,9 @@
 
 
 class Level {
-    PlayerConfig* m_playerConfig;
 
     LevelConfig m_levelConfig;
-    std::reference_wrapper<SoundManager> m_soundManager;
+    SoundManager m_soundManager;
     Map m_levelMap;
     Physics m_physics;
     WinChecker m_winChecker;
@@ -30,7 +29,7 @@ class Level {
     int m_moves;
 
     void setEntitiesPosition();
-
+    void initSound();
     void handleMove(const sf::Keyboard::Key pressedKey);
     void playerMove(DIRECTION dir);
 
@@ -48,8 +47,8 @@ class Level {
     void iterate(std::function<void(int)> func);
 
 public:
-    Level(const std::string& filename, SoundManager &soundM);
-    Level(PlayerConfig& playerConfig, SoundManager &soundM);
+    Level(const std::filesystem::path& filename);
+    Level(const std::string& playerName);
 
     ~Level();
 

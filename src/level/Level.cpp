@@ -1,51 +1,48 @@
 #include "Level.hpp"
 #include "entities/Box.hpp"
 
-Level::Level(const std::string& filename, SoundManager &soundM) : 
+Level::Level(const std::filesystem::path& filename) : 
     m_levelConfig(filename),
     m_levelMap(m_levelConfig),
     m_physics(m_levelMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
-    m_wantExit(false),
-    m_playerConfig(nullptr),
-    m_soundManager(soundM)
+    m_wantExit(false)
 {   
+    setEntitiesPosition();    
     m_levelMap.loadTexture();
     m_levelMap.createMap();
 
-    //set entites postion must be under create map
-    setEntitiesPosition();    
+    //initSound();
 }
 
 
-Level::Level(PlayerConfig& playerConfig, SoundManager &soundM) : 
+Level::Level(const std::string& playerName) : 
     m_player(),
-    m_levelConfig(playerConfig.getLastPlayedLevel()),
+    m_levelConfig(playerName),
     m_levelMap(m_levelConfig),
     m_physics(m_levelMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
     m_wantExit(false),
-    m_moves(0),
-    m_soundManager(soundM)
+    m_moves(0)
 {
-    std::cout << m_levelConfig.getThemeSongPath() << "\n";
     setEntitiesPosition();
 
     m_levelMap.loadTexture();
     m_levelMap.createMap();
     
-    m_soundManager.get().setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
-    m_soundManager.get().setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
-    m_soundManager.get().play<SoundManager::Type::Theme>();
-    m_soundManager.get().play<SoundManager::Type::PlayerEngine>();
+    initSound();
+}
 
+void Level::initSound() {
+    m_soundManager.setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
+    m_soundManager.setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
+    m_soundManager.play<SoundManager::Type::Theme>();
+    m_soundManager.play<SoundManager::Type::PlayerEngine>();
 }
 
 Level::~Level() {
-    std::cout << "levvel dest\n";
-    m_soundManager.get().stop<SoundManager::Type::Theme>();
-    m_soundManager.get().stop<SoundManager::Type::PlayerEngine>();
-    m_soundManager.get().clear();
+   // m_soundManager.stop<SoundManager::Type::Theme>();
+    //m_soundManager.stop<SoundManager::Type::PlayerEngine>();
 }
 
 void Level::iterate(std::function<void(int)> func) {

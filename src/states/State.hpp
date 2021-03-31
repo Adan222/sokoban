@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <filesystem>
 
 class Game;
 
@@ -30,7 +31,7 @@ public:
         return m_wantExit;
     }
 
-    std::string makePath(const int which) {
+    std::filesystem::path makePath(const int which) {
         return "../res/levels/official/lvl" + std::to_string(which) + ".json"; 
         //return "../res/levels/official/test0.json";
     }

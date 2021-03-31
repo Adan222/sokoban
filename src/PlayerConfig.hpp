@@ -2,7 +2,6 @@
 #include <filesystem>
 #include <nlohmann/json.hpp>
 
-#include "level/LevelConfig.hpp"
 
 class PlayerConfig {
     nlohmann::json m_playerConfigJson;
@@ -11,7 +10,7 @@ class PlayerConfig {
 
     void setScore(const int score);
 public:
-    std::filesystem::path getLastPlayedLevel() const;
+    std::filesystem::path getLastPlayedLevelPath() const;
     std::vector<int> getSavedLogicGrid() const;
 
     bool saveConfig();

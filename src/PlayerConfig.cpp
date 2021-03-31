@@ -1,5 +1,5 @@
 #include "PlayerConfig.hpp"
-
+#include <fstream>
 
 PlayerConfig::PlayerConfig() : m_exists(false) {
 
@@ -45,7 +45,7 @@ bool PlayerConfig::loadConfig(const std::filesystem::path& path) {
     return true;
 }
 
-std::filesystem::path PlayerConfig::getLastPlayedLevel() const {
+std::filesystem::path PlayerConfig::getLastPlayedLevelPath() const {
     return "../res/levels/official/" + m_playerConfigJson.at("last_map_played").at("path").get<std::string>();
 }
 
