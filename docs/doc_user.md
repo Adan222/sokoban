@@ -1,6 +1,7 @@
 
 #User documentation
 
+![icon](https://github.com/Adan222/sokoban/blob/master/res/graphics/icon2.png "Icon")<br>
 Sokoban game designed for the Motorola Science Cup 2020 competition
 *Impostors* team
 
@@ -42,9 +43,20 @@ You control the bulldozer that push the boxes, with as few moves as possible pla
 
 - ## How to play
 
-We move the bulldozer with the WSAD keys, which are used to move up(W), down(S), left(A) and right(D).
-For main menu press ESC.
-***
+We move the bulldozer with the <kbd>W</kbd><kbd>S</kbd><kbd>A</kbd><kbd>D</kbd> keys, which are used to move up (W), down (S), left (A) and right (D).
+For main menu press <kbd>ESC</kbd>.
+
+
+- ## Menu <br>
+#### Button <kbd style="background-color: red; color:white"> Graj</kbd> 
+It takes us to the place where we can choose a random level divided into difficulty: easy, medium, difficult. Here we can also select <kbd style="background-color: red; color:white">All lvls</kbd> and choose exactly which level we want to try to pass. The <kbd style="background-color: lightblue;">Editor</kbd> button takes us to the map editor where we can create our own maps and edit existing ones. To exit to the main menu, click the arrow in the upper left corner.
+
+
+#### Button <kbd style="background-color: red; color:white"> Leaderboard</kbd> 
+Here we can see our results from all maps. To exit to the main menu, click the arrow in the upper left corner.
+
+#### Button <kbd style="background-color: red; color:white"> Exit</kbd> 
+This button is used to quit the game, to do this we can also use <kbd> ESC</kbd> key 
 
 - ## Preparing the game
 
