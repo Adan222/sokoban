@@ -1,7 +1,7 @@
 
 #User documentation
 
-Sokoban game design for the Motorola Science Cup 2020 competition
+Sokoban game designed for the Motorola Science Cup 2020 competition
 *Impostors* team
 
 - Polish version of user documentation - [dok_uzyt](./dok_uzyt.md).
@@ -32,17 +32,17 @@ Sokoban game design for the Motorola Science Cup 2020 competition
 
 - ## Sokoban
 
-Sokoban is a simple puzzle-type puzzle game in which the goal is to place the crates in the marked places. The task is made difficult by the multiple crates and the complexity of the labyrinth in which we are moving. The difficulty of the problem increases as you progress.
-Each level is different so will require a different strategy.
+Sokoban is a simple puzzle-type game which the goal is to place the crates in the marked places. The task is more difficult than it looks like because of multiple boxes and the intricacy of the labyrinth the game takes place in. The difficulty of the problem increases as you progress with levels.
+Each level is unique and require a different strategy.
 ***
 
 - ## Game rules
-You control the bulldozer that aligns the boxes, with as few moves as possible place the boxes in the designated places, your score will depend on the number of moves you make. You can only move the boxes with the front of the bulldozer (shovel), while driving the bulldozer remember that you can only move one box at a time. There are 20 levels in front of you with different levels of difficulty. Good luck!
+You control the bulldozer that push the boxes, with as few moves as possible place crates in the marked places, your score depend on the number of moves you make. You can only move the boxes with the front of the bulldozer (shovel), while driving the bulldozer remember that you can only move one box at the same time. There are 20 official map from us  with different levels of difficulty(Easy, Medium, Hard). Good luck!
 ***
 
 - ## How to play
 
-We move the bulldozer with the WSAD keys, which are used to move up, down, left and right respectively.
+We move the bulldozer with the WSAD keys, which are used to move up(W), down(S), left(A) and right(D).
 For main menu press ESC.
 ***
 
