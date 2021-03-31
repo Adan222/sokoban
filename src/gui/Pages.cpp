@@ -296,9 +296,8 @@ void MainMenuState::createContinue(){
     float last_x = 0;
     float last_y = 0;
 
-
-    std::filesystem::directory_iterator saves("../res/saves");
     
+    auto iterator = std::filesystem::directory_iterator("../res/saves");
     for(int i = 0; i < row; i++){
         for(int j = 0; j < cols; j++){ 
             const int index = j + i * cols;
@@ -318,7 +317,16 @@ void MainMenuState::createContinue(){
             last_x = x;
             btn->setPosition({x, y});
 
-            btn->setColor(sf::Color::Green);
+            if(iterator != std::filesystem::directory_iterator()){
+                btn->setColor(sf::Color::Green);
+                btn->setFunction([](){ 
+                    //here you call your constructor
+                    std::cout << "I`m save!\n"; 
+                });
+
+                iterator++;
+            }
+
 
             m_pages[getCurrentPage()].addItem(std::move(btn));
         }

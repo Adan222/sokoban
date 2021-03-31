@@ -30,9 +30,12 @@ class WidgetStack : public sf::Drawable
     public:
         WidgetStack() = default;
         WidgetStack(const sf::RenderWindow &window);
-        WidgetStack(const WidgetStack &other) = delete;
         WidgetStack(WidgetStack &&other);
         WidgetStack& operator=(WidgetStack &&other);
+
+        WidgetStack& operator=(const WidgetStack&) = delete;
+        WidgetStack(const WidgetStack&) = delete;
+            
         ~WidgetStack();
 
         void draw(sf::RenderTarget& renderer, sf::RenderStates states) const override;

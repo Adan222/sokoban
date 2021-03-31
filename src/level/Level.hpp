@@ -19,13 +19,13 @@
 class Level {
 
     LevelConfig m_levelConfig;
-    SoundManager m_soundManager;
     Map m_levelMap;
     Physics m_physics;
     WinChecker m_winChecker;
     Player m_player;
     Boxes m_boxes;
 
+    SoundManager* m_soundManager;
     int m_moves;
 
     void setEntitiesPosition();
@@ -47,8 +47,10 @@ class Level {
     void iterate(std::function<void(int)> func);
 
 public:
-    Level(const std::filesystem::path& filename);
-    Level(const std::string& playerName);
+    Level& operator=(const Level&) = delete;
+    Level(const Level&) = delete;
+    Level(SoundManager& soundManager, const std::filesystem::path& filename);
+    Level(SoundManager& soundManager, const std::string& playerName);
 
     ~Level();
 

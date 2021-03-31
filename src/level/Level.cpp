@@ -1,48 +1,58 @@
 #include "Level.hpp"
 #include "entities/Box.hpp"
 
-Level::Level(const std::filesystem::path& filename) : 
+Level::Level(SoundManager& soundManager,const std::filesystem::path& filename) : 
     m_levelConfig(filename),
     m_levelMap(m_levelConfig),
     m_physics(m_levelMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
-    m_wantExit(false)
+    m_wantExit(false),
+    m_soundManager(&soundManager)
 {   
+    std::cout << filename << std::endl;
     setEntitiesPosition();    
     m_levelMap.loadTexture();
     m_levelMap.createMap();
 
-    //initSound();
+    initSound();
 }
 
 
-Level::Level(const std::string& playerName) : 
+Level::Level(SoundManager& soundManager,const std::string& playerName) : 
     m_player(),
     m_levelConfig(playerName),
     m_levelMap(m_levelConfig),
     m_physics(m_levelMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
     m_wantExit(false),
-    m_moves(0)
+    m_moves(0),
+    m_soundManager(&soundManager)
 {
+
     setEntitiesPosition();
 
     m_levelMap.loadTexture();
     m_levelMap.createMap();
     
-    //initSound();
+   initSound();
 }
 
 void Level::initSound() {
-    m_soundManager.setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
-    m_soundManager.setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
-    m_soundManager.play<SoundManager::Type::Theme>();
-    m_soundManager.play<SoundManager::Type::PlayerEngine>();
+    
+    m_soundManager->setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
+    m_soundManager->setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
+    m_soundManager->play<SoundManager::Type::Theme>();
+    m_soundManager->play<SoundManager::Type::PlayerEngine>();
+
 }
 
+
 Level::~Level() {
-   // m_soundManager.stop<SoundManager::Type::Theme>();
-    //m_soundManager.stop<SoundManager::Type::PlayerEngine>();
+    
+    m_soundManager->stop<SoundManager::Type::Theme>();
+    m_soundManager->stop<SoundManager::Type::PlayerEngine>();
+
+std::cout << "LEVEL DESCTRUCOTR" << std::endl;
 }
 
 void Level::iterate(std::function<void(int)> func) {
@@ -78,6 +88,7 @@ void Level::input(const sf::Keyboard::Key pressedKey){
 
 void Level::savePlayerConfig(std::string &name, const int score) {
     std::cout << name << " " << score << "\n";
+    m_levelConfig.getPlayerConfig().saveConfig(name, score);
 }
 
 bool Level::checkIfWantExit() const {
