@@ -6,7 +6,10 @@ zespół *Impostorzy*
 
 
 English version of the documentation - [doc_user](./doc_user.md).
-Dokumentacja techniczna dostępna jest w pliku [dok_tech](./dok_tech.md).
+Polska wersja dokumentacji technicznej - [dok_tech](./dok_tech.md).
+English version of the technical documentation - [doc_tech](./doc_tech.md).
+
+
 
 
 ![logo](https://github.com/Adan222/sokoban/blob/master/res/graphics/game/player.png "Logo")
