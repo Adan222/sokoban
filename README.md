@@ -9,13 +9,15 @@
 ***
 
 In build folder you will find prebuilt windows-x64 and linux-x64 binares.
+
+Building was tested on Ubuntu 20.04 
 ```sh
 sudo apt-get install git cmake gcc g++ libudev-dev libx11-dev xorg-dev freeglut3-dev
 sudo apt-get install curl zip unzip tar
 
 #crossbuild to windows
 sudo apt-get install mingw-w64-x86-64-dev mingw-w64
-sudo update-alternatives --config x86_64-w64-mingw32-g++ # Set the default mingw32 g++ compiler option to posix.
+sudo update-alternatives --config x86_64-w64-mingw32-g++ # set the default mingw32 g++ compiler option to posix.
 
 
 ```
@@ -32,11 +34,10 @@ git reset --hard 9f6aaaccb70d6f114a967f0ab83eff42840614ed
 cp ../vendor/soloud ports/ -r
 ```
 
-We are reveriting to ImGui 1.81, because on MinGW new version have problem with IMM linking. See https://github.com/microsoft/vcpkg/issues/16964
+We are reverting to ImGui 1.81, because on MinGW new version have problem with IMM linking. See https://github.com/microsoft/vcpkg/issues/16964
+I opened issue https://github.com/microsoft/vcpkg/issues/16964
 
-Vcpkg requires powershell. See https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1
-
-
+Install powershell, vcpkg needs it. See https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1
 
 ### For building Linux binares
 ```sh
@@ -45,17 +46,17 @@ cd ..
 mkdir -p build && cd build
 cmake .. -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake
 make
-
 ```
+
 ### For cross building to Windows 
-If any error occures during cmake command(eg. freetype missing), please try rerunning.
+If any error occures during cmake command(eg. freetype missing), please try rerunning. We can't do nothing about it.
 
 ```sh
 ./vcpkg install sfml imgui imgui-sfml nlohmann-json soloud --triplet x64-mingw-static
-./vcpkg install nativefiledialog --head --triplet x64-mingw-static
+./vcpkg install nativefiledialog --head --triplet x64-mingw-static #we need newer version of nfd,
 cd ..
 mkdir -p build && cd build
 cmake .. -DVCPKG_TARGET_TRIPLET=x64-mingw-static -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=<absolute path to sokoban dir>/toolchain-mingw-x64.cmake -DVCPKG_APPLOCAL_DEPS=OFF
-ln -s /usr/x86_64-w64-mingw32/lib/libopengl32.a /usr/x86_64-w64-mingw32/lib/libOpenGL32.a
+sudo ln -s /usr/x86_64-w64-mingw32/lib/libopengl32.a /usr/x86_64-w64-mingw32/lib/libOpenGL32.a
 make
 ```
