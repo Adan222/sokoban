@@ -36,13 +36,6 @@ void Tile::isSelected(const bool selected) {
     m_selected = selected;
 }
 
-bool Tile::isPlaced() const {
-    return m_placed;
-}
-
-void Tile::isPlaced(const bool placed) {
-    m_placed = placed;
-}
 
 int Tile::getLogicID() const { 
     return m_logicID; 

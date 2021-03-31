@@ -3,10 +3,26 @@
 
 Level::Level(const std::string& filename, SoundManager &soundM) : 
     m_levelConfig(filename),
+    m_levelMap(m_levelConfig),
+    m_physics(m_levelMap.find(WALL), m_boxes),
+    m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
+    m_wantExit(false),
+    m_playerConfig(nullptr),
+    m_soundManager(soundM)
+{   
+    m_levelMap.loadTexture();
+    m_levelMap.createMap();
+
+    //set entites postion must be under create map
+    setEntitiesPosition();    
+}
+
+
+Level::Level(PlayerConfig& playerConfig, SoundManager &soundM) : 
     m_player(),
-    m_lvlMap(m_levelConfig),
-    m_physics(m_lvlMap.find(WALL), m_boxes),
-    m_winChecker(m_boxes, m_lvlMap.find(WIN_PLACE, BOX_AND_WIN)),
+    m_levelMap(m_levelConfig),
+    m_physics(m_levelMap.find(WALL), m_boxes),
+    m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
     m_wantExit(false),
     m_moves(0),
     m_soundManager(soundM)
@@ -14,8 +30,8 @@ Level::Level(const std::string& filename, SoundManager &soundM) :
     std::cout << m_levelConfig.getThemeSongPath() << "\n";
     setEntitiesPosition();
 
-    m_lvlMap.loadTexture();
-    m_lvlMap.createMap();
+    m_levelMap.loadTexture();
+    m_levelMap.createMap();
     
     m_soundManager.get().setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
     m_soundManager.get().setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
@@ -50,7 +66,7 @@ void Level::moveBox(DIRECTION dir) {
 
 void Level::render(sf::RenderTarget& renderer) {
     //Map
-    renderer.draw(m_lvlMap);
+    renderer.draw(m_levelMap);
     //Player
     renderer.draw(m_player);
     //Boxes
@@ -151,7 +167,7 @@ void Level::update(const float deltaTime){
 }
 
 void Level::setEntitiesPosition(){
-    Positions boxesPos = m_lvlMap.find(BOX, BOX_AND_WIN);
+    Positions boxesPos = m_levelMap.find(BOX, BOX_AND_WIN);
     int am = boxesPos.size();
 
     m_boxes.resize(am);
@@ -163,6 +179,6 @@ void Level::setEntitiesPosition(){
     }
     
     //player position
-    Positions playerPos = m_lvlMap.find(PLAYER);
+    Positions playerPos = m_levelMap.find(PLAYER);
     m_player.initPosition(playerPos[0].x, playerPos[0].y);
 }

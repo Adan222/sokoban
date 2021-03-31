@@ -13,12 +13,15 @@
 #include "entities/Box.hpp"
 #include "WinChecker.hpp"
 #include "sound/SoundManager.hpp"
+#include "PlayerConfig.hpp"
 
 
 class Level {
+    PlayerConfig* m_playerConfig;
+
     LevelConfig m_levelConfig;
     std::reference_wrapper<SoundManager> m_soundManager;
-    Map m_lvlMap;
+    Map m_levelMap;
     Physics m_physics;
     WinChecker m_winChecker;
     Player m_player;
@@ -46,6 +49,8 @@ class Level {
 
 public:
     Level(const std::string& filename, SoundManager &soundM);
+    Level(PlayerConfig& playerConfig, SoundManager &soundM);
+
     ~Level();
 
     void render(sf::RenderTarget& renderer);

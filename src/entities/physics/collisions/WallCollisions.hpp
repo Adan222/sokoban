@@ -8,7 +8,7 @@ class WallCollisions
 {
     private:
         //Walls don`t move
-        const Positions m_walls;
+         Positions m_walls;
 
     public:
         WallCollisions(const Positions walls);

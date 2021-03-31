@@ -34,6 +34,9 @@ public:
     void updateTile(Tile& selectedTile);
     Tile* selectTile(sf::Vector2f mousePostion);
     void unselectTile(Tile* selectedTile);
+    
+    void setLogicGrid(const std::vector<int>& logicGrid);
+
 
     void saveGrids();
     

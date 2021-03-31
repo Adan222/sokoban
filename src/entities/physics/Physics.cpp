@@ -9,6 +9,11 @@ Physics::Physics(const Positions walls, Boxes &allboxes) :
 
 Physics::~Physics() {}
 
+void Physics::init(const Positions walls, Boxes &allboxes) {
+    m_wallCollision = WallCollisions(walls);
+    m_boxCollisions = BoxCollisions(allboxes);
+}
+
 void Physics::makeNext(sf::Vector2i &vec, DIRECTION d, const int i = 1){
     switch (d) {
         case UP: 

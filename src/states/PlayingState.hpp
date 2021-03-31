@@ -14,11 +14,15 @@
 #include "sound/SoundManager.hpp"
 #include "states/MainMenuState.hpp"
 #include "gui/menu/TextBox.hpp"
+#include "PlayerConfig.hpp"
+
 
 namespace State {
 
 class PlayingState : public State {
     std::unique_ptr<Level> m_level;
+    PlayerConfig m_playerConfig;
+    
     int m_whichLvl;
 
     /**

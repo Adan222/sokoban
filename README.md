@@ -3,12 +3,13 @@
 - Polish version of the user documentation - [dok_uzyt](./docs/dok_uzyt.md).
 - English version of the user documentation - [doc_user](./docs/doc_user.md).
 - Polish version of the code documentation - [dok_tech](./docs/dok_tech.md).
+- English version of technical documentation - [doc_tech](./docs/doc_tech.md).
 
 ***
 
 In build folder you will find prebuilt windows-x64 and linux-x64 binares.
 ```sh
-sudo cmake gcc g++ apt-get install libudev-dev libx11-dev xorg-dev freeglut3-dev
+sudo apt-get install cmake gcc g++ apt-get install libudev-dev libx11-dev xorg-dev freeglut3-dev
 sudo apt-get install mingw-w64-x86-64-dev mingw-w64
 sudo update-alternatives --config x86_64-w64-mingw32-g++ # Set the default mingw32 g++ compiler option to posix.
 

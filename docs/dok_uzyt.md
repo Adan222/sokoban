@@ -16,11 +16,9 @@ zespół *Impostorzy*
 
  ## Autorzy 
 - Kacper Kosmal
-    * 
-    * 
+    * Twórca kodu
 - Kamil Fugiel 
-    * 
-    * 
+    * Twórca kodu
 - Bartłomiej Kuleta 
     * Tekstury
     * Projektowanie poziomów
