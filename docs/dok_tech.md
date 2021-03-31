@@ -1,4 +1,4 @@
-#Dokumentacja techniczna
+# Dokumentacja techniczna
 
 Projekt gry Sokoban na konkurs Motorola Science Cup 2020 
 zespół *Impostorzy*
@@ -8,7 +8,7 @@ zespół *Impostorzy*
 - English version of technical documentation - [doc_tech](./doc_tech.md).
 
 ***
-###Użyte języki 
+### Użyte języki 
 - **C++20**
 - **CMake**
 
@@ -23,6 +23,10 @@ zespół *Impostorzy*
 - Problemy kompilacyjne mingw
 - Odrzucenie XML'a na rzecz JSON do kompliowania leveli
 - Decyzja nad formatem tekstur, użycie tilemapy
+- odpowiednie zarzadzanie pamięcią, semantyka przenoszenia
+-  crosskompilacja do windowsa przy mingw(przykładowo paczka vcpkg sfml-audio jest nie prawidlowo przygotowana, dlatego     skorzystalismy z soloud jako silnika muzycznego z backedem na sdl na linuxie i backedem winmm na windowsie)
+ 
+
 
 ***
 
@@ -30,7 +34,7 @@ zespół *Impostorzy*
 
 ***
 
-###Użyte repozytoria
+### Użyte repozytoria
 
 - VCPKG
 - Nlohmann JSON
