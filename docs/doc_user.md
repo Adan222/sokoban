@@ -13,11 +13,9 @@ Sokoban game design for the Motorola Science Cup 2020 competition
 
 ## Authors
 - Kacper Kosmal
-    *
-    *
+    * Code creator
 - Kamil Fugiel
-    *
-    *
+    * Code creator
 - Bartłomiej Kuleta
     * Textures
     * Level design
