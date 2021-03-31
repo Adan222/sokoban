@@ -24,7 +24,7 @@ Sokoban game design for the Motorola Science Cup 2020 competition
 - XML ​​rejection in favor of JSON for level compilation
 - Texture format decision, use of tilemap
 - Proper cache menagment, move semantics
-- cross-compilation for Windows via mingw(e.g. vcpkg sfml-audio pack was not correctly prepared, so we used soloud as music engine with backed-up sdl on linux and backed-up winmm on Windows)
+- cross-compilation for Windows via mingw(e.g. vcpkg sfml-audio pack was not correctly prepared, so we used soloud as audio engine with backed-up sdl on linux and backed-up winmm on Windows)
 
 
 ***
@@ -36,10 +36,10 @@ Sokoban game design for the Motorola Science Cup 2020 competition
 
 ### Repositories used
 
-- VCPKG
-- Nlohmann JSON
-- SoLoud
-- SFML
-- NativeFileDialog
-- Dear ImGui
-- ImGui SFML Bindings
+- VCPKG **https://github.com/microsoft/vcpkg.git**
+- Nlohmann JSON **https://github.com/nlohmann/json.git**
+- SoLoud **https://github.com/jarikomppa/soloud.git**
+- SFML **https://github.com/SFML/SFML.git**
+- NativeFileDialog **https://github.com/mlabbe/nativefiledialog.git**
+- Dear ImGui **https://github.com/ocornut/imgui.git**
+- ImGui SFML Bindings **https://github.com/eliasdaler/imgui-sfml.git**
