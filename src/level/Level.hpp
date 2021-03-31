@@ -13,12 +13,15 @@
 #include "entities/Box.hpp"
 #include "WinChecker.hpp"
 #include "sound/SoundManager.hpp"
+#include "PlayerConfig.hpp"
 
 
 class Level {
+    PlayerConfig* m_playerConfig;
+
     LevelConfig m_levelConfig;
     SoundManager m_soundManager;
-    Map lvlMap;
+    Map m_levelMap;
     Physics m_physics;
     WinChecker m_winChecker;
     Player m_player;
@@ -44,12 +47,13 @@ class Level {
 
 public:
     Level(const std::string& filename);
+    Level(PlayerConfig& playerConfig);
     ~Level();
 
     void render(sf::RenderTarget& renderer);
     void update(const float deltaTime);
     void input(const sf::Keyboard::Key pressedKey);
-
+    void initSound();
     /*
      * Chek if want to exit this level
      * and go to the next

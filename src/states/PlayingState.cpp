@@ -7,8 +7,18 @@ namespace State {
 PlayingState::PlayingState(Game& game) : 
     State(game),
     m_whichLvl(0),
-    m_level("../res/levels/official/lvl17.json")
-{}
+    m_level("../res/levels/official/lvl1.json")
+{
+
+}
+PlayingState::PlayingState(Game& game, const std::string playerName) : 
+    State(game),
+    m_whichLvl(0),
+    m_playerConfig(playerName + ".json"),
+    m_level(m_playerConfig)
+{
+
+}
 
 PlayingState::~PlayingState() {}
 

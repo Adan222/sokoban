@@ -1,22 +1,56 @@
 #include "Level.hpp"
 
 Level::Level(const std::string& filename) : 
-    m_levelConfig(filename),
     m_player(),
-    lvlMap(m_levelConfig),
-    m_physics(lvlMap.find(WALL), m_boxes),
-    m_winChecker(m_boxes, lvlMap.find(WIN_PLACE, BOX_AND_WIN)),
-    m_wantExit(false)
+    m_levelConfig(filename),
+    m_levelMap(m_levelConfig),
+    m_physics(m_levelMap.find(WALL), m_boxes),
+    m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
+    m_wantExit(false),
+    m_playerConfig(nullptr)
 {   
-    setEntitiesPosition();
+    m_levelMap.loadTexture();
+    m_levelMap.createMap();
 
-    lvlMap.loadTexture();
-    lvlMap.createMap();
+    m_physics.init(m_levelMap.find(WALL), m_boxes);
+    m_winChecker = WinChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN));
+
+    //set entites postion must be under create map
+    setEntitiesPosition();    
+    initSound();
+}
+
+
+Level::Level(PlayerConfig& playerConfig) : 
+    m_player(),
+    m_levelMap(m_levelConfig),
+    m_physics(m_levelMap.find(WALL), m_boxes),
+    m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
+    m_wantExit(false),
+    m_playerConfig(&playerConfig),
+    m_levelConfig(m_playerConfig->getLastPlayedLevel())
+{   
+    m_levelMap.loadTexture();
+    m_levelMap.createMap();
+
+    m_physics.init(m_levelMap.find(WALL), m_boxes);
+    m_winChecker = WinChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN));
+    
+    //not optimal but more more understandable, we are overwriting logic grid, to set position from save
+    if(m_playerConfig->exists()) {
+        m_levelMap.setLogicGrid(m_playerConfig->getSavedLogicGrid());
+    }
+    //set entites postion must be under create map
+    setEntitiesPosition();    
+    initSound();
+}
+
+
+void Level::initSound() {
     m_soundManager.setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
     m_soundManager.setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
     m_soundManager.play<SoundManager::Type::Theme>();
-        m_soundManager.play<SoundManager::Type::PlayerEngine>();
-
+    m_soundManager.play<SoundManager::Type::PlayerEngine>();
 }
 
 Level::~Level() {
@@ -43,7 +77,7 @@ void Level::moveBox(DIRECTION dir) {
 
 void Level::render(sf::RenderTarget& renderer) {
     //Map
-    renderer.draw(lvlMap);
+    renderer.draw(m_levelMap);
     //Player
     renderer.draw(m_player);
     //Boxes
@@ -54,6 +88,8 @@ void Level::render(sf::RenderTarget& renderer) {
 void Level::input(const sf::Keyboard::Key pressedKey){
     handleMove(pressedKey);
 }
+
+
 
 bool Level::checkIfWantExit() const {
     return m_wantExit;
@@ -134,7 +170,7 @@ void Level::update(const float deltaTime){
 }
 
 void Level::setEntitiesPosition(){
-    Positions boxesPos = lvlMap.find(BOX, BOX_AND_WIN);
+    Positions boxesPos = m_levelMap.find(BOX, BOX_AND_WIN);
     int am = boxesPos.size();
 
     std::cout << am << "\n";
@@ -148,6 +184,6 @@ void Level::setEntitiesPosition(){
     }
     
     //player position
-    Positions playerPos = lvlMap.find(PLAYER);
+    Positions playerPos = m_levelMap.find(PLAYER);
     m_player.initPosition(playerPos[0].x, playerPos[0].y);
 }

@@ -12,8 +12,8 @@ bool WinChecker::check() const{
      * We assume that amount of boxes is 
      * equal to win places
      */
-    for(int i = 0; i < m_boxes.size(); i++){
-        if(m_boxes[i].getGridPos() != m_winPlaces[i])
+    for(int i = 0; i < m_boxes.get().size(); i++){
+        if(m_boxes.get()[i].getGridPos() != m_winPlaces[i])
             return false;
     }
     return true; 

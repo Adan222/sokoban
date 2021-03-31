@@ -6,10 +6,15 @@ Physics::Physics(const Positions walls, Boxes &allboxes) :
     m_boxCollisions(allboxes),
     m_wallCollision(walls)
 {
-    std::cout << "physics const\n";
+    
 }
 
 Physics::~Physics() {}
+
+void Physics::init(const Positions walls, Boxes &allboxes) {
+    m_wallCollision = WallCollisions(walls);
+    m_boxCollisions = BoxCollisions(allboxes);
+}
 
 void Physics::makeNext(sf::Vector2i &vec, DIRECTION d, const int i = 1){
     switch (d) {

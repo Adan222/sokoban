@@ -6,7 +6,7 @@
 
 class BoxCollisions{
     private:
-        Boxes &m_boxes;
+        std::reference_wrapper<Boxes> m_boxes;
         int m_chosenOneIndex;
 
     public:

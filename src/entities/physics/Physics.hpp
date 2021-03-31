@@ -26,6 +26,7 @@ class Physics{
         Physics(const Positions walls, Boxes &allboxes);
         ~Physics();
 
+        void init(const Positions walls, Boxes &allboxes);
         /*
          * Chcek for wall on next move.
          * Return true if there is wall 

@@ -38,12 +38,11 @@ sf::Vector2i Map::indexToPosition(uint32_t index) {
 }
 
 Positions Map::find(LOGIC what, LOGIC sec) {
-    auto logicalGrid = m_levelConfig.get().getLogicGrid();
     Positions pos;
 
     //idk why iterator don`t work here
-    for(int i = 0; i < logicalGrid.size(); i++)
-        if(logicalGrid[i] == what || logicalGrid[i] == sec)
+    for(int i = 0; i < m_tiles.size(); i++)
+        if(m_tiles[i].getLogicID() == what || m_tiles[i].getLogicID() == sec)
             pos.emplace_back(indexToPosition(i));
 
     return pos;
@@ -70,6 +69,19 @@ void Map::unselectTile(Tile* selectedTile) {
         selectedTile = nullptr;
     }
 
+}
+
+void Map::setLogicGrid(const std::vector<int>& logicGrid) {
+    const uint32_t maxAmountOfTiles = m_levelConfig.get().getMapTilesAmount();
+
+    for(int i = 0; i < maxAmountOfTiles; i++) {
+        if(i < logicGrid.size())
+            m_tiles[i].setLogicID(logicGrid[i]);
+        else
+            m_tiles[i].setLogicID(0);
+    }
+
+    //do it in create map
 }
 
 void Map::saveGrids() {

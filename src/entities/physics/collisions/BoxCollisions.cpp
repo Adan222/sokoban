@@ -9,8 +9,8 @@ BoxCollisions::~BoxCollisions() {}
 
 bool BoxCollisions::check(const sf::Vector2i nextPos){
 
-    for(int i = 0; i < m_boxes.size(); i++)
-        if(m_boxes[i].getGridPos() == nextPos){
+    for(int i = 0; i < m_boxes.get().size(); i++)
+        if(m_boxes.get()[i].getGridPos() == nextPos){
             m_chosenOneIndex = i;
             return true;
         }
@@ -21,6 +21,6 @@ bool BoxCollisions::check(const sf::Vector2i nextPos){
 
 void BoxCollisions::action() {
     if(m_chosenOneIndex >= 0)
-        m_boxes[m_chosenOneIndex].imChosenOne();
+        m_boxes.get()[m_chosenOneIndex].imChosenOne();
 }
 

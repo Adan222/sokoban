@@ -30,8 +30,7 @@ public:
     bool isSelected() const;
     void isSelected(const bool selected);
 
-    bool isPlaced() const;
-    void isPlaced(const bool placed);
+   
     sf::Sprite getSprite(const sf::Texture &tileAtlasTexture) const;
     sf::Vector2f getPositionOnMap() const;
     sf::Vector2u getTextureCoords();

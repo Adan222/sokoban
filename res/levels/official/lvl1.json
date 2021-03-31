@@ -2,7 +2,7 @@
     "map" : {
         "name" : "TEST",
         "tile_atlas" : {
-            "path" : "tile_new.png",
+            "path" : "res/graphics/tile_new.png",
             "tile_size": 64
         },
         "theme_song" : "res/sounds/level/level_4.wav",
