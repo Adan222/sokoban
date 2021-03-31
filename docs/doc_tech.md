@@ -3,12 +3,12 @@
 Sokoban game design for the Motorola Science Cup 2020 competition
 *Impostors* team
 
-Polish version of user documentation - [dok_uzyt](./dok_uzyt.md).
-English version of the user documentation - [doc_user](./doc_user.md).
-Polish version of technical documentation - [dok_tech](./dok_tech.md).
+Polish version of user documentation - [dok_uzyt](./docs/dok_uzyt.md).
+English version of the user documentation - [doc_user](./docs/doc_user.md).
+Polish version of technical documentation - [dok_tech](./docs/dok_tech.md).
 
 ***
-### Languages ​​used
+### Languages ​
 - **C++20**
 - **CMake**
 
