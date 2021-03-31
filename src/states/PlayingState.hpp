@@ -65,7 +65,7 @@ public:
     /**
      * This constructor is used when we play only once
      */
-    PlayingState(Game& game, const std::string &path);
+    PlayingState(Game& game, const std::filesystem::path path);
     
     ~PlayingState();
     

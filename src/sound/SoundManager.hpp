@@ -14,12 +14,12 @@ public:
         Boxes,
         Win,
         PlayerEngine,
-        TypeCount //get number of elements, not vaild type!
+        NUM_OF_TYPES //get number of elements, not vaild type!
     };
 
 private:
     SoLoud::Soloud m_soundEngine;
-    std::array<SoLoud::Wav, Type::TypeCount> m_sounds;
+    std::array<SoLoud::Wav, Type::NUM_OF_TYPES> m_sounds;
 
 
     template <Type T> 
@@ -32,27 +32,22 @@ public:
     void play() {
         m_soundEngine.play(getSound<T>());
     } 
+
     template <Type T>
     void stop() {
         getSound<T>().stop();
     } 
+
     template <Type T> 
     bool setFile(const std::filesystem::path& path) {
-        if constexpr (T == TypeCount) 
+        if constexpr (T == NUM_OF_TYPES) 
             return false;
         
         if(!getSound<T>().load(path.generic_string().c_str())) 
             return false;
-
-        
         
         return true;
     }
-
-    void clear() {
-        m_sounds.fill(SoLoud::Wav{});
-    }
-
     
     SoundManager();
     ~SoundManager();

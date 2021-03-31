@@ -12,18 +12,18 @@ PlayingState::PlayingState(Game& game, const int which) :
     m_isWinNow(false),
     m_playerName("")
 {
-    m_level = std::make_unique<Level>(makePath(m_whichLvl), m_sound);
+    m_level = std::make_unique<Level>(makePath(m_whichLvl));
     initText();
     createLeadBoardInputMenu();
 }
 
-PlayingState::PlayingState(Game& game, const std::string &path) :
+PlayingState::PlayingState(Game& game, const std::filesystem::path path) :
     State(game),
     m_isOnlyOne(true),
     m_isPopUpOnScreen(false),
     m_isWinNow(false)
 {
-    m_level = std::make_unique<Level>(path, m_sound);
+    m_level = std::make_unique<Level>(path);
 
     //We have to have one page
     //otherwise segmantation 
@@ -80,7 +80,7 @@ void PlayingState::createAfterWinPopUp() {
         m_isWinNow = false;
         if(m_whichLvl < 20){
             m_level.reset();
-            m_level = std::make_unique<Level>(makePath(m_whichLvl++), m_sound); 
+            m_level = std::make_unique<Level>(makePath(m_whichLvl++)); 
         }
         else
             wantExit();
@@ -261,6 +261,7 @@ void PlayingState::update(const sf::Time deltaTime, bool fixed){
                 //exit 
                 case true:
                     m_isWinNow = true;
+                    m_level.reset();
                     wantExit();
                 break;
 

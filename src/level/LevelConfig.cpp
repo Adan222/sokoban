@@ -4,12 +4,14 @@
 #include <filesystem>
 #include <string>
 #include <vector>
+#include <fstream>
 
-LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath) : m_newConfigPath(false) {
+
+LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath) : m_newConfigPath(false), m_levelFromPlayerConfig(false) {
     using json = nlohmann::json;
     using std::cout;
     std::ifstream m_levelConfigStream;
-    
+
     m_jsonPath = "";
 
 
@@ -36,7 +38,12 @@ LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath) : m_newCon
 
 }
 
-LevelConfig::LevelConfig() : m_newConfigPath(false) {   
+LevelConfig::LevelConfig(const std::string& playerName) : m_playerConfig(playerName + ".json") {
+    LevelConfig(m_playerConfig.getLastPlayedLevelPath());
+    m_levelFromPlayerConfig = true;
+}
+
+LevelConfig::LevelConfig() : m_newConfigPath(false), m_levelFromPlayerConfig(false) {   
     m_levelConfigJson = R"(
     {
         "map" : {
@@ -147,7 +154,10 @@ std::vector<int> LevelConfig::getVisualGrid() {
     return m_levelConfigJson.at("map")["visual_grid"];
 }
 
-std::vector<int> LevelConfig::getLogicGrid() {
+std::vector<int> LevelConfig::getLogicGrid() { 
+    if(m_levelFromPlayerConfig) {
+        return m_playerConfig.getSavedLogicGrid();
+    }
     //using [], if data is null it will create empty object
     //slow, we are copying it
     return m_levelConfigJson.at("map")["logic_grid"];
