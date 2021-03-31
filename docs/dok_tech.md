@@ -3,9 +3,9 @@
 Projekt gry Sokoban na konkurs Motorola Science Cup 2020 
 zespół *Impostorzy*
 
-Polska wersja dokumentacji użytkownika - [dok_uzyt](./dok_uzyt.md).
-English version of the user documentation - [doc_user](./doc_user.md).
-English version of technical documentation - [doc_tech](./doc_tech.md).
+- Polska wersja dokumentacji użytkownika - [dok_uzyt](./dok_uzyt.md).
+- English version of the user documentation - [doc_user](./doc_user.md).
+- English version of technical documentation - [doc_tech](./doc_tech.md).
 
 ***
 ###Użyte języki 

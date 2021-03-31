@@ -4,6 +4,7 @@
 - English version of the user documentation - [doc_user](./docs/doc_user.md).
 - Polish version of the code documentation - [dok_tech](./docs/dok_tech.md).
 
+***
 
 In build folder you will find prebuilt windows-x64 and linux-x64 binares.
 ```sh
