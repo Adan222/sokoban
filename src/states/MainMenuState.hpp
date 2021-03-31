@@ -48,6 +48,8 @@ class MainMenuState : public State
         void createModulesPage();
         void createAllLevelsPage();
         void createCustomLevels();
+        void createLeaderBoard();
+        void createContinue();
 
         /**
          * Create pop button with error.

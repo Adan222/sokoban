@@ -1,4 +1,9 @@
+#include "level/LevelConfig.hpp"
 #include "states/MainMenuState.hpp"
+#include <SFML/Graphics/Color.hpp>
+#include <filesystem>
+#include <iterator>
+#include <string>
 
 namespace State{
 
@@ -17,9 +22,10 @@ void MainMenuState::createMenuPage(){
      * But this loop will make them in the center, if we want to make
      * button somewhere else, we have to make them independently
      */
-    constexpr int btnAmmount = 3;
+    constexpr int btnAmmount = 4;
     const std::string btnStrings[btnAmmount] = {
         "Graj",
+        "Continue",
         "LeadeBoard",
         "Exit"
     };
@@ -27,8 +33,8 @@ void MainMenuState::createMenuPage(){
         [this](){     
             createModulesPage(); 
         },
-
-        [this](){ std::cout << "LeadeBoard\n"; },
+        [this](){ createContinue(); },
+        [this](){ createLeaderBoard(); },
         [this](){ m_game.exit(); }
     };
 
@@ -211,6 +217,124 @@ void MainMenuState::createBackBtn(){
     });
 
     m_pages[getCurrentPage()].addItem(std::move(backBtn));
+}
+
+void MainMenuState::createLeaderBoard(){
+    pushPage();
+    std::cout << "createLeaderBoard Page\n";
+    std::cout << "page index: " << getCurrentPage() << "\n";
+
+    auto tit = std::make_unique<Title>("Leader Board", 64);
+
+    auto menu =  std::make_unique<Button>();
+    menu->setString("NAME:\t\t\t\t\tScore:");
+
+    float x = float(WINDOW_WIDTH - menu->getWidth()) / 2;
+    float y = 150;
+    menu->setPosition({x, y});
+    menu->setColor(sf::Color::Transparent);
+    m_pages[getCurrentPage()].addItem(std::move(menu));
+
+    int i = 0;
+    for(auto fileName : std::filesystem::directory_iterator("../res/saves")){
+        auto player =  std::make_unique<Button>();
+
+        /**
+         * Here try to open fileName
+         * and assign player name and score to dispText
+         */
+
+        std::string dispText = "Adam Małysz\t\t1234";
+        player->setString(dispText);
+
+        float x = float(WINDOW_WIDTH - player->getWidth()) / 2;
+        float y = 200 + i * player->getHeight() + i * 50;
+        player->setPosition({x, y});
+        player->setColor(sf::Color::Transparent);
+
+        m_pages[getCurrentPage()].addItem(std::move(player));
+        i++;
+    }
+    if(i == 0){
+        auto empty = std::make_unique<Button>();
+
+        empty->setString("Empty");
+
+        float x = float(WINDOW_WIDTH - empty->getWidth()) / 2;
+        float y = 300;
+        empty->setPosition({x, y});
+        empty->setColor(sf::Color::Transparent);
+        m_pages[getCurrentPage()].addItem(std::move(empty));
+    }
+
+    createBackBtn();
+
+    m_pages[getCurrentPage()].addItem(std::move(tit));
+}
+
+void MainMenuState::createContinue(){
+    pushPage();
+    std::cout << "createContinue Page\n";
+    std::cout << "page index: " << getCurrentPage() << "\n";
+
+    auto tit = std::make_unique<Title>("Saves", 64);
+
+    //just for count start x
+    auto test = std::make_unique<Button>(ButtonType::CUBE);
+
+    //x axis start with padding
+    const int cols = 5;
+    const int padding_x_amount = cols + 1;
+    const float padding_x = float(WINDOW_WIDTH - cols * test->getWidth()) / padding_x_amount;
+
+    const int row = 4;
+    const float start_y = tit->getPos().y + tit->getHeight() + 60;
+
+    const int padding_y_amount = cols;
+    const float padding_y = (WINDOW_HEIGHT - start_y - row * test->getHeight()) / padding_y_amount;
+
+    float last_x = 0;
+    float last_y = 0;
+
+    
+    auto iterator = std::filesystem::directory_iterator("../res/saves");
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j < cols; j++){ 
+            const int index = j + i * cols;
+            std::cout << index << "\n";
+            auto btn = std::make_unique<Button>(ButtonType::CUBE);
+            btn->setString(std::to_string(index + 1));
+            
+            //set positions
+            float x = 0;
+            float y = start_y + i * (btn->getHeight() + padding_y);
+
+            if(j == 0)
+                x = padding_x;
+            else
+                x = last_x + btn->getWidth() + padding_x;
+
+            last_x = x;
+            btn->setPosition({x, y});
+
+            if(iterator != std::filesystem::directory_iterator()){
+                btn->setColor(sf::Color::Green);
+                btn->setFunction([](){ 
+                    //here you call your constructor
+                    std::cout << "I`m save!\n"; 
+                });
+
+                iterator++;
+            }
+
+
+            m_pages[getCurrentPage()].addItem(std::move(btn));
+        }
+        last_x = 0;
+    }
+
+    createBackBtn();
+    m_pages[getCurrentPage()].addItem(std::move(tit));
 }
 
 } //namespace

@@ -9,7 +9,7 @@ Level::Level(SoundManager& soundManager,const std::filesystem::path& filename) :
     m_wantExit(false),
     m_soundManager(&soundManager)
 {   
-    std::cout << "ILE RAZY" << std::endl;
+    std::cout << filename << std::endl;
     setEntitiesPosition();    
     m_levelMap.loadTexture();
     m_levelMap.createMap();
