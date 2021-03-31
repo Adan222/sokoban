@@ -1,3 +1,4 @@
+![icon](https://github.com/Adan222/sokoban/blob/master/res/graphics/icon1.png "Icon")<br>
 # Sokoban - Motorola Science Cup
 
 - Polish version of the user documentation - [dok_uzyt](./docs/dok_uzyt.md).
@@ -12,7 +13,7 @@ In build folder you will find prebuilt windows-x64 and linux-x64 binares.
 sudo apt-get install git cmake gcc g++ libudev-dev libx11-dev xorg-dev freeglut3-dev
 sudo apt-get install curl zip unzip tar
 
-#cross bulild to windows
+#crossbuild to windows
 sudo apt-get install mingw-w64-x86-64-dev mingw-w64
 sudo update-alternatives --config x86_64-w64-mingw32-g++ # Set the default mingw32 g++ compiler option to posix.
 

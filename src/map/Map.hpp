@@ -20,10 +20,11 @@ class Map : public sf::Drawable, public sf::Transformable {
     std::vector<Tile> m_tiles;
     std::vector<sf::RectangleShape> m_gridSquares;
 
-    uint32_t positionToIndex(sf::Vector2f position2D);
-    sf::Vector2i indexToPosition(uint32_t index);
+   
 
 public:
+    uint32_t positionToIndex(sf::Vector2f position2D);
+    sf::Vector2i indexToPosition(uint32_t index);
     Map(LevelConfig& m_levelConfig);
     ~Map();
 
@@ -37,15 +38,9 @@ public:
     
     void setLogicGrid(const std::vector<int>& logicGrid);
 
-
     void saveGrids();
     
-    /*
-     * Now class have referance to levelconfig
-     * and we can`t use m_levelConfig in constructor.
-     * When you bring something new just put it in initMap.
-     */
-    void initMap();
+
 
     /*
      * First call loadTexture then others

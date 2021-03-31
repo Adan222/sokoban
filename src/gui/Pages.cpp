@@ -307,35 +307,37 @@ void MainMenuState::createContinue(){
     auto iterator = std::filesystem::directory_iterator("../res/saves");
     for(int i = 0; i < row; i++){
         for(int j = 0; j < cols; j++){ 
-            const int index = j + i * cols;
-            std::cout << index << "\n";
-            auto btn = std::make_unique<Button>(ButtonType::CUBE);
-            btn->setString(std::to_string(index + 1));
             
-            //set positions
-            float x = 0;
-            float y = start_y + i * (btn->getHeight() + padding_y);
-
-            if(j == 0)
-                x = padding_x;
-            else
-                x = last_x + btn->getWidth() + padding_x;
-
-            last_x = x;
-            btn->setPosition({x, y});
 
             if(iterator != std::filesystem::directory_iterator()){
+                const int index = j + i * cols;
+                std::cout << index << "\n";
+                auto btn = std::make_unique<Button>(ButtonType::CUBE);
+                btn->setString(iterator->path().stem().generic_string());
+                
+                //set positions
+                float x = 0;
+                float y = start_y + i * (btn->getHeight() + padding_y);
+
+                if(j == 0)
+                    x = padding_x;
+                else
+                    x = last_x + btn->getWidth() + padding_x;
+
+                last_x = x;
+                btn->setPosition({x, y});
                 btn->setColor(sf::Color::Green);
-                btn->setFunction([](){ 
+                btn->setFunction([this, iterator](){ 
                     //here you call your constructor
-                    std::cout << "I`m save!\n"; 
+                    playFromSave(iterator->path());
                 });
 
                 iterator++;
+                 m_pages[getCurrentPage()].addItem(std::move(btn));
             }
 
 
-            m_pages[getCurrentPage()].addItem(std::move(btn));
+           
         }
         last_x = 0;
     }

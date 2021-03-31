@@ -82,7 +82,6 @@ void Map::setLogicGrid(const std::vector<int>& logicGrid) {
             m_tiles[i].setLogicID(0);
     }
 
-    //do it in create map
 }
 
 void Map::saveGrids() {

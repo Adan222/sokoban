@@ -63,6 +63,7 @@ class MainMenuState : public State
 
         void playOnce(LevelDifficult diff);
         void playUntilExit(const int whichLvl);
+        void playFromSave(std::filesystem::path savePath);
 
         void validateAll();
 
