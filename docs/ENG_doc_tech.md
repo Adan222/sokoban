@@ -3,9 +3,9 @@
 Sokoban game design for the Motorola Science Cup 2020 competition
 *Impostors* team
 
-- Polish version of user documentation - [PL_dok_uzyt](./PL_dok_uzyt.md).
-- English version of the user documentation - [ENG_doc_user](./ENG_doc_user.md).
-- Polish version of technical documentation - [PL_dok_tech](./PL_dok_tech.md).
+- Polish version of user documentation - [dok_uzyt](./dok_uzyt.md).
+- English version of the user documentation - [doc_user](./doc_user.md).
+- Polish version of technical documentation - [dok_tech](./dok_tech.md).
 
 ***
 ### Languages ​
@@ -32,6 +32,7 @@ Sokoban game design for the Motorola Science Cup 2020 competition
 #### The description of the functions used and their operation can be found in the comments in the code
 
 ***
+### For the saving system and for levels we used JSON, in the editor mode we implemented Immediate Mode GUI
 
 ### Repositories used
 
