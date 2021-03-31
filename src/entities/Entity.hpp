@@ -42,11 +42,6 @@ class Entity : public sf::Drawable
         bool isWithGuide(DIRECTION dir) const;
 
         void resetMoveVector();
-
-        //debug purpose
-        void drawPos() const;
-        void drawGridPos() const;
-
     
     public:
         Entity(sf::Transformable &tr);

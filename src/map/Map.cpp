@@ -107,7 +107,7 @@ void Map::loadTexture() {
             throw std::runtime_error("Map: Can`t open file: " + pre.generic_string() + tileAtlasPath.generic_string());
             //TO DO check size of tile map, (size + 1) % tilesize
     }catch(std::exception &e){
-        std::cout << e.what() << "\n";
+        std::cout << "Map: loadTexture: " << e.what() << "\n";
     }
 }
 

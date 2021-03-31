@@ -1,10 +1,12 @@
 #include "PlayerConfig.hpp"
 #include <fstream>
 #include <iostream>
+#include <string>
 PlayerConfig::PlayerConfig() : m_hasPlayed(false) {
-    m_playerConfigJson = R"(
-       {
-            "player_name" : "Adam",
+
+    m_playerConfigJson = R"( 
+        {
+            "player_name" : "Adam", 
             "score" : 0,
             "last_played_map" : {
                     "path" : "none",
@@ -33,6 +35,7 @@ bool PlayerConfig::hasPlayed() const {
 bool PlayerConfig::loadConfig(const std::filesystem::path& path) {
     using nlohmann::json;
     std::ifstream m_playerConfigStream;
+
     m_jsonPath = "";
     try {
         //Check if file exist
@@ -58,7 +61,7 @@ bool PlayerConfig::loadConfig(const std::filesystem::path& path) {
 }
 
 std::filesystem::path PlayerConfig::getLastPlayedLevelPath() const {
-    return "../" + m_playerConfigJson.at("last_played_map").at("path").get<std::string>();
+    return m_playerConfigJson.at("last_played_map").at("path").get<std::string>();
 }
 
 //returns position of boxes and player on last played map
@@ -67,11 +70,14 @@ std::vector<int> PlayerConfig::getSavedLogicGrid() const {
 }
 
 std::string PlayerConfig::getPlayerName() {
-    return m_playerConfigJson.at("player_name");
+    return m_playerConfigJson.at("player_name").get<std::string>();
+}
+
+int PlayerConfig::getScore() {
+    return m_playerConfigJson.at("score").get<int>();
 }
 
 void PlayerConfig::setScore(const int score) {
-    std::cout << m_playerConfigJson.dump();
     m_playerConfigJson.at("score") = score;
 }
 

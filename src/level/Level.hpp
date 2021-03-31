@@ -49,8 +49,9 @@ class Level {
 public:
     Level& operator=(const Level&) = delete;
     Level(const Level&) = delete;
+    
     Level(SoundManager& soundManager, const std::filesystem::path& filename);
-    Level(SoundManager& soundManager, const std::string& playerName);
+    Level(SoundManager& soundManager, PlayerConfig playerConf);
 
     ~Level();
 

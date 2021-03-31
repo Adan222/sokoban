@@ -22,6 +22,7 @@ class LevelConfig {
     std::filesystem::path m_jsonPath;
     bool m_newConfigPath;
     bool m_levelFromPlayerConfig;
+    
 public:
     uint32_t getMapColumns() const; //map tile columns
     uint32_t getMapTilesAmount() const; //calculate number of tiles on map, by screen res and tile size 
@@ -55,7 +56,7 @@ public:
 
     LevelConfig(); //generate default json if no file was provided
     LevelConfig(const std::filesystem::path& fileConfigPath);
-    LevelConfig(const std::string& playerName);
+    LevelConfig(PlayerConfig play);
     ~LevelConfig();
 
 };

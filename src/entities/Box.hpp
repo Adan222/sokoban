@@ -26,6 +26,4 @@ class Box : public Entity{
         void imChosenOne();
         void imNotChosenOne();
         bool checkIfImChosen() const;
-
-        void pos();
 };

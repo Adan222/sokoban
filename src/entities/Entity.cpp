@@ -101,18 +101,4 @@ void Entity::resetMoveVector(){
     m_moveVector.y = 0;
 }
 
-void Entity::drawPos() const {
-    std::cout << "ent x: " << m_transform.getPosition().x << "\n";
-    std::cout << "ent y: " << m_transform.getPosition().y << "\n";
-    std::cout << "guide x: " << m_guide.getPosition().x * TILE_SIZE << "\n";
-    std::cout << "guide y: " << m_guide.getPosition().y * TILE_SIZE << "\n\n";
-}
-
-void Entity::drawGridPos() const {
-    std::cout << "Grid pos\n";
-    std::cout << "x: " << m_gridPos.x << "\n";
-    std::cout << "y: " << m_gridPos.y << "\n\n";
-}
-
-
 

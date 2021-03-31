@@ -18,6 +18,7 @@
 #include "gui/menu/Title.hpp"
 #include "gui/menu/WidgetStack.hpp"
 #include "level/LevelConfig.hpp"
+#include <PlayerConfig.hpp>
 
 namespace State {
 

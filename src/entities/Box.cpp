@@ -33,7 +33,3 @@ bool Box::checkIfImChosen() const {
     return m_imChosen;
 }
 
-void Box::pos() {
-    std::cout << "x: " << m_boxShape.getPosition().x << "\n";
-    std::cout << "y: " << m_boxShape.getPosition().y << "\n";
-}

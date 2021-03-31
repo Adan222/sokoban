@@ -101,10 +101,6 @@ sf::Vector2f WidgetStack::getSize() const {
     return m_background.getSize();
 }
 
-void WidgetStack::impulse() const {
-    std::cout << "impulse\n";
-}
-
 const sf::RenderWindow& WidgetStack::getWindow() const{
     return *m_window;
 }

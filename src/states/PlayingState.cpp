@@ -12,6 +12,7 @@ PlayingState::PlayingState(Game& game, const int which) :
     m_isWinNow(false),
     m_playerName("")
 {
+    std::cout << makePath(which);
     m_level = std::make_unique<Level>(m_sound,makePath(m_whichLvl));
     initText();
     createInputMenu();
@@ -52,20 +53,21 @@ PlayingState::PlayingState(Game& game, PlayerConfig playerConfig) :
     int id = atoi(pathString.c_str());
 
 
-    if(id > 0 && id < 20) {
+    if(id > 0 && id <= 20) {
         m_whichLvl = id;
-        m_level = std::make_unique<Level>(m_sound, path);
+        m_level = std::make_unique<Level>(m_sound, path.generic_string());
     } else {
         //play only once if save was played on custom level
         PlayingState(game, path);
     }
 
-
     //We have to have one page
     //otherwise segmantation 
-    createAfterWinPopUp();
+    createInGameMenu();
+    m_isPopUpOnScreen = false;
+    m_page[getCurrentPage()]->wantExit();
+    m_isWinNow = false;
 }
-
 
 
 PlayingState::~PlayingState() {}
@@ -211,7 +213,6 @@ void PlayingState::createInputMenu() {
     saveBtn->setFunction([this](){
         m_isPopUpOnScreen = false;
         m_page[getCurrentPage()]->wantExit();
-        std::cout << getCurrentPage() << "\n";
         m_isWinNow = false;
     });
 

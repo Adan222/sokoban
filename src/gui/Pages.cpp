@@ -1,3 +1,4 @@
+#include "PlayerConfig.hpp"
 #include "level/LevelConfig.hpp"
 #include "states/LevelEditorState.hpp"
 #include "states/MainMenuState.hpp"
@@ -5,6 +6,7 @@
 #include <filesystem>
 #include <iterator>
 #include <memory>
+#include <nlohmann/json_fwd.hpp>
 #include <string>
 
 namespace State{
@@ -12,7 +14,6 @@ namespace State{
 void MainMenuState::createMenuPage(){
     pushPage();
     setBackgound();
-    std::cout << "page index: " << getCurrentPage() << "\n";
 
     
     //Create title in menu
@@ -60,8 +61,6 @@ void MainMenuState::createMenuPage(){
 void MainMenuState::createModulesPage(){
     pushPage();
     setBackgound();
-    std::cout << "create Modules Page\n";
-    std::cout << "page index: " << getCurrentPage() << "\n";
 
     auto tit = std::make_unique<Title>();
 
@@ -119,8 +118,6 @@ void MainMenuState::createModulesPage(){
 void MainMenuState::createAllLevelsPage(){
     pushPage();
     setBackgound();
-    std::cout << "create Official Levels Page\n";
-    std::cout << "page index: " << getCurrentPage() << "\n";
 
     auto tit = std::make_unique<Title>("Levels", 64);
 
@@ -225,10 +222,10 @@ void MainMenuState::createBackBtn(){
 }
 
 void MainMenuState::createLeaderBoard(){
+    using json = nlohmann::json;
+
     pushPage();
     setBackgound();
-    std::cout << "createLeaderBoard Page\n";
-    std::cout << "page index: " << getCurrentPage() << "\n";
 
     auto tit = std::make_unique<Title>("Leader Board", 64);
 
@@ -242,15 +239,13 @@ void MainMenuState::createLeaderBoard(){
     m_pages[getCurrentPage()].addItem(std::move(menu));
 
     int i = 0;
-    for(auto fileName : std::filesystem::directory_iterator("../res/saves")){
+    for(const auto& fileName : std::filesystem::directory_iterator("../res/saves")){
         auto player =  std::make_unique<Button>();
+        
+        PlayerConfig save(fileName);
 
-        /**
-         * Here try to open fileName
-         * and assign player name and score to dispText
-         */
-
-        std::string dispText = "Adam Małysz\t\t1234";
+        std::string dispText = save.getPlayerName() +
+                                "\t\t\t\t\t\t\t" + std::to_string(save.getScore());
         player->setString(dispText);
 
         float x = float(WINDOW_WIDTH - player->getWidth()) / 2;
@@ -281,8 +276,6 @@ void MainMenuState::createLeaderBoard(){
 void MainMenuState::createContinue(){
     pushPage();
     setBackgound();
-    std::cout << "createContinue Page\n";
-    std::cout << "page index: " << getCurrentPage() << "\n";
 
     auto tit = std::make_unique<Title>("Saves", 64);
 
@@ -304,14 +297,12 @@ void MainMenuState::createContinue(){
     float last_y = 0;
 
     
-    auto iterator = std::filesystem::directory_iterator("../res/saves");
+    std::filesystem::directory_iterator iterator("../res/saves/");
+
     for(int i = 0; i < row; i++){
         for(int j = 0; j < cols; j++){ 
-            
-
             if(iterator != std::filesystem::directory_iterator()){
                 const int index = j + i * cols;
-                std::cout << index << "\n";
                 auto btn = std::make_unique<Button>(ButtonType::CUBE);
                 btn->setString(iterator->path().stem().generic_string());
                 
@@ -327,17 +318,16 @@ void MainMenuState::createContinue(){
                 last_x = x;
                 btn->setPosition({x, y});
                 btn->setColor(sf::Color::Green);
-                btn->setFunction([this, iterator](){ 
+
+                std::string pathStr = iterator->path().generic_string();
+                btn->setFunction([this, pathStr](){ 
                     //here you call your constructor
-                    playFromSave(iterator->path());
+                    playFromSave(pathStr);
                 });
 
                 iterator++;
-                 m_pages[getCurrentPage()].addItem(std::move(btn));
+                m_pages[getCurrentPage()].addItem(std::move(btn));
             }
-
-
-           
         }
         last_x = 0;
     }

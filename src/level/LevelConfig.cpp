@@ -1,4 +1,5 @@
 #include "LevelConfig.hpp"
+#include "PlayerConfig.hpp"
 #include <SFML/System/Vector2.hpp>
 #include <exception>
 #include <filesystem>
@@ -14,6 +15,8 @@ LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath) : m_newCon
 
     m_jsonPath = "";
 
+    std::cout << "konstruktor vez playera\n";
+
 
     try {
         //Check if file exist
@@ -27,23 +30,41 @@ LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath) : m_newCon
             throw std::runtime_error(fileConfigPath.generic_string() + ": " + std::strerror(errno));
 
         //can throw parsing error, thats why we are using try catch
-        m_levelConfigJson = json::parse(m_levelConfigStream);
         m_jsonPath = fileConfigPath;
+        m_levelConfigJson = json::parse(m_levelConfigStream);
     } 
     catch(std::exception &e){
-        
-        cout << e.what() << "\n";
+        cout << "level config const: " << e.what() << "\n";
         exit(1);
     }
 
 }
 
-LevelConfig::LevelConfig(const std::string& playerName) : m_playerConfig(playerName + ".json") {
-    LevelConfig(m_playerConfig.getLastPlayedLevelPath());
-    m_levelFromPlayerConfig = false;
+LevelConfig::LevelConfig(PlayerConfig play) :
+    m_playerConfig(play) 
+{
+    using json = nlohmann::json;
+
+    m_levelFromPlayerConfig = true;
+
+    std::cout << "konstruktor z playera\n";
+
+    try {
+        std::filesystem::path savePath = m_playerConfig.getLastPlayedLevelPath();
+
+        std::ifstream save(savePath);
+
+        m_jsonPath = savePath;
+        m_levelConfigJson = json::parse(save);
+        m_levelFromPlayerConfig = true;
+
+    } catch (std::exception &e) {
+        std::cout << "levelConfig(playerName): " << e.what() << "\n";
+        m_levelFromPlayerConfig = false;
+    }
 }
 
-LevelConfig::LevelConfig() : m_newConfigPath(false), m_levelFromPlayerConfig(false) {   
+LevelConfig::LevelConfig() : m_newConfigPath(false), m_levelFromPlayerConfig(false) {
     m_levelConfigJson = R"(
     {
         "map" : {

@@ -1,4 +1,5 @@
 #include "Level.hpp"
+#include "PlayerConfig.hpp"
 #include "entities/Box.hpp"
 
 Level::Level(SoundManager& soundManager,const std::filesystem::path& filename) : 
@@ -10,19 +11,21 @@ Level::Level(SoundManager& soundManager,const std::filesystem::path& filename) :
     m_soundManager(&soundManager),
     m_moves(0)
 {   
-    std::cout << "Level name:" << filename << std::endl;
     setEntitiesPosition();    
     m_levelMap.loadTexture();
     m_levelMap.createMap();
 
 
     initSound();
+
+    if(m_levelConfig.getPlayerConfig().hasPlayed())
+        m_levelMap.setLogicGrid(m_levelConfig.getPlayerConfig().getSavedLogicGrid());
 }
 
 
-Level::Level(SoundManager& soundManager,const std::string& playerName) : 
+Level::Level(SoundManager& soundManager, PlayerConfig playerConf) : 
     m_player(),
-    m_levelConfig(playerName),
+    m_levelConfig(playerConf),
     m_levelMap(m_levelConfig),
     m_physics(m_levelMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
@@ -30,13 +33,15 @@ Level::Level(SoundManager& soundManager,const std::string& playerName) :
     m_moves(0),
     m_soundManager(&soundManager)
 {
+    m_levelMap.setLogicGrid(playerConf.getSavedLogicGrid());
 
     setEntitiesPosition();
 
     m_levelMap.loadTexture();
     m_levelMap.createMap();
     
-   initSound();
+    initSound();
+
 }
 
 void Level::initSound() {
@@ -54,7 +59,6 @@ Level::~Level() {
     m_soundManager->stop<SoundManager::Type::Theme>();
     m_soundManager->stop<SoundManager::Type::PlayerEngine>();
 
-std::cout << "LEVEL DESCTRUCOTR" << std::endl;
 }
 
 void Level::iterate(std::function<void(int)> func) {
@@ -89,16 +93,18 @@ void Level::input(const sf::Keyboard::Key pressedKey){
 }
 
 void Level::savePlayerConfig(std::string &name, const int score) {
-    std::cout << name << " " << score << "\n";
     auto logicGrid = m_levelConfig.getLogicGrid();
 
-    uint32_t playerIndex = m_levelMap.positionToIndex(sf::Vector2f{m_player.getGridPos().x * 64, m_player.getGridPos().y * 64 });
+    uint32_t playerIndex =
+        m_levelMap.positionToIndex(
+            sf::Vector2f{float(m_player.getGridPos().x * 64), float(m_player.getGridPos().y * 64) });
+            
     logicGrid[playerIndex] = LOGIC::PLAYER;
 
     for(const auto& box : m_boxes) {
-        uint32_t boxIndex = m_levelMap.positionToIndex(sf::Vector2f{box.getGridPos().x * 64, box.getGridPos().y * 64});
+        uint32_t boxIndex =
+            m_levelMap.positionToIndex(sf::Vector2f{float(box.getGridPos().x * 64), float(box.getGridPos().y * 64)});
         logicGrid[boxIndex] = LOGIC::BOX;
-        std::cout << "boxIndex : " << boxIndex << std::endl;
     }
 
     m_levelConfig.getPlayerConfig().setScore(score);
