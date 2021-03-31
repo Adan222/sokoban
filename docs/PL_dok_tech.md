@@ -37,10 +37,10 @@ zespół *Impostorzy*
 
 ### Użyte repozytoria
 
-- VCPKG
-- Nlohmann JSON
-- SoLoud
-- SFML
-- NativeFileDialog
-- Dear ImGui 
-- ImGui SFML Bindings
+- **VCPKG** | https://github.com/microsoft/vcpkg.git
+- **Nlohmann JSON** | https://github.com/nlohmann/json.git
+- **SoLoud** | https://github.com/jarikomppa/soloud.git
+- **SFML** | https://github.com/SFML/SFML.git
+- **NativeFileDialog** | https://github.com/mlabbe/nativefiledialog.git
+- **Dear ImGui** | https://github.com/ocornut/imgui.git
+- **ImGui SFML Bindings** | https://github.com/eliasdaler/imgui-sfml.git
