@@ -1,0 +1,10 @@
+{
+    "name": "soloud",
+    "version-string": "2020-02-07",
+    "dependencies": [
+      {
+        "name": "sdl2",
+        "platform": "!mingw"
+      }
+    ]
+  }

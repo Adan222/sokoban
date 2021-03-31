@@ -1,32 +1,44 @@
 #include "Level.hpp"
 #include "entities/Box.hpp"
 
-Level::Level(const std::string& filename) : 
+Level::Level(const std::string& filename, SoundManager &soundM) : 
     m_levelConfig(filename),
     m_player(),
     m_lvlMap(m_levelConfig),
     m_physics(m_lvlMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_lvlMap.find(WIN_PLACE, BOX_AND_WIN)),
     m_wantExit(false),
-    m_moves(0)
-{       
+    m_moves(0),
+    m_soundManager(soundM)
+{
+    std::cout << m_levelConfig.getThemeSongPath() << "\n";
     setEntitiesPosition();
+
     m_lvlMap.loadTexture();
     m_lvlMap.createMap();
-    m_lvlMap.createGrid();
+    
+    m_soundManager.get().setFile<SoundManager::Type::Theme>("../" + m_levelConfig.getThemeSongPath().generic_string());
+    m_soundManager.get().setFile<SoundManager::Type::PlayerEngine>("../res/sounds/player/engine.wav");
+    m_soundManager.get().play<SoundManager::Type::Theme>();
+    m_soundManager.get().play<SoundManager::Type::PlayerEngine>();
+
 }
 
-Level::~Level() {}
+Level::~Level() {
+    std::cout << "levvel dest\n";
+    m_soundManager.get().stop<SoundManager::Type::Theme>();
+    m_soundManager.get().stop<SoundManager::Type::PlayerEngine>();
+    m_soundManager.get().clear();
+}
 
 void Level::iterate(std::function<void(int)> func) {
-    int am = m_boxes.size();
-    for(int i = 0; i < am; i++)
+    for(int i = 0; i < m_boxes.size(); i++)
         func(i);
 }
 
 void Level::playerMove(DIRECTION dir) {
     m_player.move(dir);
-    m_player.setAniamtion(dir);
+    m_player.setAnimation(dir);
 }
 
 void Level::moveBox(DIRECTION dir) {
@@ -37,13 +49,12 @@ void Level::moveBox(DIRECTION dir) {
 }
 
 void Level::render(sf::RenderTarget& renderer) {
-
     //Map
     renderer.draw(m_lvlMap);
     //Player
     renderer.draw(m_player);
     //Boxes
-    for(auto i : m_boxes)
+    for(const auto& i : m_boxes)
         renderer.draw(i);
 }
 
@@ -143,9 +154,8 @@ void Level::setEntitiesPosition(){
     Positions boxesPos = m_lvlMap.find(BOX, BOX_AND_WIN);
     int am = boxesPos.size();
 
-    m_boxes.reserve(am);
+    m_boxes.resize(am);
     for(int i = 0; i < am; i++){
-        m_boxes.emplace_back(Box(m_levelConfig.getTileAtlasPath()));
         int x = boxesPos[i].x;
         int y = boxesPos[i].y;
 

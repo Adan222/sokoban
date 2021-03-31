@@ -44,7 +44,6 @@ public:
     void pushState(std::unique_ptr<State::State> state);
     void run();
     void exit();
-
 public:    
     sf::Vector2u getWindowSize() const;
     uint32_t getWindowWidth() const;

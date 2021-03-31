@@ -1,15 +1,14 @@
 #include "Box.hpp"
-#include "entities/Entity.hpp"
-#include <SFML/Graphics/Rect.hpp>
 
-Box::Box(const std::string &fileName) :
+Box::Box() :
     Entity(m_boxShape),
-    m_imChosen(false)
+    m_imChosen(false),
+    m_boxTexture(),
+    m_boxShape()
 {
-    std::string path = "../res/graphics/" + fileName;
-
     sf::IntRect boxPos = {4 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE};
 
+    std::string path = "../res/graphics/tile_new.png";
     if(!m_boxTexture.loadFromFile(path, boxPos))
         std::cout << "Can`t load box texutre\n";
 

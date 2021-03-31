@@ -24,7 +24,7 @@ public:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     void setTexture(const sf::IntRect &col);
-    void setAniamtion(DIRECTION type);
+    void setAnimation(DIRECTION type);
 
     void update(const float deltaTime) override;
 };

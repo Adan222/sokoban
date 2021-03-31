@@ -13,7 +13,7 @@ EditorGui::EditorGui(LevelConfig& levelConfig, bool initialPopupShowed) :
         m_reload(false),
         m_selectedTile(nullptr)
 {
-    loadImGuiStyle();
+    ImGui::Style::Load();
     ImGui::SFML::UpdateFontTexture(); 
 
     m_savePath = m_openPath;
@@ -201,6 +201,7 @@ void EditorGui::mapSettings(Map& m1) {
 }
 
 void EditorGui::errorFileLoading() {
+    
     ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
     ImGui::SetNextWindowSize({400, 80});
     

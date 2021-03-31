@@ -1,9 +1,9 @@
 #pragma once
 #include "imgui.h"
-#include <filesystem>
-#include <iostream>
+namespace ImGui {
 
-void loadImGuiStyle() {
+namespace Style {
+void Load() {
     std::cout << std::filesystem::current_path() << std::endl;
     ImGuiIO &io = ImGui::GetIO();
     io.Fonts->Clear();
@@ -61,3 +61,7 @@ void loadImGuiStyle() {
     colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
     colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
 }
+
+} //namespace Style
+
+} //namespace ImGui

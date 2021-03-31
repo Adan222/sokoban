@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <iostream>
 #include <memory>
+#include <filesystem>
 
 class Box;
 typedef std::vector<Box> Boxes;
@@ -17,7 +18,7 @@ class Box : public Entity{
         bool m_imChosen;
 
     public:
-        Box(const std::string &fileName);
+        Box();
         ~Box();
 
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

@@ -20,7 +20,7 @@ class Animation{
         std::vector<Frame> m_frames;
 
         int m_currentFrameIndex;
-        float m_progres;
+        float m_progress;
 
     public:
         Animation();
@@ -30,5 +30,5 @@ class Animation{
         bool update(float deltaTime);
         void reset();
 
-        sf::IntRect getCurrFrame() const;
+        sf::IntRect getCurrentFrame() const;
 };

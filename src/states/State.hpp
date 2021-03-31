@@ -31,7 +31,8 @@ public:
     }
 
     std::string makePath(const int which) {
-        return "../res/levels/official/test/test" + std::to_string(which) + ".json"; 
+        return "../res/levels/official/lvl" + std::to_string(which) + ".json"; 
+        //return "../res/levels/official/test0.json";
     }
 };
 

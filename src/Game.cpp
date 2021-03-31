@@ -5,7 +5,7 @@
 #include <SFML/Window/Mouse.hpp>
 
 Game::Game() :
-    m_window(sf::VideoMode{1024, 768}, "Sokoban - MSC"),
+    m_window(sf::VideoMode{1024, 768}, "Sokoban - MSC", sf::Style::Close),
     m_fps(getWindowWidth())
 {    
     m_window.setFramerateLimit(60);
@@ -59,9 +59,10 @@ State::State& Game::getCurrentState() const {
     return *(m_states.back());
 }
 
+
 void Game::handleEvent() {
     sf::Event e;
-        
+
     while(m_window.pollEvent(e)) {
         if(!m_states.empty()) { // needed, othwerwise segmentation fault
             getCurrentState().handleEvent(e);

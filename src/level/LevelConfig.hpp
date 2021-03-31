@@ -31,14 +31,17 @@ public:
     uint32_t getTileSize() const; //tiles size
     std::filesystem::path  getTileAtlasPath() ; //path to tile atlas file
     std::filesystem::path& getJsonFilePath();
+    std::filesystem::path getThemeSongPath();
     std::vector<int>   getVisualGrid(); 
     std::vector<int> getLogicGrid();
 
     bool isNewConfigPathSet() const;
 public:
+    //saves grids to json object, used mainly in editor
     void saveLogicGrid(std::vector<int> logicGrid);
     void saveVisualGrid(std::vector<int> visualGrid);
 
+    //save json to file
     void saveToFile(std::filesystem::path savePath);
 
     void setTileSize(const uint32_t tileSize);

@@ -11,6 +11,7 @@
 #include "gui/menu/WidgetStack.hpp"
 #include "gui/menu/wText.hpp"
 #include "level/Level.hpp"
+#include "sound/SoundManager.hpp"
 #include "states/MainMenuState.hpp"
 #include "gui/menu/TextBox.hpp"
 
@@ -39,6 +40,8 @@ class PlayingState : public State {
      */ 
     bool m_isPopUpOnScreen;
     std::vector<std::unique_ptr<WidgetStack>> m_page;
+
+    SoundManager m_sound;
 
     void initText();
 

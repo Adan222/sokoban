@@ -62,12 +62,12 @@ void MainMenuState::playOnce(LevelDifficult diff) {
 }
 
 void MainMenuState::playUntilExit(const int whichLvl) {
-    m_game.pushState(std::make_unique<PlayingState>(m_game, whichLvl));
+    m_game.pushState(std::make_unique<PlayingState>(m_game, whichLvl+1));
 }
 
 void MainMenuState::validateAll() {
     for(int i = 0; i < MAX_OFFICIAL_LVL; i++){
-        std::filesystem::path path = makePath(i);
+        std::filesystem::path path = makePath(i+1);
 
         if(!LevelConfig::validateJSON(path)){
             if(!m_isError){

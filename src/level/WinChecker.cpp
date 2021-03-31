@@ -10,15 +10,14 @@ WinChecker::~WinChecker() {}
 bool WinChecker::check() const{
     /**
      * We assume that amount of boxes is 
-     * equal amount of win palces
+     * equal to win places
      */
-    int am = m_boxes.size();
-    for(int i = 0; i < am; i++){
-        sf::Vector2i pos = m_boxes[i].getGridPos();
-        if(pos != m_winPlaces[i])
-            return false;
-    }
-    return true; 
+    int onPlace = 0;
+    for(int i = 0; i < m_boxes.size(); i++)
+        for(int j = 0; j < m_winPlaces.size(); j++)
+            if(m_boxes[i].getGridPos() == m_winPlaces[j])
+                onPlace++;
+    return (onPlace == m_winPlaces.size()); 
 }
 
 
