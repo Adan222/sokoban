@@ -73,6 +73,8 @@ void Entity::initPosition(const int grid_x, const int grid_y) {
     m_guide.init({grid_x, grid_y});
     m_gridPos = {grid_x, grid_y};
     m_transform.setPosition(grid_x * TILE_SIZE, grid_y * TILE_SIZE);
+
+    drawGridPos();
 }
 
 bool Entity::isMoving() const {

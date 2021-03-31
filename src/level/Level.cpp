@@ -1,4 +1,5 @@
 #include "Level.hpp"
+#include "entities/Box.hpp"
 
 Level::Level(const std::string& filename) : 
     m_levelConfig(filename),
@@ -8,7 +9,7 @@ Level::Level(const std::string& filename) :
     m_winChecker(m_boxes, m_lvlMap.find(WIN_PLACE, BOX_AND_WIN)),
     m_wantExit(false),
     m_moves(0)
-{   
+{       
     setEntitiesPosition();
     m_lvlMap.loadTexture();
     m_lvlMap.createMap();
@@ -142,8 +143,9 @@ void Level::setEntitiesPosition(){
     Positions boxesPos = m_lvlMap.find(BOX, BOX_AND_WIN);
     int am = boxesPos.size();
 
-    m_boxes.resize(am);
+    m_boxes.reserve(am);
     for(int i = 0; i < am; i++){
+        m_boxes.emplace_back(Box(m_levelConfig.getTileAtlasPath()));
         int x = boxesPos[i].x;
         int y = boxesPos[i].y;
 
