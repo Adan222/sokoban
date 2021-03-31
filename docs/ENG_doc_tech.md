@@ -36,10 +36,10 @@ Sokoban game design for the Motorola Science Cup 2020 competition
 
 ### Repositories used
 
-- VCPKG **https://github.com/microsoft/vcpkg.git**
-- Nlohmann JSON **https://github.com/nlohmann/json.git**
-- SoLoud **https://github.com/jarikomppa/soloud.git**
-- SFML **https://github.com/SFML/SFML.git**
-- NativeFileDialog **https://github.com/mlabbe/nativefiledialog.git**
-- Dear ImGui **https://github.com/ocornut/imgui.git**
-- ImGui SFML Bindings **https://github.com/eliasdaler/imgui-sfml.git**
+- **VCPKG** | https://github.com/microsoft/vcpkg.git
+- **Nlohmann JSON** | https://github.com/nlohmann/json.git
+- **SoLoud** | https://github.com/jarikomppa/soloud.git
+- **SFML** | https://github.com/SFML/SFML.git
+- **NativeFileDialog** | https://github.com/mlabbe/nativefiledialog.git
+- **Dear ImGui** | https://github.com/ocornut/imgui.git
+- **ImGui SFML Bindings** | https://github.com/eliasdaler/imgui-sfml.git
