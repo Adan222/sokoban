@@ -56,6 +56,7 @@ Aby wyjśc do menu będąc na poziomie mapy naciśnij klawisz <kbd>ESC</kbd>.
 - ## Menu <br>
 #### Przycisk <kbd style="background-color: red; color:white"> Graj</kbd> 
 Przenosi nas w miejsce wyboru losowego poziomu z podziałem na poziom trudności: łatwy, średni, trudny. W tym miejscu możemy również wybrać <kbd style="background-color: red; color:white">All lvls</kbd> i wybrać który dokładnie poziom chcemy spróbować przejść. Przycisk <kbd style="background-color: lightblue;">Editor</kbd> przenosi nas do edytora map w którym możemy tworzyć własne mapy a także edytować już istniejące. Aby wyjść do menu głównego kliknij strzałkę w lewym, górnym rogu.
+Zapis gry działa tylko w trybie <kbd style="background-color: red; color:white">All lvls</kbd>, po zapisaniu gry możemy użyć opcji kontynuuj lub wczytać zapisane poziomy.
 
 #### Przycisk <kbd style="background-color: red; color:white"> Leaderboard</kbd> 
 W tym miejscu możemy zobaczyć nasze wyniki z wszystkich map. Aby wyjść do menu głównego kliknij strzałkę w lewym, górnym rogu.

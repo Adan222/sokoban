@@ -49,7 +49,8 @@ For main menu press <kbd>ESC</kbd>.
 
 - ## Menu <br>
 #### Button <kbd style="background-color: red; color:white"> Graj</kbd> 
-It takes us to the place where we can choose a random level divided into difficulty: easy, medium, difficult. Here we can also select <kbd style="background-color: red; color:white">All lvls</kbd> and choose exactly which level we want play. The <kbd style="background-color: lightblue;">Editor</kbd> button takes us to the map editor where we can create our own maps and edit existing ones. To exit to the main menu, click the arrow in the upper left corner.
+It takes us to the place where we can choose a random level divided into difficulty: easy, medium, difficult. Here we can also select <kbd style="background-color: red; color:white">All lvls</kbd> and choose exactly which level we want play. The <kbd style="background-color: lightblue;">Editor</kbd> button takes us to the map editor where we can create our own maps and edit existing ones. To exit to the main menu, click the arrow in the upper left corner. 
+Game save only works in <kbd style="background-color: red; color:white">All lvls</kbd> mode, after saving the game we can use continue option or load saved levels.
 
 
 #### Button <kbd style="background-color: red; color:white"> Leaderboard</kbd> 
