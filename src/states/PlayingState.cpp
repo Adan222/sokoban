@@ -57,8 +57,8 @@ void PlayingState::createAfterWinPopUp() {
     auto exitBtn = std::make_unique<Button>(ButtonType::WIDE);
 
     sf::Vector2f rel = m_page[getCurrentPage()]->getPos();
-    nextBtn->setRalative(rel);
-    exitBtn->setRalative(rel);
+    nextBtn->setRelative(rel);
+    exitBtn->setRelative(rel);
 
     nextBtn->setString("Next");
     exitBtn->setString("Exit");
@@ -109,8 +109,8 @@ void PlayingState::createInGameMenu() {
     auto exitBtn = std::make_unique<Button>(ButtonType::WIDE);
 
     sf::Vector2f rel = m_page[getCurrentPage()]->getPos();
-    saveGameBtn->setRalative(rel);
-    exitBtn->setRalative(rel);
+    saveGameBtn->setRelative(rel);
+    exitBtn->setRelative(rel);
 
     saveGameBtn->setString("Save Game");
     exitBtn->setString("Exit");
@@ -152,14 +152,14 @@ void PlayingState::createLeadBoardInputMenu() {
     auto saveBtn = std::make_unique<Button>(ButtonType::WIDE);
 
     //Init input
-    input->setRalative(m_page[getCurrentPage()]->getPos());
+    input->setRelative(m_page[getCurrentPage()]->getPos());
 
     float inp_x = (m_page[getCurrentPage()]->getSize().x - input->getWidth()) / 2;
     float inp_y = 20;
     input->setPosition({inp_x, inp_y});
 
     //Init btn
-    saveBtn->setRalative(m_page[getCurrentPage()]->getPos());
+    saveBtn->setRelative(m_page[getCurrentPage()]->getPos());
     saveBtn->setString("Save");
     saveBtn->setColor(sf::Color::Green);
 

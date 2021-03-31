@@ -1,4 +1,5 @@
 #include "states/MainMenuState.hpp"
+#include <string>
 
 namespace State{
 
@@ -211,6 +212,28 @@ void MainMenuState::createBackBtn(){
     });
 
     m_pages[getCurrentPage()].addItem(std::move(backBtn));
+}
+
+void MainMenuState::createLeaderBoard(){
+    pushPage();
+    std::cout << "createLeaderBoard Page\n";
+    std::cout << "page index: " << getCurrentPage() << "\n";
+
+    auto tit = std::make_unique<Title>("Leader Board", 64);
+
+    for(int i = 0; i < 10; i++){
+        std::string dispText = "";
+        auto player =  std::make_unique<Title>();
+    }
+
+
+}
+
+void MainMenuState::createContinue(){
+    pushPage();
+    std::cout << "createContinue Page\n";
+    std::cout << "page index: " << getCurrentPage() << "\n";
+
 }
 
 } //namespace
