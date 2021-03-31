@@ -1,10 +1,10 @@
 ![icon](https://github.com/Adan222/sokoban/blob/master/res/graphics/icon1.png "Icon")<br>
 # Sokoban - Motorola Science Cup
 
-- Polish version of the user documentation - [dok_uzyt](./docs/dok_uzyt.md).
-- English version of the user documentation - [doc_user](./docs/doc_user.md).
-- Polish version of the code documentation - [dok_tech](./docs/dok_tech.md).
-- English version of technical documentation - [doc_tech](./docs/doc_tech.md).
+- Polish version of the user documentation - [PL_dok_uzyt](./docs/PL_dok_uzyt.md).
+- English version of the user documentation - [ENG_doc_user](./docs/ENG_doc_user.md).
+- Polish version of the code documentation - [PL_dok_tech](./docs/PL_dok_tech.md).
+- English version of technical documentation - [ENG_doc_tech](./docs/ENG_doc_tech.md).
 
 ***
 
