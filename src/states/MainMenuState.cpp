@@ -64,6 +64,11 @@ void MainMenuState::playUntilExit(const int whichLvl) {
     m_game.pushState(std::make_unique<PlayingState>(m_game, whichLvl+1));
 }
 
+void MainMenuState::playFromSave(std::filesystem::path savePath) {
+    PlayerConfig playerConfig(savePath);
+    m_game.pushState(std::make_unique<PlayingState>(m_game, playerConfig));
+}
+
 void MainMenuState::validateAll() {
     for(int i = 0; i < MAX_OFFICIAL_LVL; i++){
         std::filesystem::path path = makePath(i+1);

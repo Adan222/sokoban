@@ -21,7 +21,6 @@ namespace State {
 
 class PlayingState : public State {
     std::unique_ptr<Level> m_level;
-    PlayerConfig m_playerConfig;
     
     int m_whichLvl;
 
@@ -67,6 +66,10 @@ public:
      */
     PlayingState(Game& game, const std::filesystem::path path);
     
+
+    //from save
+    PlayingState(Game& game, PlayerConfig playerConfig);
+
     ~PlayingState();
     
     void handleEvent(sf::Event e) override;

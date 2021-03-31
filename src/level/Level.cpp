@@ -14,6 +14,7 @@ Level::Level(SoundManager& soundManager,const std::filesystem::path& filename) :
     m_levelMap.loadTexture();
     m_levelMap.createMap();
 
+
     initSound();
 }
 
@@ -90,18 +91,18 @@ void Level::savePlayerConfig(std::string &name, const int score) {
     std::cout << name << " " << score << "\n";
     auto logicGrid = m_levelConfig.getLogicGrid();
 
-    uint32_t playerIndex = m_levelMap.positionToIndex(sf::Vector2f{m_player.getGridPos()});
+    uint32_t playerIndex = m_levelMap.positionToIndex(sf::Vector2f{m_player.getGridPos().x * 64, m_player.getGridPos().y * 64 });
     logicGrid[playerIndex] = LOGIC::PLAYER;
 
     for(const auto& box : m_boxes) {
-        uint32_t boxIndex = m_levelMap.positionToIndex(sf::Vector2f{box.getGridPos()});
+        uint32_t boxIndex = m_levelMap.positionToIndex(sf::Vector2f{box.getGridPos().x * 64, box.getGridPos().y * 64});
         logicGrid[boxIndex] = LOGIC::BOX;
+        std::cout << "boxIndex : " << boxIndex << std::endl;
     }
-
 
     m_levelConfig.getPlayerConfig().setScore(score);
     m_levelConfig.getPlayerConfig().setLogicGrid(logicGrid);
-    m_levelConfig.getPlayerConfig().saveConfig(name);
+    m_levelConfig.getPlayerConfig().saveConfig(name, m_levelConfig.getJsonFilePath());
 }
 
 bool Level::checkIfWantExit() const {

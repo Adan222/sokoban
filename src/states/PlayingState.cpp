@@ -23,12 +23,50 @@ PlayingState::PlayingState(Game& game, const std::filesystem::path path) :
     m_isPopUpOnScreen(false),
     m_isWinNow(false)
 {
-    m_level = std::make_unique<Level>(m_sound,path);
+    m_level = std::make_unique<Level>(m_sound, path);
 
     //We have to have one page
     //otherwise segmantation 
     createAfterWinPopUp();
 }
+
+PlayingState::PlayingState(Game& game, PlayerConfig playerConfig) :
+    State(game),
+    m_isOnlyOne(false),
+    m_isPopUpOnScreen(true),
+    m_isWinNow(false),
+    m_scoreText(),
+    m_score(0)
+{
+    m_playerName = playerConfig.getPlayerName();
+
+    auto path = playerConfig.getLastPlayedLevelPath();
+    auto pathString = path.generic_string();
+    
+    //convert lvl name to id
+    size_t i = 0;
+    for (; i < pathString.length(); i++ ) { 
+        if (isdigit(pathString[i])) break; 
+    }
+    pathString = pathString.substr(i, pathString.length() - i );
+    int id = atoi(pathString.c_str());
+
+
+    if(id > 0 && id < 20) {
+        m_whichLvl = id;
+        m_level = std::make_unique<Level>(m_sound, path);
+    } else {
+        //play only once if save was played on custom level
+        PlayingState(game, path);
+    }
+
+
+    //We have to have one page
+    //otherwise segmantation 
+    createAfterWinPopUp();
+}
+
+
 
 PlayingState::~PlayingState() {}
 
