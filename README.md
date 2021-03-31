@@ -1,3 +1,4 @@
+![icon](https://github.com/Adan222/sokoban/blob/master/res/graphics/icon1.png "Icon")<br>
 # Sokoban - Motorola Science Cup
 
 - Polish version of the user documentation - [dok_uzyt](./docs/dok_uzyt.md).
