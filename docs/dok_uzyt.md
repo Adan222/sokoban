@@ -1,5 +1,5 @@
 
-#Dokumentacja użytkownika
+## Dokumentacja użytkownika
 
 ![icon](https://github.com/Adan222/sokoban/blob/master/res/graphics/icon2.png "Icon")<br>
 Projekt gry Sokoban na konkurs Motorola Science Cup 2020 
