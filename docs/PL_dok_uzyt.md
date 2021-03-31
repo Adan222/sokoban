@@ -7,9 +7,9 @@ zespół *Impostorzy*
 
 
 
-- English version of the documentation - [doc_user](./doc_user.md).
-- Polska wersja dokumentacji technicznej - [dok_tech](./dok_tech.md).
-- English version of the technical documentation - [doc_tech](./doc_tech.md).
+- English version of the documentation - [ENG_doc_user](./ENG_doc_user.md).
+- Polska wersja dokumentacji technicznej - [PL_dok_tech](./PL_dok_tech.md).
+- English version of the technical documentation - [ENG_doc_tech](./ENG_doc_tech.md).
 
 
 

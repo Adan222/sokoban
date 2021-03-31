@@ -3,9 +3,9 @@
 Projekt gry Sokoban na konkurs Motorola Science Cup 2020 
 zespół *Impostorzy*
 
-- Polska wersja dokumentacji użytkownika - [dok_uzyt](./dok_uzyt.md).
-- English version of the user documentation - [doc_user](./doc_user.md).
-- English version of technical documentation - [doc_tech](./doc_tech.md).
+- Polska wersja dokumentacji użytkownika - [PL_dok_uzyt](./PL_dok_uzyt.md).
+- English version of the user documentation - [ENG_doc_user](./ENG_doc_user.md).
+- English version of technical documentation - [ENG_doc_tech](./ENG_doc_tech.md).
 
 ***
 ### Użyte języki 
@@ -33,13 +33,14 @@ zespół *Impostorzy*
 #### Opis użytych funkcji oraz ich działanie znajduje się w komentarzach w kodzie 
 
 ***
+#### Do systemów zapisu oraz do poziomów użyliśmy formatu JSON, w edytorze skorzystaliśmy z rozwiązania Immediate Mode GUI
 
 ### Użyte repozytoria
 
-- VCPKG
-- Nlohmann JSON
-- SoLoud
-- SFML
-- NativeFileDialog
-- Dear ImGui 
-- ImGui SFML Bindings
+- **VCPKG** | https://github.com/microsoft/vcpkg.git
+- **Nlohmann JSON** | https://github.com/nlohmann/json.git
+- **SoLoud** | https://github.com/jarikomppa/soloud.git
+- **SFML** | https://github.com/SFML/SFML.git
+- **NativeFileDialog** | https://github.com/mlabbe/nativefiledialog.git
+- **Dear ImGui** | https://github.com/ocornut/imgui.git
+- **ImGui SFML Bindings** | https://github.com/eliasdaler/imgui-sfml.git

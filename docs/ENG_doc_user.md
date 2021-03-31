@@ -5,9 +5,9 @@
 Sokoban game designed for the Motorola Science Cup 2020 competition
 *Impostors* team
 
-- Polish version of user documentation - [dok_uzyt](./dok_uzyt.md).
-- English version of technical documentation - [doc_tech](./doc_tech.md).
-- Polish version of technical documentation - [dok_tech](./dok_tech.md).
+- Polish version of user documentation - [PL_dok_uzyt](./PL_dok_uzyt.md).
+- English version of the user documentation - [ENG_doc_user](./ENG_doc_user.md).
+- Polish version of technical documentation - [PL_dok_tech](./PL_dok_tech.md).
 
 
 ![logo](https://github.com/Adan222/sokoban/blob/master/res/graphics/game/player.png "Logo")
@@ -33,12 +33,12 @@ Sokoban game designed for the Motorola Science Cup 2020 competition
 
 - ## Sokoban
 
-Sokoban is a simple puzzle-type game which the goal is to place the crates in the marked places. The task is more difficult than it looks like because of multiple boxes and the intricacy of the labyrinth the game takes place in. The difficulty of the problem increases as you progress with levels.
+Sokoban is a simple puzzle-type game which the goal is to place the crates in the marked places. The task is more difficult than it looks because of multiple boxes and the intricacy of the labyrinth the game takes place in. The complication of maps increases as you progress with levels.
 Each level is unique and require a different strategy.
 ***
 
 - ## Game rules
-You control the bulldozer that push the boxes, with as few moves as possible place crates in the marked places, your score depend on the number of moves you make. You can only move the boxes with the front of the bulldozer (shovel), while driving the bulldozer remember that you can only move one box at the same time. There are 20 official map from us  with different levels of difficulty(Easy, Medium, Hard). Good luck!
+You control the bulldozer that push the boxes, with as few moves as possible place crates in the marked places, your score depend on the number of moves you make. You can only move the boxes with the front of the bulldozer (shovel), while driving the bulldozer remember that you can only move one box at the same time. There are 20 official map from us with different levels of difficulty(Easy, Medium, Hard). Good luck!
 ***
 
 - ## How to play
