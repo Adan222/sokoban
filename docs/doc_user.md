@@ -49,13 +49,14 @@ For main menu press <kbd>ESC</kbd>.
 
 - ## Menu <br>
 #### Button <kbd style="background-color: red; color:white"> Graj</kbd> 
-Przenosi nas w miejsce wyboru losowego poziomu z podziałem na poziom trudności: łatwy, średni, trudny. W tym miejscu możemy również wybrać <kbd style="background-color: red; color:white">All lvls</kbd> i wybrać który dokładnie poziom chcemy spróbować przejść. Przycisk <kbd style="background-color: lightblue;">Editor</kbd> przenosi nas do edytora map w którym możemy tworzyć własne mapy a także edytować już istniejące. Aby wyjść do menu głównego kliknij strzałkę w lewym, górnym rogu.
+It takes us to the place where we can choose a random level divided into difficulty: easy, medium, difficult. Here we can also select <kbd style="background-color: red; color:white">All lvls</kbd> and choose exactly which level we want to try to pass. The <kbd style="background-color: lightblue;">Editor</kbd> button takes us to the map editor where we can create our own maps and edit existing ones. To exit to the main menu, click the arrow in the upper left corner.
+
 
 #### Button <kbd style="background-color: red; color:white"> Leaderboard</kbd> 
-W tym miejscu możemy zobaczyć nasze wyniki z wszystkich map. Aby wyjść do menu głównego kliknij strzałkę w lewym, górnym rogu.
+Here we can see our results from all maps. To exit to the main menu, click the arrow in the upper left corner.
 
 #### Button <kbd style="background-color: red; color:white"> Exit</kbd> 
-Przycisk ten służy do wyłączenia gry, aby to zrobić możemy również użyć klawisza <kbd> ESC</kbd> 
+This button is used to quit the game, to do this we can also use <kbd> ESC</kbd> key 
 
 - ## Preparing the game
 
