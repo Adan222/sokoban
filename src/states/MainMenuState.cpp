@@ -1,11 +1,21 @@
 #include "MainMenuState.hpp"
+#include "gui/menu/Button.hpp"
+#include "level/LevelConfig.hpp"
+#include "states/PlayingState.hpp"
+#include <SFML/Graphics/Color.hpp>
+#include <cstdlib>
+#include <ctime>
+#include <filesystem>
+#include <memory>
+#include <string>
 
 namespace State {
 
 
 MainMenuState::MainMenuState(Game &game) :
     State(game),
-    m_pageWantExit(false)
+    m_pageWantExit(false),
+    m_isError(false)
 {
     /**
      * We have to reserve elemnts in vector
@@ -13,13 +23,61 @@ MainMenuState::MainMenuState(Game &game) :
      */
     m_pages.reserve(10);
 
+    //createModulesPage();
     createMenuPage();
 }
 
 MainMenuState::~MainMenuState() {}
 
+int MainMenuState::randomNumber(const int start, const int numbers) {
+    srand(time(NULL));
+
+    return (rand() % numbers) + start;
+}
+
+
 uint32_t MainMenuState::getCurrentPage() const {
     return m_pages.size()-1;
+}
+
+void MainMenuState::playOnce(LevelDifficult diff) {
+    int lvlIndex = 0;
+    switch (diff) {
+        case LevelDifficult::EASY:
+            lvlIndex = randomNumber(0 , 6); break;
+        case LevelDifficult::NORMAL:
+            lvlIndex = randomNumber(7 , 7); break;
+        case LevelDifficult::HARD:
+            lvlIndex = randomNumber(14 , 6); break;
+    }
+    std::filesystem::path path = makePath(lvlIndex);
+
+    std::cout << path.generic_string() << "\n";
+
+    if(LevelConfig::validateJSON(path))
+        m_game.pushState(std::make_unique<PlayingState>(m_game, path));
+    else
+        if(!m_isError)
+            createErrorPopUp("Level validation failed");
+}
+
+void MainMenuState::playUntilExit(const int whichLvl) {
+    m_game.pushState(std::make_unique<PlayingState>(m_game, whichLvl));
+}
+
+void MainMenuState::validateAll() {
+    for(int i = 0; i < MAX_OFFICIAL_LVL; i++){
+        std::filesystem::path path = makePath(i);
+
+        if(!LevelConfig::validateJSON(path)){
+            if(!m_isError){
+                std::string errMsg = 
+                    std::to_string(i) + " level validation failed\n";
+                createErrorPopUp(errMsg, false);
+                break;
+            }
+        }
+    }
 }
 
 void MainMenuState::pushPage() {

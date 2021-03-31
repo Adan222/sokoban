@@ -3,12 +3,16 @@
 Level::Level(const std::string& filename) : 
     m_levelConfig(filename),
     m_player(),
-    lvlMap(m_levelConfig),
-    m_physics(lvlMap.find(WALL), m_boxes),
-    m_winChecker(m_boxes, lvlMap.find(WIN_PLACE, BOX_AND_WIN)),
-    m_wantExit(false)
+    m_lvlMap(m_levelConfig),
+    m_physics(m_lvlMap.find(WALL), m_boxes),
+    m_winChecker(m_boxes, m_lvlMap.find(WIN_PLACE, BOX_AND_WIN)),
+    m_wantExit(false),
+    m_moves(0)
 {   
     setEntitiesPosition();
+    m_lvlMap.loadTexture();
+    m_lvlMap.createMap();
+    m_lvlMap.createGrid();
 }
 
 Level::~Level() {}
@@ -34,7 +38,7 @@ void Level::moveBox(DIRECTION dir) {
 void Level::render(sf::RenderTarget& renderer) {
 
     //Map
-    renderer.draw(lvlMap);
+    renderer.draw(m_lvlMap);
     //Player
     renderer.draw(m_player);
     //Boxes
@@ -46,8 +50,16 @@ void Level::input(const sf::Keyboard::Key pressedKey){
     handleMove(pressedKey);
 }
 
+void Level::savePlayerConfig(std::string &name, const int score) {
+    std::cout << name << " " << score << "\n";
+}
+
 bool Level::checkIfWantExit() const {
     return m_wantExit;
+}
+
+int Level::getMoves() const {
+    return m_moves;
 }
 
 void Level::handleMove(const sf::Keyboard::Key pressedKey){
@@ -76,6 +88,8 @@ void Level::handleMove(const sf::Keyboard::Key pressedKey){
 
         //move
         if(dir != NONE){
+            m_moves++;
+
             //Check for wall
             if(!m_physics.checkWall(m_player.getGridPos(), dir)){
                 //Then check for Box
@@ -125,10 +139,8 @@ void Level::update(const float deltaTime){
 }
 
 void Level::setEntitiesPosition(){
-    Positions boxesPos = lvlMap.find(BOX, BOX_AND_WIN);
+    Positions boxesPos = m_lvlMap.find(BOX, BOX_AND_WIN);
     int am = boxesPos.size();
-
-    std::cout << am << "\n";
 
     m_boxes.resize(am);
     for(int i = 0; i < am; i++){
@@ -139,6 +151,6 @@ void Level::setEntitiesPosition(){
     }
     
     //player position
-    Positions playerPos = lvlMap.find(PLAYER);
+    Positions playerPos = m_lvlMap.find(PLAYER);
     m_player.initPosition(playerPos[0].x, playerPos[0].y);
 }

@@ -1,9 +1,4 @@
 #include "Player.hpp"
-#include "entities/Entity.hpp"
-#include <SFML/Graphics/Rect.hpp>
-#include <SFML/Graphics/Texture.hpp>
-#include <cmath>
-
 
 Player::Player() :
     Entity(m_playerSprite),

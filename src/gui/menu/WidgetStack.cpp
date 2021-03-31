@@ -1,21 +1,20 @@
 #include "WidgetStack.hpp"
+#include "level/LevelConfig.hpp"
 
 
 WidgetStack::WidgetStack(const sf::RenderWindow &window) :
     m_window(&window),
     m_backgroundTexture(),
-    m_background()
+    m_background({WINDOW_WIDTH, WINDOW_HEIGHT}),
+    m_wantExit(false)
 {
     if(!m_backgroundTexture.loadFromFile("../res/graphics/game/dirt.png"))
         std::cout << "MainMenuState: Can`t load graphics\n";
 
     m_backgroundTexture.setRepeated(true);
 
-    m_background.setTexture(m_backgroundTexture);
-    m_background.setTextureRect({0, 0, WINDOW_WIDTH, WINDOW_HEIGHT});
     //Make it darker
-    m_background.setColor(sf::Color(255, 255, 255, 128));
-
+    m_background.setFillColor(sf::Color(255, 255, 255, 128));
 }
 
 WidgetStack::WidgetStack(WidgetStack &&other) : 
@@ -58,8 +57,50 @@ void WidgetStack::addItem(std::unique_ptr<Widget> widget) {
     m_widgets.emplace_back(std::move(widget));
 }
 
-int WidgetStack::size() const {
-    return m_widgets.size();
+void WidgetStack::eraseLastItem() {
+    if(!m_widgets.empty())
+        m_widgets.pop_back();
+}
+
+void WidgetStack::wantExit() {
+    m_wantExit = true;
+}
+
+void WidgetStack::drawBackground() {
+    m_background.setSize({WINDOW_WIDTH, WINDOW_HEIGHT});
+    m_background.setPosition({0, 0});
+}
+
+void WidgetStack::setSize(const sf::Vector2f size) {
+    m_background.setSize(size);
+}
+
+void WidgetStack::setPosition(const sf::Vector2f pos) {
+    m_background.setPosition(pos);
+}
+
+void WidgetStack::setBackgroundColor(const sf::Color col) {
+    m_background.setFillColor(col);
+}
+
+void WidgetStack::clear() {
+    m_widgets.clear();
+}
+
+bool WidgetStack::checkIfWantExit() const {
+    return m_wantExit;
+}
+
+sf::Vector2f WidgetStack::getPos() const {
+    return m_background.getPosition();
+}
+
+sf::Vector2f WidgetStack::getSize() const {
+    return m_background.getSize();
+}
+
+void WidgetStack::impulse() const {
+    std::cout << "impulse\n";
 }
 
 const sf::RenderWindow& WidgetStack::getWindow() const{

@@ -17,6 +17,8 @@ SET (SOURCE_FILES main.cpp
             gui/menu/Widget.hpp
             gui/menu/WidgetStack.hpp
             gui/menu/WidgetStack.cpp
+            gui/menu/TextBox.hpp
+            gui/menu/TextBox.cpp
             states/State.hpp
             states/PlayingState.hpp
             states/PlayingState.cpp

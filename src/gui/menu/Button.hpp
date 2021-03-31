@@ -26,6 +26,9 @@ class Button : public Widget
         ButtonType m_type;
 
         std::function<void(void)> m_func;
+
+        //This function will execute in destructor
+        std::function<void(void)> m_exitFunc;
         
         //It`s just center string in btn
         void update();
@@ -44,6 +47,7 @@ class Button : public Widget
         void setString(const std::string &str);
         void setPosition(const sf::Vector2f pos);
         void setFunction(std::function<void(void)> func);
+        void setExitFunction(std::function<void(void)> func);
         void setColor(const sf::Color col);
         void setSize(const sf::Vector2f size);
 

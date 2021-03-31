@@ -16,16 +16,19 @@
 constexpr unsigned short MAP_WITDH  = 16;
 constexpr unsigned short MAP_HEIGHT = 12;
 
-class Level {
-     LevelConfig m_levelConfig;
+class Level
+{
+    LevelConfig m_levelConfig;
     bool m_wantExit;
 
-    Map lvlMap;
+    Map m_lvlMap;
 
     Physics m_physics;
     WinChecker m_winChecker;
     Player m_player;
     Boxes m_boxes;
+
+    int m_moves;
 
     void setEntitiesPosition();
 
@@ -52,9 +55,13 @@ public:
     void update(const float deltaTime);
     void input(const sf::Keyboard::Key pressedKey);
 
+    void savePlayerConfig(std::string &name, const int score);
+
     /*
      * Chek if want to exit this level
      * and go to the next
      */
     bool checkIfWantExit() const;
+
+    int getMoves() const;
 };

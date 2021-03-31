@@ -29,12 +29,19 @@ private:
 
     State::State& getCurrentState() const;
     void handleEvent();
+
+    /**
+     * Exit state will be aat the end of game loop
+     * couse when we exit before we can have "Segmentation fault".
+     * So now state signal that he want to exit and exit at the end
+     * of main loop
+     */
+    void popState();
 public:
     Game();
     ~Game();
 
     void pushState(std::unique_ptr<State::State> state);
-    void popState();
     void run();
     void exit();
 

@@ -49,6 +49,8 @@ void Game::run() {
 
         //handle event last, because of exceptions
         handleEvent();
+
+        popState();
     }
 
 }
@@ -72,7 +74,6 @@ void Game::handleEvent() {
                 break;
         }
     }
-    
 }
 
 void Game::pushState(std::unique_ptr<State::State>state) {
@@ -82,9 +83,11 @@ void Game::pushState(std::unique_ptr<State::State>state) {
 }
 
 void Game::popState() {
-    m_states.pop_back();
-    if(!m_states.empty())
-        getCurrentState().resume();
+    if(getCurrentState().checkIfWnatToExit()){
+        m_states.pop_back();
+        if(!m_states.empty())
+            getCurrentState().resume();
+    }
 }
 
 void Game::exit(){

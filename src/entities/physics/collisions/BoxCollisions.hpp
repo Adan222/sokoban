@@ -4,7 +4,8 @@
 
 #include <SFML/System/Vector2.hpp>
 
-class BoxCollisions{
+class BoxCollisions
+{
     private:
         Boxes &m_boxes;
         int m_chosenOneIndex;
