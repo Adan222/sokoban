@@ -26,7 +26,7 @@ class Widget : public sf::Drawable
         virtual uint32_t getWidth() const = 0;
         virtual uint32_t getHeight() const = 0;
 
-        void setRalative(const sf::Vector2f rel){
+        void setRelative(const sf::Vector2f rel){
             m_relativePos = rel;
         }
 

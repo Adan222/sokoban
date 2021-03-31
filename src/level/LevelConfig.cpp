@@ -39,7 +39,6 @@ LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath) : m_newCon
 }
 
 LevelConfig::LevelConfig(const std::string& playerName) : m_playerConfig(playerName + ".json") {
-    std::cout << "ASDAD" << std::endl;
     LevelConfig(m_playerConfig.getLastPlayedLevelPath());
     m_levelFromPlayerConfig = false;
 }
@@ -156,7 +155,7 @@ std::vector<int> LevelConfig::getVisualGrid() {
 }
 
 std::vector<int> LevelConfig::getLogicGrid() { 
-    if(m_levelFromPlayerConfig) {
+    if(m_levelFromPlayerConfig && m_playerConfig.hasPlayed()) {
         return m_playerConfig.getSavedLogicGrid();
     }
     //using [], if data is null it will create empty object

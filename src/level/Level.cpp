@@ -9,7 +9,7 @@ Level::Level(SoundManager& soundManager,const std::filesystem::path& filename) :
     m_wantExit(false),
     m_soundManager(&soundManager)
 {   
-    std::cout << "ILE RAZY" << std::endl;
+    std::cout << filename << std::endl;
     setEntitiesPosition();    
     m_levelMap.loadTexture();
     m_levelMap.createMap();
@@ -88,7 +88,20 @@ void Level::input(const sf::Keyboard::Key pressedKey){
 
 void Level::savePlayerConfig(std::string &name, const int score) {
     std::cout << name << " " << score << "\n";
-    m_levelConfig.getPlayerConfig().saveConfig(name, score);
+    auto logicGrid = m_levelConfig.getLogicGrid();
+
+    uint32_t playerIndex = m_levelMap.positionToIndex(sf::Vector2f{m_player.getGridPos()});
+    logicGrid[playerIndex] = LOGIC::PLAYER;
+
+    for(const auto& box : m_boxes) {
+        uint32_t boxIndex = m_levelMap.positionToIndex(sf::Vector2f{box.getGridPos()});
+        logicGrid[boxIndex] = LOGIC::BOX;
+    }
+
+
+    m_levelConfig.getPlayerConfig().setScore(score);
+    m_levelConfig.getPlayerConfig().setLogicGrid(logicGrid);
+    m_levelConfig.getPlayerConfig().saveConfig(name);
 }
 
 bool Level::checkIfWantExit() const {
