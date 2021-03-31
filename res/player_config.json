@@ -2,7 +2,7 @@
     "player_name" : "Bekas",
     "overall_score" : 1280,
     "last_map_played" : {
-            "map_path" : "lvl1.json",
+            "map_path" : "res/levels/official/lvl1.json",
             "score" : 120,
             "moves_made" : 10,
             "logic_grid" : [1,0,0]
