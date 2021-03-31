@@ -23,6 +23,9 @@ Sokoban game design for the Motorola Science Cup 2020 competition
 - Mingw compilation problems
 - XML ​​rejection in favor of JSON for level compilation
 - Texture format decision, use of tilemap
+- Proper cache menagment, move semantics
+- cross-compilation for Windows via mingw(e.g. vcpkg sfml-audio pack was not correctly prepared, so we used soloud as music engine with backed-up sdl on linux and backed-up winmm on Windows)
+
 
 ***
 
