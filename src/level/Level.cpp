@@ -12,9 +12,6 @@ Level::Level(const std::string& filename) :
     m_levelMap.loadTexture();
     m_levelMap.createMap();
 
-    m_physics.init(m_levelMap.find(WALL), m_boxes);
-    m_winChecker = WinChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN));
-
     //set entites postion must be under create map
     setEntitiesPosition();    
     initSound();
@@ -23,27 +20,26 @@ Level::Level(const std::string& filename) :
 
 Level::Level(PlayerConfig& playerConfig) : 
     m_player(),
+    m_levelConfig(playerConfig.getLastPlayedLevel()),
     m_levelMap(m_levelConfig),
     m_physics(m_levelMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
     m_wantExit(false),
-    m_playerConfig(&playerConfig),
-    m_levelConfig(m_playerConfig->getLastPlayedLevel())
+    m_playerConfig(&playerConfig)
 {   
     m_levelMap.loadTexture();
     m_levelMap.createMap();
 
-    m_physics.init(m_levelMap.find(WALL), m_boxes);
-    m_winChecker = WinChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN));
-    
-    //not optimal but more more understandable, we are overwriting logic grid, to set position from save
+
+    //not optiamal but more more understandable, we
     if(m_playerConfig->exists()) {
-        m_levelMap.setLogicGrid(m_playerConfig->getSavedLogicGrid());
+        m_levelMap.setLogicGrid();
     }
     //set entites postion must be under create map
     setEntitiesPosition();    
     initSound();
 }
+
 
 
 void Level::initSound() {
