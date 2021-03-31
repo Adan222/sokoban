@@ -41,10 +41,10 @@ uint32_t MainMenuState::getCurrentPage() const {
 }
 
 void MainMenuState::playOnce(LevelDifficult diff) {
-    int lvlIndex = 0;
+    int lvlIndex = 1;
     switch (diff) {
         case LevelDifficult::EASY:
-            lvlIndex = randomNumber(0 , 6); break;
+            lvlIndex = randomNumber(1 , 6); break;
         case LevelDifficult::NORMAL:
             lvlIndex = randomNumber(7 , 7); break;
         case LevelDifficult::HARD:
@@ -52,7 +52,6 @@ void MainMenuState::playOnce(LevelDifficult diff) {
     }
     std::filesystem::path path = makePath(lvlIndex);
 
-    std::cout << path.generic_string() << "\n";
 
     if(LevelConfig::validateJSON(path))
         m_game.pushState(std::make_unique<PlayingState>(m_game, path));

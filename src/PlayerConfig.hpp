@@ -13,7 +13,7 @@ public:
     std::filesystem::path getLastPlayedLevelPath() const;
     std::vector<int> getSavedLogicGrid() const;
 
-    bool saveConfig();
+    bool saveConfig(const std::string &name, const int score);
     
     bool exists() const;
     bool loadConfig(const std::filesystem::path& path);

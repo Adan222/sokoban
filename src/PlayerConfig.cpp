@@ -53,3 +53,7 @@ std::filesystem::path PlayerConfig::getLastPlayedLevelPath() const {
 std::vector<int> PlayerConfig::getSavedLogicGrid() const {
     return m_playerConfigJson.at("last_map_played").at("logic_grid");
 }
+
+bool PlayerConfig::saveConfig(const std::string &name, const int score) {
+    
+}

@@ -1,5 +1,5 @@
 #include "SoundManager.hpp"
-
+#include <iostream>
 
 SoundManager::SoundManager() {
     m_soundEngine.init();

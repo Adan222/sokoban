@@ -12,7 +12,7 @@ PlayingState::PlayingState(Game& game, const int which) :
     m_isWinNow(false),
     m_playerName("")
 {
-    m_level = std::make_unique<Level>(makePath(m_whichLvl));
+    m_level = std::make_unique<Level>(m_sound,makePath(m_whichLvl));
     initText();
     createLeadBoardInputMenu();
 }
@@ -23,7 +23,7 @@ PlayingState::PlayingState(Game& game, const std::filesystem::path path) :
     m_isPopUpOnScreen(false),
     m_isWinNow(false)
 {
-    m_level = std::make_unique<Level>(path);
+    m_level = std::make_unique<Level>(m_sound,path);
 
     //We have to have one page
     //otherwise segmantation 
@@ -80,13 +80,14 @@ void PlayingState::createAfterWinPopUp() {
         m_isWinNow = false;
         if(m_whichLvl < 20){
             m_level.reset();
-            m_level = std::make_unique<Level>(makePath(m_whichLvl++)); 
+            m_level = std::make_unique<Level>(m_sound,makePath(m_whichLvl++)); 
         }
         else
             wantExit();
 
     });
-    exitBtn->setFunction([this](){ wantExit(); });
+    exitBtn->setFunction([this](){             m_level.reset();
+ wantExit(); });
 
     m_page[getCurrentPage()]->addItem(std::move(nextBtn));
     m_page[getCurrentPage()]->addItem(std::move(exitBtn));
@@ -127,7 +128,7 @@ void PlayingState::createInGameMenu() {
     exitBtn->setColor(sf::Color::Blue);
 
     saveGameBtn->setFunction([this](){ m_level->savePlayerConfig(m_playerName, m_score); });
-    exitBtn->setFunction([this](){ wantExit(); });
+    exitBtn->setFunction([this](){ m_level.reset(); wantExit(); });
 
     m_page[getCurrentPage()]->addItem(std::move(saveGameBtn));
     m_page[getCurrentPage()]->addItem(std::move(exitBtn));

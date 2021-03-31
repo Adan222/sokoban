@@ -39,8 +39,9 @@ LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath) : m_newCon
 }
 
 LevelConfig::LevelConfig(const std::string& playerName) : m_playerConfig(playerName + ".json") {
+    std::cout << "ASDAD" << std::endl;
     LevelConfig(m_playerConfig.getLastPlayedLevelPath());
-    m_levelFromPlayerConfig = true;
+    m_levelFromPlayerConfig = false;
 }
 
 LevelConfig::LevelConfig() : m_newConfigPath(false), m_levelFromPlayerConfig(false) {   
@@ -161,6 +162,10 @@ std::vector<int> LevelConfig::getLogicGrid() {
     //using [], if data is null it will create empty object
     //slow, we are copying it
     return m_levelConfigJson.at("map")["logic_grid"];
+}
+
+PlayerConfig& LevelConfig::getPlayerConfig() {
+    return m_playerConfig;
 }
 
 bool LevelConfig::isNewConfigPathSet() const {

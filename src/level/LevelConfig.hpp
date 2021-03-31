@@ -34,6 +34,7 @@ public:
     std::vector<int>   getVisualGrid(); 
     std::vector<int> getLogicGrid();
 
+    PlayerConfig& getPlayerConfig();
     bool isNewConfigPathSet() const;
 public:
     //saves grids to json object, used mainly in editor
