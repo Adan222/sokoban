@@ -10,9 +10,6 @@
 
 #include "Widget.hpp"
 
-/**
- * This is base class for Widgets 
- */
 class WidgetStack : public sf::Drawable
 {
     private:

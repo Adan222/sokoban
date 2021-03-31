@@ -26,5 +26,7 @@ public:
     void setTexture(const sf::IntRect &col);
     void setAnimation(DIRECTION type);
 
+    bool isOnPlace() const;
+
     void update(const float deltaTime) override;
 };

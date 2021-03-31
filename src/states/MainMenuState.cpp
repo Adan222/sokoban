@@ -40,6 +40,10 @@ uint32_t MainMenuState::getCurrentPage() const {
     return m_pages.size()-1;
 }
 
+void MainMenuState::setBackgound() {
+    m_pages[getCurrentPage()].drawBackground();
+}
+
 void MainMenuState::playOnce(LevelDifficult diff) {
     int lvlIndex = 1;
     switch (diff) {
@@ -101,7 +105,8 @@ void MainMenuState::handleEvent(sf::Event e) {
     if(e.type == sf::Event::KeyPressed){
         switch (e.key.code) {
             case sf::Keyboard::Escape:
-                m_game.exit();
+                if(m_pages.size() > 1)
+                    popPage();
                 break;
             default:
                 break;

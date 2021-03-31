@@ -7,9 +7,10 @@ Level::Level(SoundManager& soundManager,const std::filesystem::path& filename) :
     m_physics(m_levelMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
     m_wantExit(false),
-    m_soundManager(&soundManager)
+    m_soundManager(&soundManager),
+    m_moves(0)
 {   
-    std::cout << filename << std::endl;
+    std::cout << "Level name:" << filename << std::endl;
     setEntitiesPosition();    
     m_levelMap.loadTexture();
     m_levelMap.createMap();
@@ -125,7 +126,6 @@ void Level::handleMove(const sf::Keyboard::Key pressedKey){
 
         //move
         if(dir != NONE){
-            m_moves++;
 
             //Check for wall
             if(!m_physics.checkWall(m_player.getGridPos(), dir)){
@@ -135,8 +135,10 @@ void Level::handleMove(const sf::Keyboard::Key pressedKey){
                     if(m_physics.chcekNextObscatle(m_player.getGridPos(), dir)){
                         std::cout << "Can`t move\n";
                     }
-                    //If there`s no obscate move player and box
+                    //If there`s no obscatle move player and box
                     else{
+                        m_moves++;
+
                         //allow box to move
                         m_physics.action();
 
@@ -146,6 +148,7 @@ void Level::handleMove(const sf::Keyboard::Key pressedKey){
                 }
                 else{
                     playerMove(dir);
+                    m_moves++;
                 }
             }
         }        
@@ -153,10 +156,11 @@ void Level::handleMove(const sf::Keyboard::Key pressedKey){
         disappoint();
 
         //exit lvl
-        if(m_winChecker.check()){
-            std::cout << "You win!!!\n";
-            m_wantExit = true;
-        }
+        if(m_player.isOnPlace())
+            if(m_winChecker.check()){
+                std::cout << "You win!!!\n";
+                m_wantExit = true;
+            }
 
     }
 }

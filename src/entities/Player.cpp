@@ -39,11 +39,14 @@ void Player::update(const float deltaTime){
              * is smoth too
              */
             m_playerSprite.move(m_moveVector);
-            
             /*
              * But animation stil use time
              */
             m_anime.update(deltaTime);
         }
     }
+}
+
+bool Player::isOnPlace() const {
+    return m_guide.getPosition() == m_gridPos;
 }

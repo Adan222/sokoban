@@ -51,6 +51,8 @@ class MainMenuState : public State
         void createLeaderBoard();
         void createContinue();
 
+        void setBackgound();
+
         /**
          * Create pop button with error.
          * If changeErrFlag is false m_isError
@@ -78,7 +80,6 @@ class MainMenuState : public State
 
         /**
          * This function return index of current page.
-         * returning reference didn`t work
          */
         uint32_t getCurrentPage() const;
 

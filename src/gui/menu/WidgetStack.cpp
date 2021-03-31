@@ -1,5 +1,4 @@
 #include "WidgetStack.hpp"
-#include "level/LevelConfig.hpp"
 
 
 WidgetStack::WidgetStack(const sf::RenderWindow &window) :
@@ -7,15 +6,7 @@ WidgetStack::WidgetStack(const sf::RenderWindow &window) :
     m_backgroundTexture(),
     m_background({WINDOW_WIDTH, WINDOW_HEIGHT}),
     m_wantExit(false)
-{
-    if(!m_backgroundTexture.loadFromFile("../res/graphics/game/dirt.png"))
-        std::cout << "MainMenuState: Can`t load graphics\n";
-
-    m_backgroundTexture.setRepeated(true);
-
-    //Make it darker
-    m_background.setFillColor(sf::Color(255, 255, 255, 128));
-}
+{}
 
 WidgetStack::WidgetStack(WidgetStack &&other) : 
     m_window(&other.getWindow()),
@@ -67,8 +58,19 @@ void WidgetStack::wantExit() {
 }
 
 void WidgetStack::drawBackground() {
+
+    if(!m_backgroundTexture.loadFromFile("../res/graphics/game/dirt.png"))
+        std::cout << "MainMenuState: Can`t load graphics\n";
+
+    m_backgroundTexture.setRepeated(true);
+
+    //Make it darker
+    m_background.setFillColor(sf::Color(255, 255, 255, 128));
+
     m_background.setSize({WINDOW_WIDTH, WINDOW_HEIGHT});
     m_background.setPosition({0, 0});
+    m_background.setTexture(&m_backgroundTexture);
+    m_background.setTextureRect({0, 0, WINDOW_WIDTH, WINDOW_HEIGHT});
 }
 
 void WidgetStack::setSize(const sf::Vector2f size) {

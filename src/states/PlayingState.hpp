@@ -51,7 +51,7 @@ class PlayingState : public State {
 
     void createAfterWinPopUp();
     void createInGameMenu();
-    void createLeadBoardInputMenu();
+    void createInputMenu();
 
     uint32_t getCurrentPage() const;
     

@@ -1,14 +1,17 @@
 #include "level/LevelConfig.hpp"
+#include "states/LevelEditorState.hpp"
 #include "states/MainMenuState.hpp"
 #include <SFML/Graphics/Color.hpp>
 #include <filesystem>
 #include <iterator>
+#include <memory>
 #include <string>
 
 namespace State{
 
 void MainMenuState::createMenuPage(){
     pushPage();
+    setBackgound();
     std::cout << "page index: " << getCurrentPage() << "\n";
 
     
@@ -24,9 +27,9 @@ void MainMenuState::createMenuPage(){
      */
     constexpr int btnAmmount = 4;
     const std::string btnStrings[btnAmmount] = {
-        "Graj",
+        "Play",
         "Continue",
-        "LeadeBoard",
+        "LeaderBoard",
         "Exit"
     };
     const std::function<void(void)> btnFunc[btnAmmount] = {
@@ -56,6 +59,7 @@ void MainMenuState::createMenuPage(){
 
 void MainMenuState::createModulesPage(){
     pushPage();
+    setBackgound();
     std::cout << "create Modules Page\n";
     std::cout << "page index: " << getCurrentPage() << "\n";
 
@@ -81,7 +85,7 @@ void MainMenuState::createModulesPage(){
         [this](){ playOnce(LevelDifficult::NORMAL); },
         [this](){ playOnce(LevelDifficult::HARD); },
         [this](){ createAllLevelsPage(); },
-        [this](){ std::cout << "Editor\n"; }
+        [this](){ m_game.pushState(std::make_unique<LevelEditorState>(m_game)); }
     };
     const std::array<sf::Color, btnAmmount> btnColor = {
         sf::Color::Green,
@@ -114,6 +118,7 @@ void MainMenuState::createModulesPage(){
 
 void MainMenuState::createAllLevelsPage(){
     pushPage();
+    setBackgound();
     std::cout << "create Official Levels Page\n";
     std::cout << "page index: " << getCurrentPage() << "\n";
 
@@ -221,6 +226,7 @@ void MainMenuState::createBackBtn(){
 
 void MainMenuState::createLeaderBoard(){
     pushPage();
+    setBackgound();
     std::cout << "createLeaderBoard Page\n";
     std::cout << "page index: " << getCurrentPage() << "\n";
 
@@ -274,6 +280,7 @@ void MainMenuState::createLeaderBoard(){
 
 void MainMenuState::createContinue(){
     pushPage();
+    setBackgound();
     std::cout << "createContinue Page\n";
     std::cout << "page index: " << getCurrentPage() << "\n";
 

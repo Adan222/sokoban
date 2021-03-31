@@ -14,7 +14,7 @@ PlayingState::PlayingState(Game& game, const int which) :
 {
     m_level = std::make_unique<Level>(m_sound,makePath(m_whichLvl));
     initText();
-    createLeadBoardInputMenu();
+    createInputMenu();
 }
 
 PlayingState::PlayingState(Game& game, const std::filesystem::path path) :
@@ -138,7 +138,7 @@ void PlayingState::createInGameMenu() {
 
 
 
-void PlayingState::createLeadBoardInputMenu() {
+void PlayingState::createInputMenu() {
     //Init page
     m_page.emplace_back(std::make_unique<WidgetStack>(m_game.getWindow()));
     m_isWinNow = true;
