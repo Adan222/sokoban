@@ -25,7 +25,7 @@ zespół *Impostorzy*
 - Decyzja nad formatem tekstur, użycie tilemapy
 - odpowiednie zarzadzanie pamięcią, semantyka przenoszenia
 -  crosskompilacja do windowsa przy mingw(przykładowo paczka vcpkg sfml-audio jest nie prawidlowo przygotowana, dlatego     skorzystalismy z soloud jako silnika muzycznego z backedem na sdl na linuxie i backedem winmm na windowsie)
--  
+ 
 
 
 ***
