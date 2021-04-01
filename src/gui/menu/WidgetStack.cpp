@@ -59,7 +59,7 @@ void WidgetStack::wantExit() {
 
 void WidgetStack::drawBackground() {
 
-    if(!m_backgroundTexture.loadFromFile("../res/graphics/game/dirt.png"))
+    if(!m_backgroundTexture.loadFromFile("../res/graphics/game/dirt1.png"))
         std::cout << "MainMenuState: Can`t load graphics\n";
 
     m_backgroundTexture.setRepeated(true);

@@ -22,7 +22,7 @@ void MainMenuState::createMenuPage(){
     const std::string btnStrings[btnAmmount] = {
         "Play",
         "Continue",
-        "LeaderBoard",
+        "Leaderboard",
         "Exit"
     };
     const std::function<void(void)> btnFunc[btnAmmount] = {
