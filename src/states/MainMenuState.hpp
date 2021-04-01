@@ -18,7 +18,8 @@
 #include "gui/menu/Title.hpp"
 #include "gui/menu/WidgetStack.hpp"
 #include "level/LevelConfig.hpp"
-#include <PlayerConfig.hpp>
+#include "PlayerConfig.hpp"
+#include <nfd.h>
 
 namespace State {
 
@@ -51,6 +52,7 @@ class MainMenuState : public State
         void createCustomLevels();
         void createLeaderBoard();
         void createContinue();
+        void createPlayCustomMap();
 
         void setBackgound();
 

@@ -167,9 +167,14 @@ void EditorGui::saveFileDialog(Map& m1) {
     nfdchar_t* tempPath = nullptr;
     
     if(NFD_SaveDialog("json", NULL, &tempPath) == NFD_OKAY) {
-       m_savePath = tempPath;
+        m_savePath = tempPath;
+        if(m_savePath.extension().generic_string() == ""){
+            auto newFile = m_savePath.generic_string() + ".json";
+            m_savePath = newFile;
+        }
+       std::cout << m_savePath << "\n";
        m1.saveGrids();
-       m_levelConfig.get().saveToFile(tempPath);
+       m_levelConfig.get().saveToFile(m_savePath);
     }
 }
 
@@ -192,11 +197,7 @@ void EditorGui::mapSettings(Map& m1) {
     if(ImGui::Button("Zapisz jako")) 
         saveFileDialog(m1);
     
-    
-    
-    int a = 0;
-    ImGui::SliderInt("Przyblizenie mapy: ", &a, 100, 255);
-    
+        
     errorFileLoading(); //it shows only on call, must be here
 }
 

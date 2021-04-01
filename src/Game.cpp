@@ -57,6 +57,7 @@ void Game::run() {
 
         popState();
     }
+    ImGui::SFML::Shutdown();
 
 }
 
