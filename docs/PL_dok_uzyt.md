@@ -1,7 +1,7 @@
 
 ## Dokumentacja użytkownika
 
-![icon](https://github.com/Adan222/sokoban/blob/master/res/graphics/icon2.png "Icon")<br>
+![icon](https://github.com/Adan222/sokoban/blob/master/res/graphics/icon3.png "Icon")<br>
 Projekt gry Sokoban na konkurs Motorola Science Cup 2020 
 zespół *Impostorzy*
 
