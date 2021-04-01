@@ -109,6 +109,7 @@ void Map::loadTexture() {
     }catch(std::exception &e){
         std::cout << "Map: loadTexture: " << e.what() << "\n";
     }
+
 }
 
 void Map::createMap() {
@@ -151,6 +152,7 @@ void Map::createMap() {
             m_tiles[i].noTexture();
         }
 
+        std::cout << i << "\n";
     }
 }
 

@@ -34,8 +34,9 @@ void LevelEditorState::update(const sf::Time deltaTime, bool fixed) {
 }
 
 void LevelEditorState::handleEvent(sf::Event e) {
-    if(e.key.code == sf::Keyboard::Escape)
-        wantExit();
+    if(e.type == sf::Event::KeyPressed)
+        if(e.key.code == sf::Keyboard::Escape)
+            wantExit();
     m_editor.input(e);
 }
 
@@ -47,10 +48,7 @@ void LevelEditorState::resume() {
     
 }
 
-LevelEditorState::~LevelEditorState(){
-    ImGui::SFML::Shutdown();
-
-}
+LevelEditorState::~LevelEditorState(){}
 
 
 }   //namespace State

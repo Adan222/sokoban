@@ -1,13 +1,5 @@
-#include "PlayerConfig.hpp"
-#include "level/LevelConfig.hpp"
-#include "states/LevelEditorState.hpp"
 #include "states/MainMenuState.hpp"
-#include <SFML/Graphics/Color.hpp>
-#include <filesystem>
-#include <iterator>
-#include <memory>
-#include <nlohmann/json_fwd.hpp>
-#include <string>
+#include <nfd.h>
 
 namespace State{
 
@@ -30,7 +22,7 @@ void MainMenuState::createMenuPage(){
     const std::string btnStrings[btnAmmount] = {
         "Play",
         "Continue",
-        "LeaderBoard",
+        "Leaderboard",
         "Exit"
     };
     const std::function<void(void)> btnFunc[btnAmmount] = {
@@ -71,12 +63,13 @@ void MainMenuState::createModulesPage(){
      * But this loop will make them in the center, if we want to make
      * button somewhere else, we have to make them independently
      */
-    constexpr int btnAmmount = 5;
+    constexpr int btnAmmount = 6;
     const std::array<std::string, btnAmmount> btnStrings = {
         "Easy",
         "Medium",
         "Hard",
         "All lvls",
+        "Custom Map",
         "Editor"
     };
     const std::array<std::function<void(void)>, btnAmmount> btnFunc = {
@@ -84,6 +77,7 @@ void MainMenuState::createModulesPage(){
         [this](){ playOnce(LevelDifficult::NORMAL); },
         [this](){ playOnce(LevelDifficult::HARD); },
         [this](){ createAllLevelsPage(); },
+        [this](){ createPlayCustomMap(); },
         [this](){ m_game.pushState(std::make_unique<LevelEditorState>(m_game)); }
     };
     const std::array<sf::Color, btnAmmount> btnColor = {
@@ -91,6 +85,7 @@ void MainMenuState::createModulesPage(){
         sf::Color::Blue,
         sf::Color::Red,
         sf::Color::Magenta,
+        sf::Color(72, 158, 243),
         sf::Color::Cyan
     };
 
@@ -100,7 +95,7 @@ void MainMenuState::createModulesPage(){
         btn->setFunction(btnFunc[i]);
 
         float x = tit->getPos().x + (float(tit->getWidth() - btn->getWidth()) / 2);
-        float y = 250 + i * (btn->getHeight() + 30);
+        float y = 200 + i * (btn->getHeight() + 30);
         btn->setPosition({x, y});
 
         if(i < btnColor.size())
@@ -334,6 +329,15 @@ void MainMenuState::createContinue(){
 
     createBackBtn();
     m_pages[getCurrentPage()].addItem(std::move(tit));
+}
+
+void MainMenuState::createPlayCustomMap(){
+    nfdchar_t *path;
+    if(NFD_OpenDialog("json", NULL, &path) == NFD_OKAY){
+        std::filesystem::path custom = path;
+        std::cout << custom << "\n";
+        m_game.pushState(std::make_unique<PlayingState>(m_game, custom));
+    }
 }
 
 } //namespace

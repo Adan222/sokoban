@@ -2,7 +2,7 @@
 #include "PlayerConfig.hpp"
 #include "entities/Box.hpp"
 
-Level::Level(SoundManager& soundManager,const std::filesystem::path& filename) : 
+Level::Level(SoundManager& soundManager, const std::filesystem::path& filename) : 
     m_levelConfig(filename),
     m_levelMap(m_levelConfig),
     m_physics(m_levelMap.find(WALL), m_boxes),
@@ -11,7 +11,7 @@ Level::Level(SoundManager& soundManager,const std::filesystem::path& filename) :
     m_soundManager(&soundManager),
     m_moves(0)
 {   
-    setEntitiesPosition();    
+    setEntitiesPosition();
     m_levelMap.loadTexture();
     m_levelMap.createMap();
 
@@ -213,5 +213,6 @@ void Level::setEntitiesPosition(){
     
     //player position
     Positions playerPos = m_levelMap.find(PLAYER);
-    m_player.initPosition(playerPos[0].x, playerPos[0].y);
+    if(!playerPos.empty())
+        m_player.initPosition(playerPos[0].x, playerPos[0].y);
 }

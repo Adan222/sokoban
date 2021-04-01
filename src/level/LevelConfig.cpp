@@ -15,6 +15,8 @@ LevelConfig::LevelConfig(const std::filesystem::path& fileConfigPath) : m_newCon
 
     m_jsonPath = "";
 
+    std::cout << "level config path: " << fileConfigPath << "\n";
+
     try {
         //Check if file exist
         if(!std::filesystem::exists(fileConfigPath))
