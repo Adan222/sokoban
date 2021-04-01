@@ -74,8 +74,12 @@ std::string PlayerConfig::getPlayerName() {
     return m_playerConfigJson.at("player_name").get<std::string>();
 }
 
-int PlayerConfig::getScore() {
+int PlayerConfig::getScore() const{
     return m_playerConfigJson.at("score").get<int>();
+}
+
+int PlayerConfig::getMoves() const{
+    return m_playerConfigJson.at("moves").get<int>();
 }
 
 void PlayerConfig::setScore(const int score) {
@@ -90,14 +94,16 @@ void PlayerConfig::setMadeMoves(const int moves) {
     m_playerConfigJson.at("moves") = moves;
 }
 
-void PlayerConfig::saveConfig(const std::string &playerName, const std::filesystem::path& levelConfigPath) {
+void PlayerConfig::saveConfig(const std::string &playerName, const std::filesystem::path levelConfigPath) {
     std::filesystem::path savePath = "../res/saves/" + playerName + ".json";
     
     m_playerConfigJson.at("player_name") = playerName;
-    m_playerConfigJson.at("last_played_map").at("path") = levelConfigPath;
+    m_playerConfigJson.at("last_played_map").at("path") = levelConfigPath.generic_string();
   
     std::ofstream saveStream(savePath);
+
     saveStream << m_playerConfigJson;
     saveStream.close();
+
     m_jsonPath = savePath;
 }

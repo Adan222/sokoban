@@ -171,8 +171,8 @@ void PlayingState::createInGameMenu() {
     saveGameBtn->setColor(sf::Color::Red);
     exitBtn->setColor(sf::Color::Blue);
 
-    saveGameBtn->setFunction([this](){ m_level->savePlayerConfig(m_playerName, m_score); });
-    exitBtn->setFunction([this](){ m_level.reset(); wantExit(); });
+    saveGameBtn->setFunction([&](){ m_level->savePlayerConfig(m_playerName, m_score); });
+    exitBtn->setFunction([&](){ m_level.reset(); wantExit(); });
 
     m_page[getCurrentPage()]->addItem(std::move(saveGameBtn));
     m_page[getCurrentPage()]->addItem(std::move(exitBtn));

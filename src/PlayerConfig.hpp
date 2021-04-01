@@ -11,11 +11,12 @@ public:
     std::filesystem::path getLastPlayedLevelPath() const;
     std::vector<int> getSavedLogicGrid() const;
     std::string getPlayerName();
-    int getScore();
+    int getScore() const;
+    int getMoves() const;
     void setScore(const int score);
     void setLogicGrid(std::vector<int> logicGrid);
     void setMadeMoves(const int moves);
-    void saveConfig(const std::string &playerName, const std::filesystem::path& levelConfigPath);
+    void saveConfig(const std::string &playerName, const std::filesystem::path levelConfigPath);
     
     bool hasPlayed() const;
     bool loadConfig(const std::filesystem::path& path);

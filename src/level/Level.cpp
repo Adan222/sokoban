@@ -27,7 +27,7 @@ Level::Level(SoundManager& soundManager, PlayerConfig &playerConf) :
     m_physics(m_levelMap.find(WALL), m_boxes),
     m_winChecker(m_boxes, m_levelMap.find(WIN_PLACE, BOX_AND_WIN)),
     m_wantExit(false),
-    m_moves(0),
+    m_moves(playerConf.getMoves()),
     m_soundManager(&soundManager)
 {
     setEntitiesPosition();
@@ -51,8 +51,8 @@ void Level::initSound() {
 
 Level::~Level() {
     
-    m_soundManager->stop<SoundManager::Type::Theme>();
-    m_soundManager->stop<SoundManager::Type::PlayerEngine>();
+    //m_soundManager->stop<SoundManager::Type::Theme>();
+    //m_soundManager->stop<SoundManager::Type::PlayerEngine>();
 
 }
 
@@ -110,6 +110,7 @@ void Level::savePlayerConfig(std::string &name, const int score) {
     m_levelConfig.getPlayerConfig().setScore(score);
     m_levelConfig.getPlayerConfig().setLogicGrid(logicGrid);
     m_levelConfig.getPlayerConfig().saveConfig(name, m_levelConfig.getJsonFilePath());
+
 }
 
 bool Level::checkIfWantExit() const {
