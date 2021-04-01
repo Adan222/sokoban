@@ -55,7 +55,7 @@ Aby wyjśc do menu będąc na poziomie mapy naciśnij klawisz <kbd>ESC</kbd>.
 
 - ## Menu <br>
 #### Przycisk <kbd style="background-color: red; color:white"> Graj</kbd> 
-Przenosi nas w miejsce wyboru losowego poziomu z podziałem na poziom trudności: łatwy, średni, trudny. W tym miejscu możemy również wybrać <kbd style="background-color: red; color:white">All lvls</kbd> i wybrać który dokładnie poziom chcemy spróbować przejść. Przycisk <kbd style="background-color: lightblue;">Editor</kbd> przenosi nas do edytora map w którym możemy tworzyć własne mapy a także edytować już istniejące. Aby wyjść do menu głównego kliknij strzałkę w lewym, górnym rogu.
+Przenosi nas w miejsce wyboru losowego poziomu z podziałem na poziom trudności: łatwy, średni, trudny. W tym miejscu możemy również wybrać <kbd style="background-color: red; color:white">All lvls</kbd> i wybrać który dokładnie poziom chcemy spróbować przejść. Przycisk <kbd style="background-color: lightblue;">Editor</kbd> przenosi nas do edytora map w którym możemy tworzyć własne mapy a także edytować już istniejące. W przypadku błędu/pikselizacji (jedynie na Windowsie) mapy prosimy załadować ją ponownie. Jeżeli problem się powtórzy, otwierać do momentu aż poprawnie edytor załaduje mapę. Aby wyjść do menu głównego kliknij strzałkę w lewym, górnym rogu.
 Zapis gry działa tylko w trybie <kbd style="background-color: red; color:white">All lvls</kbd>, po zapisaniu gry możemy użyć opcji kontynuuj lub wczytać zapisane poziomy.
 
 #### Przycisk <kbd style="background-color: red; color:white"> Leaderboard</kbd> 
@@ -68,7 +68,25 @@ Przycisk ten służy do wyłączenia gry, aby to zrobić możemy również uży�
 - ## Przygotowanie gry
 
 Aby uruchomić grę na systemach Windows wyszukujemy w folderze build plik **sokoban.exe**, podobnie jest w przypadku systemów opartych na Linuxie, z tego folderu uruchamiamy wówczas plik **sokoban**.
+
 ***
+
+W folderze build znajdziesz uprzednio skompilowane aplikacje dla Windowsa i Linuxa.
+
+Kompilowanie było testowane na Ubuntu 20.04 jednak uprzednio zbudowane aplikacje działają jedynie na Arch/pochodnych od Archa dystrybucjach z powodu różnicy w wersjach pakietów (libc).  
+
+Podstawowe wymagane pakiety:
+
+```sh
+sudo apt-get install git cmake gcc g++ libudev-dev libx11-dev xorg-dev freeglut3-dev libopengl0
+sudo apt-get install curl zip unzip tar
+
+#crossbuild to windows
+sudo apt-get install mingw-w64-x86-64-dev mingw-w64
+sudo update-alternatives --config x86_64-w64-mingw32-g++ # set the default mingw32 g++ compiler option to posix
+
+
+```
 
 - ## Kompilowanie
 ```sh

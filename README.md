@@ -10,10 +10,11 @@
 
 In build folder you will find prebuilt windows-x64 and linux-x64 binares.
 
-Building was tested on Ubuntu 20.04. 
+Building was tested on Ubuntu 20.04 but prebulids works only on Arch-based distributions due to newer libc 
+
 Primary packages:
 ```sh
-sudo apt-get install git cmake gcc g++ libudev-dev libx11-dev xorg-dev freeglut3-dev
+sudo apt-get install git cmake gcc g++ libudev-dev libx11-dev xorg-dev freeglut3-dev libopengl0
 sudo apt-get install curl zip unzip tar
 
 #crossbuild to windows

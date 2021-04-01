@@ -49,7 +49,7 @@ For main menu press <kbd>ESC</kbd>.
 
 - ## Menu <br>
 #### Button <kbd style="background-color: red; color:white"> Graj</kbd> 
-It takes us to the place where we can choose a random level divided into difficulty: easy, medium, difficult. Here we can also select <kbd style="background-color: red; color:white">All lvls</kbd> and choose exactly which level we want play. The <kbd style="background-color: lightblue;">Editor</kbd> button takes us to the map editor where we can create our own maps and edit existing ones. To exit to the main menu, click the arrow in the upper left corner. 
+It takes us to the place where we can choose a random level divided into difficulty: easy, medium, difficult. Here we can also select <kbd style="background-color: red; color:white">All lvls</kbd> and choose exactly which level we want play. The <kbd style="background-color: lightblue;">Editor</kbd> button takes us to the map editor where we can create our own maps and edit existing ones. In case of map error/pixelization (Windows only), please reload the map. If the problem persists, keep opening until the editor loads the map correctly. To exit to the main menu, click the arrow in the upper left corner. 
 Game save only works in <kbd style="background-color: red; color:white">All lvls</kbd> mode, after saving the game we can use continue option or load saved levels.
 
 
@@ -62,9 +62,26 @@ This button is used to quit the game, to do this we can also use <kbd> ESC</kbd>
 - ## Preparing the game
 
 To run the game on Windows systems, search for the file **sokoban.exe** in the build folder, similarly to Linux-based systems, then run the file **sokoban** from this folder.
+
 ***
 
 
+In build folder you will find prebuilt windows-x64 and linux-x64 binares.
+
+Building was tested on Ubuntu 20.04 but prebulids works only on Arch-based distributions due to newer libc 
+
+Primary packages:
+
+```sh
+sudo apt-get install git cmake gcc g++ libudev-dev libx11-dev xorg-dev freeglut3-dev libopengl0
+sudo apt-get install curl zip unzip tar
+
+#crossbuild to windows
+sudo apt-get install mingw-w64-x86-64-dev mingw-w64
+sudo update-alternatives --config x86_64-w64-mingw32-g++ # set the default mingw32 g++ compiler option to posix
+
+
+```
 
 - ## Building
 ```sh
