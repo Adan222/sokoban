@@ -43,3 +43,8 @@ Sokoban game design for the Motorola Science Cup 2020 competition
 - **NativeFileDialog** | https://github.com/mlabbe/nativefiledialog.git
 - **Dear ImGui** | https://github.com/ocornut/imgui.git
 - **ImGui SFML Bindings** | https://github.com/eliasdaler/imgui-sfml.git
+
+### Fonts 
+
+- **Minecraft** by Craftron Gaming [Minecraft](https://www.dafont.com/minecraft.font)
+- **VT323** Designed by Peter Hull [VT323](https://fonts.google.com/specimen/VT323?preview.text_type=custom#standard-styles)
