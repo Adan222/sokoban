@@ -10,14 +10,15 @@
 
 In build folder you will find prebuilt windows-x64 and linux-x64 binares.
 
-Building was tested on Ubuntu 20.04 
+Building was tested on Ubuntu 20.04. 
+Primary packages:
 ```sh
 sudo apt-get install git cmake gcc g++ libudev-dev libx11-dev xorg-dev freeglut3-dev
 sudo apt-get install curl zip unzip tar
 
 #crossbuild to windows
 sudo apt-get install mingw-w64-x86-64-dev mingw-w64
-sudo update-alternatives --config x86_64-w64-mingw32-g++ # set the default mingw32 g++ compiler option to posix.
+sudo update-alternatives --config x86_64-w64-mingw32-g++ # set the default mingw32 g++ compiler option to posix
 
 
 ```
@@ -34,10 +35,10 @@ git reset --hard 9f6aaaccb70d6f114a967f0ab83eff42840614ed
 cp ../vendor/soloud ports/ -r
 ```
 
-We are reverting to ImGui 1.81, because on MinGW new version have problem with IMM linking. See https://github.com/microsoft/vcpkg/issues/16964
+We are reverting to ImGui 1.81, because on vcpkg mingw triplet new version have problem with IMM linking. See https://github.com/ocornut/imgui/commit/edf135c18de82aa4112ef561ecfc1ed824b8859b
 I opened issue https://github.com/microsoft/vcpkg/issues/16964
 
-Install powershell, vcpkg needs it. See https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1
+Install powershell, vcpkg requires it. See https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1
 
 ### For building Linux binares
 ```sh
